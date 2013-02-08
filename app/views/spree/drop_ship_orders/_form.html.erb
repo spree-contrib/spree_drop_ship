@@ -1,0 +1,24 @@
+<%= form_for dso do |f| %>
+  <% if dso.confirmed? %>
+    <p>
+      <%= f.label :shipping_method %><br/>
+      <%= f.text_field :shipping_method, :class => 'text' %>      
+    </p>
+    <p>
+      <%= f.label :confirmation_number %><br/>
+      <%= f.text_field :confirmation_number, :class => 'text' %>      
+    </p>
+    <p>
+      <%= f.label :tracking_number %><br/>
+      <%= f.text_field :tracking_number, :class => 'text' %>      
+    </p>
+    <p>
+      <%= f.label :notes %><br/>
+      <%= f.text_area :notes, :class => 'text' %>      
+    </p>
+    <p class="actions"><%= f.submit "Process and finalize order" %></p>
+  <% elsif dso.sent? %>
+    <p>Please confirm this order!</p>
+    <p class="actions"><%= f.submit "Confirm Order" %></p>
+  <% end %>
+<% end %>

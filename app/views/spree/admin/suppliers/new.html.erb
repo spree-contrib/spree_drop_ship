@@ -1,0 +1,14 @@
+<% content_for :page_actions do %>
+  <li><%= button_link_to t('.back_to_suppliers'), admin_suppliers_path, :icon => 'icon-arrow-left' %></li>
+<% end %>
+
+<% content_for :page_title do %>
+   <%= t '.new_supplier' %>
+<% end %>
+
+<%= render 'spree/shared/error_messages', :target => @supplier %>
+
+<%= form_for [:admin, @supplier] do |f| %>
+  <%= render "form", :form => f %>
+  <%= button t('create') %> <%= t('or') %> <%= link_to t('cancel'), collection_url %>
+<% end %>

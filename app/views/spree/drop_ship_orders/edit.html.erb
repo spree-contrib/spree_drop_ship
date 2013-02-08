@@ -1,0 +1,26 @@
+<h1>Order #<%= @dso.id %></h1>
+
+<div class="left">
+  <%= render "details", :dso => @dso %>
+</div>
+
+<div class="right"> 
+  <%= render "spree/shared/error_messages", :target => @dso %>
+  <%= render "form", :dso => @dso %>
+</div>
+
+<hr class="clear" />
+
+<div class="left">
+  <%= render "affiliate_info" %>
+</div>
+
+<div class="right">
+  <%= render "shipping_info", :address => @address %>
+</div>
+
+<hr class="clear" />
+
+<h2>Product Information</h2>
+
+<%= render "table", :dso => @dso %>

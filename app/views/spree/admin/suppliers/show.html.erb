@@ -1,0 +1,34 @@
+<%= render "spree/admin/shared/supplier_tabs", :current => "Supplier Details" %>
+
+<h2><%= @supplier.name %></h2>
+<h4><%= render "spree/admin/shared/address", :address => @supplier.address %></h4>
+<dl>
+  <dt>Email</dt>
+    <dd><%= @supplier.email %></dd>
+  <dt>Phone</dt>
+    <dd><%= @supplier.phone %></dd>
+  <dt>URL</dt>
+    <dd><%= @supplier.url %></dd>
+  <dt>Contact</dt>
+    <dd><%= @supplier.contact %></dd>
+  <% unless @supplier.contact_email.blank? %>
+    <dt>Contact Email</dt>
+    <dd><%= mail_to @supplier.contact_email %></dd>
+  <% end %>
+  <% unless @supplier.contact_phone.blank? %>
+    <dt>Contact Phone</dt>
+    <dd><%= @supplier.contact_phone %></dd>
+  <% end %>
+  <dt>Order Count</dt>
+    <dd><%= link_to @supplier.orders.count, admin_supplier_orders_path(@supplier) %></dd>
+  <dt>User ID</dt>
+    <dd><%= link_to @supplier.user.id, admin_user_path(@supplier.user) %></dd>
+    
+</dl>
+
+<hr class="clear" />
+  
+<p>
+  <%= link_to_edit @supplier %> &nbsp;
+  <%= link_to t('back'), collection_url %>
+</p>

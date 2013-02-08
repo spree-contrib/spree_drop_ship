@@ -1,0 +1,9 @@
+<h2>Thank You for confirming drop ship order Drop Shop Order #<%= @dso.id %></h2>
+
+<h4>After shipping this order, please update its status on the site by clicking on the link below.</h4>
+
+<%= link_to "Update Order #{@dso.id}", edit_drop_ship_order_url(@dso) %>
+
+<p>Thanks,</p>
+
+<p>- <%= Spree::Config[:site_name] %></p>

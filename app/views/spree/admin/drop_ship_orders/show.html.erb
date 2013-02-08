@@ -1,0 +1,60 @@
+<h1>Order #<%= @dso.id %></h1>
+
+<div class="float-left">
+  <%= render "spree/drop_ship_orders/details", :dso => @dso %>
+</div>
+
+<div class="float-left">
+  <% if @dso.complete? %>
+    <%= render "spree/drop_ship_orders/shipment_info", :dso => @dso %>
+  <% elsif !@dso.confirmed? %>
+    <%= link_to "<span>#{@dso.sent? ? "Resend" : "Send"} Order to Supplier</span>".html_safe, deliver_admin_drop_ship_order_path(@dso), :class => 'button' %>
+  <% end %>
+</div>
+
+<hr class="clear" />
+
+<div class="float-left">
+  <h2>Supplier Information</h2>
+  <dl>
+    <dt>Name</dt>
+    <dd><%= @supplier.name %></dd>
+    <dt>Address</dt>
+    <dd><%= render "spree/admin/shared/address", :address => @supplier.address %></dd>
+    <dt>Email</dt>
+    <dd><%= @supplier.email %></dd>
+    <dt>Phone</dt>
+    <dd><%= @supplier.phone %></dd>
+    <dt>URL</dt>
+    <dd><%= @supplier.url %></dd>
+    <dt>Contact</dt>
+    <dd><%= @supplier.contact %></dd>
+    <% unless @supplier.contact_email.blank? %>
+      <dt>Contact Email</dt>
+      <dd><%= mail_to @supplier.contact_email %></dd>
+    <% end %>
+    <% unless @supplier.contact_phone.blank? %>
+      <dt>Contact Phone</dt>
+      <dd><%= @supplier.contact_phone %></dd>
+    <% end %>
+  </dl>
+</div>
+
+<div class="float-left">
+  <%= render "spree/drop_ship_orders/shipping_info", :address => @address %>
+</div>
+
+<hr class="clear" />
+
+<h2>Product Information</h2>
+
+<%= render "spree/drop_ship_orders/table", :dso => @dso %>
+
+<% content_for :head do %>
+  <style type="text/css">
+    .float-left {
+      width: 45%;
+      float: left;
+    }
+  </style>
+<% end %>

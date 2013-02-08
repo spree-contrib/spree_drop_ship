@@ -1,0 +1,16 @@
+<h2>Shipment Information</h2>
+  
+<dl>
+  <dt>Shipping Method</dt>
+    <dd><%= dso.shipping_method %></dd>
+  <% unless dso.confirmation_number.blank? %>
+    <dt>Confirmation Number</dt>
+      <dd><%= dso.confirmation_number %></dd>
+  <% end %>
+  <dt>Tracking Number</dt>
+    <dd><%= dso.tracking_number %></dd>
+  <% unless dso.notes.blank? %>
+    <dt>Notes</dt>
+      <dd><%= simple_format dso.notes %></dd>
+  <% end %>
+</dl>

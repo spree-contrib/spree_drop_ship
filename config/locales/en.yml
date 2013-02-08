@@ -1,0 +1,66 @@
+en:
+  activerecord:
+    errors:
+      models:
+        spree/supplier:
+          attributes:
+            url:
+              invalid: is invalid. Please be sure to include include 'http://'
+              not_responding: 'is invalid, not responding or redirecting to another location'
+  drop_ship_orders: Drop Ship Orders
+  must_be_logged_in: 'Must Be Logged In'
+  signup: Signup
+  signup_to_become_a_supplier: 'Signup To Become A Supplier'
+  spree:
+    admin:
+      orders:
+        dso_order_header:
+          dso_ids: DSO IDs
+        confirm_drop_ship_info:
+          approve_drop_ship_orders: Approve Drop Ship Orders
+          resend_drop_ship_orders: Resend Drop Ship Orders
+          drop_ship_order_approval_confirmation: This will send each drop ship order to it's relative supplier. Continue?
+        show:
+          approve_drop_ship_orders: Approve Drop Ship Orders
+          resend_drop_ship_orders: Resend Drop Ship Orders
+          drop_ship_order_approval_confirmation: This will send each drop ship order to it's relative supplier. Continue?
+      products:
+        form:
+          supplier: Drop Shipping Supplier
+          none: --- none ---
+      suppliers:
+        new:
+          new_supplier: New Supplier
+        form:
+          supplier_details: Supplier Details
+          supplier_address: Supplier Address
+      drop_ship_orders:
+        orders_sent: All drop ship orders have successfully been sent
+        orders_not_sent: Some or all of the drop ship orders could not be sent. Please contact the suppliers directly.
+    suppliers:
+      create:
+        success: Thank you for signing up!
+  supplier:
+    name: Name
+    email: Email
+    phone: Phone
+    url: URL
+    contact_email: Contact Email
+    contact_name: Contact Name
+    contact_phone: Contact Phone
+    address1: Address
+    address2: Address (continued)
+    city: City
+    state: State
+    zipcode: Zipcode
+    country: Country
+  supplier_info: Supplier Info
+  supplier_signup: Supplier Signup
+  supplier_orders:
+    flash:
+      sent: "Please review and click 'Confirm Order' to continue."
+      confirmed: "We've been notified that you've confirmed this order. To complete the order please, upon shipping, enter the shipping information and click 'Process and finalize order'. Thank You."
+      shipped: "Thank you for your shipment!"
+      confirmation_failure: "We're sorry, this order could not be confirmed. Please try again."
+      finalize_failure: "We're sorry, this order could not be finalized at this time. Please try again."
+  suppliers: Suppliers

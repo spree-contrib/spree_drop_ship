@@ -1,0 +1,20 @@
+<h2><%= t('.hello' )%></h2>
+<p>You've been signed up as a drop ship supplier for <%= Spree::Config[:site_name] %></p>
+<p>Please verify that the information below is correct.</p>
+<hr/>
+<ul style="list-style-type: none; padding: 0;">
+  <li><b><%= t(:name) %>:</b><br/><%= @supplier.name %></li>
+  <li><b><%= t(:email) %>:</b><br/><%= mail_to @supplier.email %></li>
+  <li><b><%= t(:phone) %>:</b><br/><%= @supplier.phone %></li>
+  <li>
+    <b><%= t('.contact_address' )%></b><br/>
+    <%= @supplier.address.firstname %> <%= @supplier.address.lastname %><br/>
+    <%= @supplier.address.address1 %><br/>
+    <% unless @supplier.address.address2.blank? %><%= @supplier.address.address2 %><br/><% end %>
+    <%= @supplier.address.city %>, <%= @supplier.address.state.name %> <%= @supplier.address.country.name %><br/>
+    <%= @supplier.address.zipcode %>
+  </li>
+</ul>
+<hr/>
+<p><%= t('.thank_you' )%></p>
+<p><%= Spree::Config[:site_name] %></p>

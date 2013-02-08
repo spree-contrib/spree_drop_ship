@@ -1,0 +1,4 @@
+<p>
+  <%= label_tag :supplier_id, t('.supplier') %><br />
+  <%= select_tag :supplier_id, options_for_select(@supplier_options.unshift([t('.none'), ""]), @product.has_supplier? ? @product.supplier.id : nil) %>
+</p>

@@ -1,0 +1,24 @@
+<h1>Order #<%= @dso.id %></h1>
+<h4>Reference Number <%= @dso.order.number %></h4>
+
+<br/>
+
+<h4>Hello <%= @supplier.name %>,</h4>
+
+<p>You've got a new order! Here's the details:</p>
+
+<h3 style="border-bottom: 1px solid #ddd;">Product Information</h3>
+
+<%= render "spree/drop_ship_orders/table", :dso => @dso %>
+
+<h3 style="border-bottom: 1px solid #ddd;">Shipping Information</h3>
+
+<%= render "spree/drop_ship_orders/shipping_info", :address => @address %>
+
+<h3 style="border-bottom: 1px solid #ddd;">Confirmation</h3>
+
+<%= link_to "You must click here to confirm this order", edit_drop_ship_order_url(@dso) %>
+
+<p>Thanks,</p>
+
+<p>- <%= Spree::Config[:site_name] %></p>

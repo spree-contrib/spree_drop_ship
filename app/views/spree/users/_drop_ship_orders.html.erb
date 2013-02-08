@@ -1,0 +1,32 @@
+<% if @user.has_supplier? %>
+  <h2>Drop Ship Orders</h2>
+  <% if @user.supplier.orders.present? %>
+    <table class="order-summary" width="545">
+      <thead>
+        <tr>
+          <th><%= t("order_number") %></th>
+          <th><%= t("total") %></th>
+          <th><%= t("sent_at") %></th>
+          <th><%= t("confirmed_at") %></th>
+          <th><%= t("shipped_at") %></th>
+          <th><%= t("status") %></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @user.supplier.orders.each do |order| %>
+        <tr class="<%= cycle('even', 'odd') %>">
+          <td><%= link_to order.id, drop_ship_order_url(order) %></td>
+          <td><%= number_to_currency order.total %></td>
+          <td><%= order.sent_at.to_date unless order.sent_at.nil? %></td>
+          <td><%= order.confirmed_at.to_date unless order.confirmed_at.nil? %></td>
+          <td><%= order.shipped_at.to_date unless order.shipped_at.nil? %></td>
+          <td><%= order.state %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p><%= t(:you_have_no_orders_yet) %></p>
+  <% end %>
+  <br />
+<% end %>

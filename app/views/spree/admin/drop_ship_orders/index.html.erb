@@ -1,0 +1,35 @@
+<%= render "spree/admin/shared/supplier_tabs", :current => "Supplier Orders" if @supplier %>
+<%= render "spree/admin/shared/order_tabs", :current => "Drop Ship Orders" if @order %>
+
+<h2>Listing Orders</h2>
+
+<table class="index">
+  <thead>
+    <tr>
+      <th><%= sort_link @search, :id,  t('order.id') %></th>
+      <th><%= sort_link @search, :supplier_name,  t('order.supplier.name') %></th>
+      <th><%= sort_link @search, :order_number,  t('order.number') %></th>
+      <th><%= sort_link @search, :total,  t('order.total') %></th>
+      <th><%= sort_link @search, :sent_at,  t('order.sent_at') %></th>
+      <th><%= sort_link @search, :confirmed_at,  t('order.confirmed_at') %></th>
+      <th><%= sort_link @search, :shipped_at,  t('order.shipped_at') %></th>
+      <th><%= sort_link @search, :status,  t('order.status') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%- @collection.each do |dso|%>
+      <tr id="<%= dom_id dso %>">
+        <td><%= link_to "##{dso.id}", admin_drop_ship_order_url(dso) %></td>
+        <td><%= link_to dso.supplier.name, admin_supplier_url(dso.supplier) %></td>
+        <td><%= link_to dso.order.number, admin_order_url(dso.order) %></td>
+        <td><%= number_to_currency dso.total %></td>
+        <td><%= dso.created_at.to_s(:long) %></td>
+        <td><%= dso.confirmed_at.to_s(:long) if dso.confirmed_at.present? %></td>
+        <td><%= dso.shipped_at.to_s(:long) if dso.shipped_at.present? %></td>
+        <td><%= dso.state %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @collection, :previous_label => "&#171; #{t('previous')}", :next_label => "#{t('next')} &#187;" %>

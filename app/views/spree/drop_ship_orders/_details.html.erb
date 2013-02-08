@@ -1,0 +1,17 @@
+<dl>
+  <dt>Order Reference Number</dt>
+    <% if current_user && current_user.has_role?("admin") %>    
+      <dd><%= link_to @dso.order.number, admin_order_path(@dso.order) %></dd>
+    <% else %>
+      <dd><%= @dso.order.number %></dd>
+    <% end %>
+  <dt>Status</dt>
+    <dd><%= @dso.state %></dd>  
+  <% %w(sent_at confirmed_at shipped_at).each do |attribute| %>
+    <% time = @dso.send(attribute) %>
+    <% unless time.nil? %>
+      <dt><%= attribute.titleize %></dt>
+        <dd><%= time.to_s(:long) %></dd>
+    <% end %>
+  <% end %>
+</dl>

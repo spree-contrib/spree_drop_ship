@@ -1,0 +1,15 @@
+<h2>Shipping Information</h2>
+  
+<dl>
+  <dt>Address</dt>
+    <dd><%= address.firstname %> <%= address.lastname %></dd>
+    <dd><%= address.address1 %></dd>
+    <% unless address.address2.blank? %>
+      <dd><%= address.address2 %></dd>
+    <% end %>
+    <dd><%= address.state.name %>, <%= address.country.name %> <%= address.zipcode %></dd>
+  <dt>Phone</dt>
+    <dd><%= address.phone %></dd>
+  <dt>Email</dt>
+    <dd><%= mail_to @dso.order.email %></dd>
+</dl>

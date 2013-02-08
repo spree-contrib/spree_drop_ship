@@ -1,0 +1,6 @@
+<% if @order.has_drop_ship_orders? %>
+
+  <% label = @order.drop_ship_orders.reject(&:sent?).empty? ? ".resend_drop_ship_orders" : ".approve_drop_ship_orders" %>
+  <%= button_link_to t(label), drop_ship_approve_admin_order_path(@order), :icon => 'accept', :confirm => t(".drop_ship_order_approval_confirmation") if @order.has_drop_ship_orders? %>
+  
+<% end %>

@@ -1,0 +1,69 @@
+<% content_for :page_actions do %>  
+  <li><%= button_link_to t('.new_supplier'), new_object_url, :icon => 'icon-plus' %></li>
+<% end %>
+
+<% content_for :page_title do %>
+   <i class="icon-arrow-right"></i> <%= t('.listing_suppliers') %>
+<% end %>
+
+<% content_for :table_filter_title do %>
+  <%= t(:search) %>
+<% end %>
+
+<% content_for :table_filter do %>
+  <div data-hook='admin_suppliers_filter'>
+    <%= search_form_for [:admin, @search] do |f| %>
+      <div class="alpha nine columns">
+        <div class="field">
+          <%= f.label :name_cont, t(:name) %>
+          <%= f.text_field :name_cont, :size => 15 %>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="form-buttons actions filter-actions" data-hook="admin_suppliers_index_search_buttons">
+        <%= button t(:search), 'icon-search' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<% if @collection.any? %>
+  <table class="index" id="listing_suppliers">
+    <colgroup>
+       <col style="width: 25%;">
+       <col style="width: 25%;">
+       <col style="width: 25%;">
+       <col style="width: 25%;">
+    </colgroup>
+    <thead>
+      <tr data-hook='admin_suppliers_index_headers'>
+        <th><%= sort_link @search, :name,  t('supplier.name') %></th>
+        <th><%= sort_link @search, :phone, t('supplier.phone') %></th>
+        <th><%= sort_link @search, :email, t('supplier.email') %></th>
+        <th data-hook="admin_suppliers_index_header_actions" class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%- @collection.each do |supplier| %>
+        <tr <%= "style='color: red;'" if supplier.deleted? %> id="<%= dom_id supplier %>" data-hook="admin_suppliers_index_rows" class="<%= cycle('odd', 'even') %>">
+          <td class='align-center'><%= link_to supplier.name, object_url(supplier) %></td>
+          <td class='align-center'><%= supplier.phone %></td>
+          <td class='align-center'><%= mail_to supplier.email %></td>
+          <td class='actions' data-hook='admin_suppliers_index_row_actions'>
+            <% unless supplier.deleted? %>
+              <%= link_to_edit supplier, :no_text => true, :class => 'edit' %>
+              &nbsp;
+              <%= link_to_delete supplier, :no_text => true %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="no-objects-found">
+    <%= t(:no_results) %>
+  </div>
+<% end %>
+
+<%= paginate @collection %>

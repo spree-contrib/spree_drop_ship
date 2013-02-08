@@ -1,0 +1,9 @@
+<% if @order.has_drop_ship_orders? %>
+  <div class="drop-ship-orders">
+    <h2>Drop Ship Information</h2>
+    <% @order.drop_ship_orders.each do |dso| %>      
+      <h3><%= link_to "##{dso.id}", admin_drop_ship_order_path(dso) %> - <%= link_to dso.supplier.name, admin_supplier_path(dso.supplier) %> - <%= dso.state %></h3>
+      <%= render "spree/drop_ship_orders/table", :dso => dso %>
+    <% end %>
+  </div>
+<% end %>

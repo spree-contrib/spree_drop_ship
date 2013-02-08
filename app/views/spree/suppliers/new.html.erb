@@ -1,0 +1,47 @@
+<% content_for :head do -%>
+  <meta name="title" content="<%= t(:supplier_signup) %>">
+  <%= javascript_include_tag states_url(:format => :js) %>
+  <%= javascript_include_tag countries_url(:format => :js) %>
+<% end -%>
+
+<h1><%= t(:supplier_signup) %></h1>
+
+<%= render 'spree/shared/error_messages', :target => @supplier %>
+
+<%= form_for @supplier do |form| %>
+  <div class="columns alpha six" data-hook="address_fieldset_wrapper">
+    <fieldset id="supplier-address" data-hook>
+      <p>
+        <%= form.label :email, t('supplier.email') %>
+        <span class="required">*</span><br />
+        <%= form.email_field :email, :class => 'text' %>
+      </p>
+      <%= form.fields_for :address do |address_form| %>
+        <legend align="center"><%= t(:contact_address) %></legend>
+        <%= render :partial => 'spree/address/form', :locals => {:form => address_form, :address_type => 'contact', :address => @supplier.address} %>
+      <% end %>
+    </fieldset>
+  </div>
+  <div class="columns alpha six" data-hook="supplier_fieldset_wrapper">
+    <fieldset id="supplier-address" data-hook>
+      <legend align="center"><%= t(:company_info) %></legend>
+      <p>
+        <%= form.label :name, t('supplier.name') %>
+        <span class="required">*</span><br />
+        <%= form.text_field :name, :class => 'title' %>
+      </p>
+      <p>
+        <%= form.label :phone, t('supplier.phone') %>
+        <span class="required">*</span><br />
+        <%= form.text_field :phone, :class => 'text' %>
+      </p>
+      <p>
+        <%= form.label :url, t('supplier.url') %><br />
+        <%= form.text_field :url, :class => 'text' %>
+      </p>
+    </fieldset>
+    <p class="form-buttons">
+      <%= form.submit t(:signup) %> <%= t('or') %> <%= link_to t('cancel'), account_path %>
+    </p>
+  </div>
+<% end %>

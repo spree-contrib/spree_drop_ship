@@ -1,0 +1,34 @@
+<div data-hook="supplier_address_wrapper" class="alpha six columns">
+  <fieldset class="no-border-bottom">
+    <legend align="center"><%= t(:contact_address) %></legend>
+    <%= form.fields_for :address do |contact_form| %>
+      <%= render :partial => 'spree/admin/shared/address_form', :locals => { :f => contact_form, :name => t(:contact_address), :use_billing => false } %>
+    <% end %>
+  </fieldset>
+</div>
+
+<div data-hook="supplier_details_wrapper" class="alpha six columns">
+  <fieldset class="no-border-bottom">
+    <legend><%= t('.supplier_details') %></legend>
+    <%= form.field_container :name do %>
+      <%= form.label :name, t('supplier.name') %><br />
+      <%= form.text_field :name, :class => 'title' %>
+    <% end %>
+    <%= form.field_container :email do %>
+      <%= form.label :email, t('supplier.email') %><br />
+      <%= form.email_field :email, :class => 'text' %>
+    <% end %>
+    <%= form.field_container :phone do %>
+      <%= form.label :phone, t('supplier.phone') %><br />
+      <%= form.text_field :phone, :class => 'text' %>
+    <% end %>
+    <%= form.field_container :url do %>
+      <%= form.label :url, t('supplier.url') %><br />
+      <%= form.text_field :url, :class => 'text' %>
+    <% end %>
+  </fieldset>
+</div>
+
+<% content_for :head do %>
+  <%= javascript_include_tag states_path, 'admin/address_states.js' %>
+<% end %>

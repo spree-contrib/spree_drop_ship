@@ -1,0 +1,10 @@
+<!-- insert_bottom '#user-info' -->
+
+<dt><%= t(:supplier_info) %></dt>
+<dd>
+  <% if @user.has_supplier? %>
+    <%= link_to t(:edit), edit_admin_supplier_path(@user.supplier) if can? :update, @user.supplier %>
+  <% else %>
+    <%= link_to t(:signup_to_become_a_supplier), new_supplier_path if can? :create, Spree::Supplier %>
+  <% end %>
+</dd>
