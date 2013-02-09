@@ -1,16 +1,19 @@
+<% content_for :sidebar_title do %>
+  <%= t(:suppliers) %>
+<% end %>
+
 <% content_for :sidebar do %>
-
-  <ul class="sidebar supplier-menu" data-hook='admin_supplier_tabs'>
-    <li<%== ' class="active"' if current == "Supplier Details" %>>
-      <%= link_to t('.supplier_details'), admin_supplier_url(@supplier) %>
-    </li>
-    <li<%== ' class="active"' if current == "Edit Supplier" %>>
-      <%= link_to t('.edit_supplier'), edit_admin_supplier_url(@supplier) %>
-    </li>
-    <li<%== ' class="active"' if current == "Supplier Orders" %>>
-      <%= link_to t('.supplier_orders'), admin_supplier_orders_url(@supplier) %>
-    </li>
-  </ul>
-  <br clear="clear" />
-
+  <nav class="menu">
+    <ul class="sidebar" data-hook="admin_suppliers_sidebar_menu">
+      <li>
+        <%= link_to t('.supplier_details'), admin_supplier_url(@supplier) %>
+      </li>
+      <li>
+        <%= link_to t('.edit_supplier'), edit_admin_supplier_url(@supplier) %>
+      </li>
+      <li>
+        <%= link_to t('.supplier_orders'), admin_supplier_orders_url(@supplier) %>
+      </li>
+    </ul>
+  </nav>
 <% end %>

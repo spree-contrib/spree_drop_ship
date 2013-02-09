@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe 'Admin - Suppliers', js: true do
 
-  stub_authorization!
-
   before do
+    login_user create(:admin_user)
+
     country = create(:country, name: "United States")
     create(:state, name: "Vermont", country: country)
     visit spree.admin_path
@@ -25,14 +25,12 @@ describe 'Admin - Suppliers', js: true do
     fill_in 'supplier[address_attributes][address1]', with: '1 Test Drive'
     fill_in 'supplier[address_attributes][city]', with: 'Test City'
     fill_in 'supplier[address_attributes][zipcode]', with: '55555'
-    select 'United States', from: 'supplier[address_attributes][country_id]'
-    select 'Vermont', from: 'supplier[address_attributes][state_id]'
+    select2 'United States', from: 'Country:'
+    select2 'Vermont', from: 'State:'
     fill_in 'supplier[address_attributes][phone]', with: '555-555-5555'
     click_button 'Create'
-    wait_until do
-      within 'table.index' do
-        page.should have_content('Test Supplier')
-      end
+    within 'table.index' do
+      page.should have_content('Test Supplier')
     end
   end
 

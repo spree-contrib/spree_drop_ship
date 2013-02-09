@@ -12,14 +12,8 @@ feature 'Supplier Signup', js: true do
     before do
       country = create(:country, name: "United States")
       create(:state, name: "Vermont", country: country)
-      user = create :user
-      user.reload
-      visit spree.root_path
-      click_link 'Login'
-      fill_in 'user[email]', with: user.email
-      fill_in 'user[password]', with: 'secret'
-      click_button 'Login'
-      click_link 'My Account'
+      login_user
+      visit spree.account_path
     end
 
     scenario 'should be able to create new supplier' do

@@ -5,9 +5,9 @@ What is drop shipping?
 
 "Drop shipping is a supply chain management technique in which the retailer does not keep goods in stock, but instead transfers customer orders and shipment details to either the manufacturer or a wholesaler, who then ships the goods directly to the customer." [[wikipedia](http://en.wikipedia.org/wiki/Drop_shipping)]
 
-So the main goal with spree_drop_ship is to link products to suppliers and forward orders to appropriate suppliers. 
+So the main goal with spree_drop_ship is to link products to suppliers and forward orders to appropriate suppliers.
 
-In more detail, once an order is placed for a product that drop ships a drop ship order is created for the product's supplier. This drop ship order is sent to the supplier via Email. The supplier then follows a link to the order within the email where they are prompted to confirm the order. 
+In more detail, once an order is placed for a product that drop ships a drop ship order is created for the product's supplier. This drop ship order is sent to the supplier via Email. The supplier then follows a link to the order within the email where they are prompted to confirm the order.
 
 After the supplier has confirmed an order and is ready to ship, they can log into the site and update the drop ship order with a shipping method, confirmation number and tracking number. Once they 'process & finalize' the order, the customer is notified with the shipment details.
 
@@ -60,6 +60,24 @@ You can easily use the spec/dummy app as a demo of spree_drop_ship. Just `cd` to
     rake db:migrate db:seed db:sample
     rails s
 
+Contributing
+------------
+
+In the spirit of [free software](http://www.fsf.org/licensing/essays/free-sw.html), **everyone** is encouraged to help improve this project.
+
+Here are some ways *you* can contribute:
+
+* by using prerelease versions
+* by reporting [bugs](https://github.com/jdutil/spree_drop_ship/issues)
+* by suggesting new features
+* by [translating to a new language](https://github.com/jdutil/spree_drop_ship/tree/master/config/locales)
+* by writing or editing documentation
+* by writing specifications
+* by writing code (**no patch is too small**: fix typos, add comments, clean up inconsistent whitespace)
+* by refactoring code
+* by resolving [issues](https://github.com/jdutil/spree_drop_ship/issues)
+* by reviewing patches
+
 Testing
 -------
 
@@ -81,10 +99,11 @@ Todo
 - Make supplier address form DRY with spree core (requires patching spree_core)
 - Better documentation
 - Add new languages
+- Support Spree 2.x frontend and SpreeFancy themes.
 
 Thanks
 ------
 
 This extension is based on past work by [Spencer Steffen](http://github.com/citrus/spree_drop_shipping).
 
-Copyright (c) 2012 Jeff Dutil, released under the New BSD License
+Copyright (c) 2012 Jeff Dutil, released under the [New BSD License](https://github.com/jdutil/spree_drop_ship/tree/master/LICENSE).

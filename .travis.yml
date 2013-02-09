@@ -1,0 +1,10 @@
+before_script:
+  - 'bundle exec rake test_app'
+script: 'bundle exec rspec spec'
+rvm:
+  - 1.9.3
+  # - ruby-head
+language: ruby
+notifications:
+  recipients:
+    - JDutil@BurlingtonWebApps.com
