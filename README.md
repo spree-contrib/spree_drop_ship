@@ -1,5 +1,8 @@
-SpreeDropShip
+SpreeDropShip [![Build Status](https://secure.travis-ci.org/jdutil/spree_drop_ship.png)](http://travis-ci.org/jdutil/spree_drop_ship) [![Dependency Status](https://gemnasium.com/jdutil/spree_drop_ship.png?travis)](https://gemnasium.com/jdutil/spree_drop_ship)
 =============
+
+[travis]: http://travis-ci.org/jdutil/spree_contact_us
+[gemnasium]: https://gemnasium.com/jdutil/spree_contact_us
 
 What is drop shipping?
 
