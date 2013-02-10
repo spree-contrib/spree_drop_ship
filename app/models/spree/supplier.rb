@@ -1,6 +1,6 @@
 class Spree::Supplier < ActiveRecord::Base
 
-  attr_accessible :address_attributes, :contact, :contact_email, :contact_phone, :email, :name, :phone, :url
+  attr_accessible :address_attributes, :contact_email, :contact_phone, :email, :name, :phone, :url
 
   #==========================================
   # Associations

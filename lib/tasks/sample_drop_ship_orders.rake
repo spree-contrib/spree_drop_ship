@@ -25,7 +25,7 @@ namespace :db do
       
       puts "Creating drop ship orders for existing orders"
       Spree::Order.all.each do |order|
-	      print "*" if order.finalize_for_dropship!
+	      print "*" if order.finalize!
       end
       puts 
       

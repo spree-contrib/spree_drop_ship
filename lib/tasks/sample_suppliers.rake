@@ -10,7 +10,7 @@ namespace :db do
       puts "Creating Suppliers..."
       5.times{|i|
         name = "Supplier #{count + i + 1}"
-        supplier = Spree::Supplier.new(:name => name, :email => "#{name.parameterize}@example.com", :phone => "800-555-5555", :url => "http://example.com", :contact => "Somebody", :contact_phone => "555-555-5555")
+        supplier = Spree::Supplier.new(:name => name, :email => "#{name.parameterize}@example.com", :phone => "800-555-5555", :url => "http://example.com")
         supplier.build_address(:firstname => name, :lastname => name, :address1 => "100 State St", :city => "Santa Barbara", :phone => "555-555-5555", :zipcode => "93101", :state_id => @ca.id, :country_id => @usa.id)
         print "*" if supplier.save
       }
