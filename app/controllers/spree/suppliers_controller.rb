@@ -1,6 +1,7 @@
 class Spree::SuppliersController < Spree::StoreController
 
   before_filter :check_authentication
+  before_filter :check_if_supplier, only: [:create, :new]
 
   def create
     @supplier = Spree::Supplier.new(params[:supplier])
@@ -40,6 +41,13 @@ class Spree::SuppliersController < Spree::StoreController
     return if spree_current_user
     flash[:error] = t(:must_be_logged_in)
     redirect_to spree_login_path
+  end
+
+  def check_if_supplier
+    if spree_current_user.has_supplier?
+      flash[:error] = t('spree_drop_ship.already_signed_up')
+      redirect_to spree.account_path and return
+    end
   end
 
 end

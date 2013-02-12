@@ -48,6 +48,7 @@ en:
       update:
         success: Your information has been successfully updated.
   spree_drop_ship:
+    already_signed_up: "You've already signed up to become a supplier."
     drop_ship_settings: Drop Ship Settings
   supplier:
     name: Name

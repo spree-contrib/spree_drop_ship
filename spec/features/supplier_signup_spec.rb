@@ -2,6 +2,15 @@ require 'spec_helper'
 
 feature 'Supplier Signup', js: true do
 
+  scenario 'existing supplier' do
+    @user = create(:user)
+    create(:supplier, email: @user.email, user: @user)
+    login_user @user
+    visit spree.new_supplier_path
+    page.current_path.should eql(spree.account_path)
+    page.should have_content("You've already signed up to become a supplier.")
+  end
+
   scenario 'guests get redirected to login' do
     visit spree.new_supplier_path
     page.should have_content('Must Be Logged In')
