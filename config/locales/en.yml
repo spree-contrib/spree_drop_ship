@@ -47,6 +47,8 @@ en:
         success: Thank you for signing up!
       update:
         success: Your information has been successfully updated.
+  spree_drop_ship:
+    drop_ship_settings: Drop Ship Settings
   supplier:
     name: Name
     email: Email
