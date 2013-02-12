@@ -101,6 +101,7 @@ Todo
 - Drop ship order styles
 - Make supplier address form DRY with spree core (requires patching spree_core)
 - Better documentation
+- Allow editing of preferences within the admin
 - Add new languages
 - Support Spree 2.x frontend and SpreeFancy themes.
 

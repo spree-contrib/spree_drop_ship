@@ -8,7 +8,9 @@ en:
               invalid: is invalid. Please be sure to include include 'http://'
               not_responding: 'is invalid, not responding or redirecting to another location'
   drop_ship_orders: Drop Ship Orders
+  edit: Edit
   must_be_logged_in: 'Must Be Logged In'
+  save: Save
   signup: Signup
   signup_to_become_a_supplier: 'Signup To Become A Supplier'
   spree:
@@ -40,6 +42,8 @@ en:
     suppliers:
       create:
         success: Thank you for signing up!
+      update:
+        success: Your information has been successfully updated.
   supplier:
     name: Name
     email: Email

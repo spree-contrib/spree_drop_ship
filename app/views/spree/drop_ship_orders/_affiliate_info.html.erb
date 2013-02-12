@@ -6,5 +6,5 @@
   <dt>Domain</dt>
     <dd><%= Spree::Config[:site_url] || request.host %></dd>
   <dt>Email</dt>
-    <dd><%= mail_to Spree::Config[:email] || "info@#{request.host}" %></dd>
+    <dd><%= mail_to Spree::DropShip::Config[:affiliate_email] || "info@#{request.host}" %></dd>
 </dl>

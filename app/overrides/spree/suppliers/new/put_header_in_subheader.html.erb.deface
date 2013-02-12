@@ -1,7 +1,0 @@
-<!-- surround 'h1' -->
-
-<% if defined?(SpreeFancy) %>
-  <% content_for :subheader do %>
-    <%= render_original %>
-  <% end %>
-<% end %>

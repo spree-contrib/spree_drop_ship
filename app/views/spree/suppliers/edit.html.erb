@@ -6,10 +6,10 @@
 
 <% if defined?(SpreeFancy) %>
   <% content_for :subheader do %>
-    <h1><%= t(:supplier_signup) %></h1>
+    <h1><%= t(:edit_supplier_information) %></h1>
   <% end %>
 <% else %>
-  <h1><%= t(:supplier_signup) %></h1>
+  <h1><%= t(:edit_supplier_information) %></h1>
 <% end %>
 
 <%= render 'spree/shared/error_messages', :target => @supplier %>
@@ -20,7 +20,7 @@
       <p>
         <%= form.label :email, t('supplier.email') %>
         <span class="required">*</span><br />
-        <%= form.email_field :email, :value => current_user.email, :class => 'text' %>
+        <%= form.email_field :email, :class => 'text' %>
       </p>
       <%= form.fields_for :address do |address_form| %>
         <legend align="center"><%= t(:contact_address) %></legend>
@@ -47,7 +47,7 @@
       </p>
     </fieldset>
     <p class="form-buttons">
-      <%= form.submit t(:signup) %> <%= t('or') %> <%= link_to t('cancel'), account_path %>
+      <%= form.submit t(:save) %> <%= t('or') %> <%= link_to t('cancel'), account_path %>
     </p>
   </div>
 <% end %>
