@@ -5,17 +5,19 @@
 <% end %>
 
 <%= form_tag(admin_drop_ship_settings_path, :method => :put) do %>
-  <p>
-    <label><%= t("spree_drop_ship.send_supplier_welcome_email") %>:</label>
-    <%= check_box_tag('preferences[send_supplier_welcome_email]', "1", Spree::DropShipConfig[:send_supplier_welcome_email]) %>
-  </p>
-  <p>
-    <label><%= t("spree_drop_ship.affiliate_email") %>:</label>
-    <%= text_field_tag('preferences[affiliate_email]', Spree::DropShipConfig[:affiliate_email], :size => 3) %>
-  </p>
-  <div class="form-buttons filter-actions actions" data-hook="buttons">
-    <%= button t(:update), 'icon-refresh' %>
-    <span class="or"><%= t(:or) %></span>
-    <%= link_to_with_icon 'icon-remove', t(:cancel), edit_admin_drop_ship_settings_url, :class => 'button' %>
-  </div>
+  <fieldset class="general no-border-top">
+    <% %w(send_supplier_welcome_email affiliate_email).each do |key|
+      type = Spree::DropShipConfig.preference_type(key) %>
+      <div class="field">
+        <%= label_tag(key, t(key) + ': ') + tag(:br) if type != :boolean %>
+        <%= preference_field_tag(key, Spree::DropShipConfig[key], :type => type) %>
+        <%= label_tag(key, t(key)) + tag(:br) if type == :boolean %>
+      </div>
+    <% end %>
+    <div class="form-buttons filter-actions actions" data-hook="buttons">
+      <%= button t(:update), 'icon-refresh' %>
+      <span class="or"><%= t(:or) %></span>
+      <%= link_to_with_icon 'icon-remove', t(:cancel), edit_admin_drop_ship_settings_url, :class => 'button' %>
+    </div>
+  </fieldset>
 <% end %>
