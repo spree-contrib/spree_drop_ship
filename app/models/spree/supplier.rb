@@ -19,7 +19,7 @@ class Spree::Supplier < ActiveRecord::Base
   validates_associated :address
   validates :address, :name, :phone, :presence => true
   validates :email, :presence => true, :email => true
-  validates :url, format: { with: URI::regexp(%w(http https)) }
+  validates :url, format: { with: URI::regexp(%w(http https)), allow_blank: true }
 
   #==========================================
   # Callbacks
