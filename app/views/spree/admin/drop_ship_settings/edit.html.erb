@@ -1,0 +1,21 @@
+<%= render :partial => 'spree/admin/shared/configuration_menu' %>
+
+<% content_for :page_title do %>
+  <%= t("spree_drop_ship.drop_ship_settings") %>
+<% end %>
+
+<%= form_tag(admin_drop_ship_settings_path, :method => :put) do %>
+  <p>
+    <label><%= t("spree_drop_ship.send_supplier_welcome_email") %>:</label>
+    <%= check_box_tag('preferences[send_supplier_welcome_email]', "1", Spree::DropShipConfig[:send_supplier_welcome_email]) %>
+  </p>
+  <p>
+    <label><%= t("spree_drop_ship.affiliate_email") %>:</label>
+    <%= text_field_tag('preferences[affiliate_email]', Spree::DropShipConfig[:affiliate_email], :size => 3) %>
+  </p>
+  <div class="form-buttons filter-actions actions" data-hook="buttons">
+    <%= button t(:update), 'icon-refresh' %>
+    <span class="or"><%= t(:or) %></span>
+    <%= link_to_with_icon 'icon-remove', t(:cancel), edit_admin_drop_ship_settings_url, :class => 'button' %>
+  </div>
+<% end %>

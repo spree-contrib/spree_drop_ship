@@ -15,6 +15,9 @@ en:
   signup_to_become_a_supplier: 'Signup To Become A Supplier'
   spree:
     admin:
+      drop_ship_settings:
+        update:
+          success: Drop ship settings successfully updated.
       orders:
         dso_order_header:
           dso_ids: DSO IDs

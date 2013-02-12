@@ -17,6 +17,7 @@ Spree::Core::Engine.routes.draw do
         get :deliver
       end
     end
+    resource :drop_ship_settings
   end
 
   resources :drop_ship_orders
