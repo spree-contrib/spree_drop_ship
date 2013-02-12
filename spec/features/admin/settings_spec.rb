@@ -14,7 +14,7 @@ describe 'Admin - Drop Ship Settings', js: true do
     end
   end
 
-  it 'should be able to create new supplier' do
+  it 'should be able to be updated' do
     uncheck 'preferences[send_supplier_welcome_email]'
     click_button 'Update'
     page.should have_content('Drop ship settings successfully updated.')
