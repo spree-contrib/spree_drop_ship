@@ -5,12 +5,15 @@ class Spree::DropShipOrder < ActiveRecord::Base
 
   belongs_to :order
   belongs_to :supplier
+
   has_many   :line_items, :class_name => "Spree::DropShipLineItem"
+
   has_one    :user, :through => :supplier
 
   #==========================================
   # Validations
 
+  validates :commission_fee, presence: true
   validates :supplier_id, :order_id, :presence => true
 
   #==========================================
@@ -46,34 +49,34 @@ class Spree::DropShipOrder < ActiveRecord::Base
   end
 
   #==========================================
-  # Instance Methods  
+  # Instance Methods
 
   # Adds line items to the drop ship order. This method will group similar line items
   # and update quantities as necessary. You can add a single line item or an array of
   # line items.
-  def add(new_items)
-    new_items = [ new_items ].flatten.reject{|li| li.supplier_id.nil? || li.supplier_id != self.supplier_id }
-    attributes = []
-    new_items.group_by(&:variant_id).each do |variant_id, items|
-      quantity = items.map(&:quantity).inject(:+)
-      if item = self.line_items.find_by_variant_id(variant_id)
-        item.update_attributes(:quantity => item.quantity + quantity)
+  # TODO: This is overly complex and need to refactor
+  #       start of refactoring makes me think this should be update_line_items rather than add for clarity
+  def add(new_line_items)
+    new_line_items = Array.wrap(new_line_items).reject{ |li| li.supplier_id.nil? || li.supplier_id != self.supplier_id }
+    new_line_items.each do |new_line_item|
+      if line_item = self.line_items.find_by_line_item_id(new_line_item.id)
+        line_item.update_attributes(:quantity => new_line_item.quantity)
       else
-        attributes << items.first.drop_ship_attributes.update(:quantity => quantity)
+        self.line_items.create(new_line_item.drop_ship_attributes, without_protection: true)
       end
     end
-    self.line_items.create(attributes) unless attributes.empty?
+    # TODO: remove any old line items?
     self.save ? self : nil
-  end
-
-  # Updates the drop ship order's total by getting the sum of its line items' subtotals
-  def update_total
-    self.total = self.line_items.reload.map(&:subtotal).inject(:+).to_f
   end
 
   # Don't allow drop ship orders to be destroyed
   def destroy
     false
+  end
+
+  # Updates the drop ship order's total by getting the sum of its line items' subtotals
+  def update_total
+    self.total = self.line_items.reload.map(&:subtotal).inject(:+).to_f
   end
 
   #==========================================

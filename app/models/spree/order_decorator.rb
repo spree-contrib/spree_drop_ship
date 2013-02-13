@@ -2,8 +2,8 @@ Spree::Order.class_eval do
 
   has_many :drop_ship_orders
 
-  def has_drop_ship_orders?
-    drop_ship_orders.present?
+  def approve_drop_ship_orders
+    drop_ship_orders.select{ |dso| dso.deliver }.length == drop_ship_orders.length
   end
 
   def finalize_with_dropship!
@@ -16,8 +16,8 @@ Spree::Order.class_eval do
   end
   alias_method_chain :finalize!, :dropship
 
-  def approve_drop_ship_orders
-    drop_ship_orders.select{ |dso| dso.deliver }.length == drop_ship_orders.length
+  def has_drop_ship_orders?
+    drop_ship_orders.present?
   end
 
 end
