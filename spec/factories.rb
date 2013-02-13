@@ -18,6 +18,7 @@ FactoryGirl.define do
     url "http://example.com"
     address
     commission_fee_percentage 0
+    user
   end
 
 end

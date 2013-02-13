@@ -11,7 +11,8 @@ Spree::Order.class_eval do
 
     self.line_items.will_drop_ship.all.group_by{|li| li.supplier_id }.each do |supplier_id, supplier_items|
       supplier = Spree::Supplier.find(supplier_id)
-      supplier.orders.create(:order => self).add(supplier_items) #.deliver!
+      # TODO: make delivering orders automatically a preference
+      supplier.orders.create({:order_id => self.id}, without_protection: true).add(supplier_items) #.deliver!
     end
   end
   alias_method_chain :finalize!, :dropship

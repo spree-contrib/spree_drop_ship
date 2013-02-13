@@ -32,20 +32,56 @@ describe Spree::Supplier do
     subject.deleted_at?.should eql(true)
   end
 
-  # after_create :find_or_create_user_and_send_welcome
-    #   def find_or_create_user_and_send_welcome
-    #     unless user ||= Spree.user_class.find_by_email(email)
-    #       password = Digest::SHA1.hexdigest(email.to_s)[0..16]
-    #       user = self.create_user(:email => email, :password => password, :password_confirmation => password)
-    #       user.send(:generate_reset_password_token!) if user.respond_to?(:generate_reset_password_token!)
-    #     end
-    #     if Spree::DropShipConfig[:send_supplier_welcome_email]
-    #       Spree::SupplierMailer.welcome(self).deliver!
-    #     end
-    #     self.save
-    #   end
-    it '#find_or_create_user_and_send_welcome' do
-      pending 'need to write...'
+  context '#find_or_create_user_and_send_welcome' do
+
+    context 'with Spree::DropShipConfig[:send_supplier_welcome_email] == false' do
+
+      before do
+        Spree::DropShipConfig[:send_supplier_welcome_email] = false
+        @instance = build(:supplier)
+        mail_message = mock('Mail::Message')
+        mail_message.should_not_receive :deliver!
+        Spree::SupplierMailer.should_not_receive(:welcome).with(@instance)
+      end
+
+      it 'with user' do
+        @instance.email = 'test@test.com'
+        @instance.user = create(:user)
+        @instance.should_not_receive(:create_user)
+        # Spree.user_class.should_not_recieve(:find_by_email).with('test@test.com')
+        @instance.save
+      end
+
+      it'with existing user email' do
+        user = create(:user, email: 'test@test.com')
+        @instance.email = 'test@test.com'
+        @instance.user = nil
+        @instance.should_not_receive(:create_user)
+        @instance.save
+      end
+
+      it'without user or existing user email' do
+        @instance.should_receive(:create_user)
+        @instance.email = 'test@test.com'
+        @instance.user = nil
+        @instance.save
+      end
+
     end
+
+    context 'with Spree::DropShipConfig[:send_supplier_welcome_email] == true' do
+
+      it 'should send welcome email' do
+        Spree::DropShipConfig[:send_supplier_welcome_email] = true
+        @instance = build :supplier, user: create(:user)
+        mail_message = mock('Mail::Message')
+        mail_message.should_receive :deliver!
+        Spree::SupplierMailer.should_receive(:welcome).with(@instance).and_return(mail_message)
+        @instance.save
+      end
+
+    end
+
+  end
 
 end

@@ -14,17 +14,16 @@ describe Spree::LineItem do
   end
 
   it '#drop_ship_attributes' do
-    pending 'TODO fix master price issue'
     supplier = create(:supplier)
-    variant = create(:variant, sku: 'TEST')
-    product = build(:product, name: 'Test Dropship Product', supplier: supplier)
-    product.master = variant
+    product = build(:product, name: 'Test Dropship Product')
+    product.supplier = create(:supplier)
     product.save
+    variant = create(:variant, product: product, sku: 'TEST')
     item = create(:line_item, quantity: 2, variant: variant)
     item.drop_ship_attributes.should eql({
       :line_item_id => item.id,
       :name         => 'Test Dropship Product',
-      :price        => 10,
+      :price        => BigDecimal.new(10),
       :quantity     => 2,
       :sku          => 'TEST',
       :variant_id   => variant.id
@@ -38,13 +37,13 @@ describe Spree::LineItem do
   end
 
   it '#set_supplier_id' do
-    pending 'TODO fix master price issue'
-    supplier = create(:supplier)
-    product = create(:product, supplier: supplier)
-    item = create(:line_item, variant: create(:variant, is_master: true, product: product))
-    item.supplier_id.should be_nil
+    supplier = create :supplier
+    product  = create :product
+    product.supplier = supplier
+    product.save
+    item = build(:line_item, variant: create(:variant, product: product))
     item.valid?
-    item.supplier_id.should eql(supplier.id)
+    item.supplier.id.should eql(supplier.id)
   end
 
 end

@@ -2,8 +2,8 @@ class Spree::DropShipLineItem < ActiveRecord::Base
 
   attr_accessible :quantity, :price
 
-  belongs_to :line_item
   belongs_to :drop_ship_order
+  belongs_to :line_item
 
   validates :drop_ship_order_id, presence: true
   validates :price,              presence: true

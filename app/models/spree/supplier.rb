@@ -44,10 +44,11 @@ class Spree::Supplier < ActiveRecord::Base
   protected
 
     def find_or_create_user_and_send_welcome
-      unless user ||= Spree.user_class.find_by_email(email)
+      unless self.user ||= Spree.user_class.find_by_email(self.email)
         password = Digest::SHA1.hexdigest(email.to_s)[0..16]
-        user = self.create_user(:email => email, :password => password, :password_confirmation => password)
-        user.send(:generate_reset_password_token!) if user.respond_to?(:generate_reset_password_token!)
+        self.user = self.create_user(:email => email, :password => password, :password_confirmation => password)
+        # TODO not kosher to send private methods what other solutions are there and one that probably actually sends the reset email.
+        self.user.send(:generate_reset_password_token!) if self.user.respond_to?(:generate_reset_password_token!)
       end
       if Spree::DropShipConfig[:send_supplier_welcome_email]
         Spree::SupplierMailer.welcome(self).deliver!

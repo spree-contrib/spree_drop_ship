@@ -93,7 +93,6 @@ Be sure to bundle your dependencies and then create a dummy test app for the spe
 Todo
 ----
 
-- Finish rewriting tests in rspec!
 - Finish I18n implementation (mailer views, and anywhere else plain text is found)
 - Admin state/country selects should use Spree code (double check they may be now)
 - Mailers default from should use spree apps settings

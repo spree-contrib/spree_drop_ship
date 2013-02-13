@@ -5,20 +5,20 @@ describe Spree::Order do
   it { should have_many(:drop_ship_orders) }
 
   it '#approve_drop_ship_orders' do
-    #drop_ship_orders.select{ |dso| dso.deliver }.length == drop_ship_orders.length
-    pending
+    order = create(:order_with_totals, bill_address: create(:address), ship_address: create(:address))
+    order.line_items = [create(:line_item_to_drop_ship), create(:line_item_to_drop_ship)]
+    order.finalize!
+
+    order.approve_drop_ship_orders.should be_true
   end
 
   it '#finalize_with_dropship!' do
-    subject.respond_to?(:finalize_with_dropship!).should be_true
+   order = create(:order_with_totals)
+   order.line_items = [create(:line_item_to_drop_ship), create(:line_item_to_drop_ship)]
 
-    #finalize_without_dropship!
+   order.finalize!
 
-#    self.line_items.will_drop_ship.all.group_by{|li| li.supplier_id }.each do |supplier_id, supplier_items|
- #     supplier = Spree::Supplier.find(supplier_id)
-  #    supplier.orders.create(:order => self).add(supplier_items) #.deliver!
-   # end
-   pending
+   order.drop_ship_orders.size.should eql(2)
   end
 
   it '#has_drop_ship_orders?' do
