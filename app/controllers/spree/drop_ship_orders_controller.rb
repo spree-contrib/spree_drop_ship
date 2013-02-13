@@ -3,10 +3,13 @@ class Spree::DropShipOrdersController < Spree::StoreController
   before_filter :check_authorization
 
   def show
+    Rails.logger.debug "show #{@dso.inspect}"
+    
     redirect_to edit_drop_ship_order_path(@dso) unless @dso.complete?
   end
 
   def edit
+    Rails.logger.debug "Edit #{@dso.inspect}"
     if @dso.sent?
       flash[:notice] = I18n.t('supplier_orders.flash.sent')
     elsif @dso.confirmed?
@@ -18,6 +21,7 @@ class Spree::DropShipOrdersController < Spree::StoreController
   end
 
   def update
+    Rails.logger.debug "update #{@dso.inspect}"
 
     if @dso.sent?
       success = @dso.confirm
@@ -29,6 +33,7 @@ class Spree::DropShipOrdersController < Spree::StoreController
     end
 
     if success
+      Rails.logger.debug "update success #{@dso.inspect}"
       redirect_to url
     else
       flash[:error] = I18n.t("supplier_orders.flash.#{@dso.confirmed? ? 'confirmation_failure' : 'finalize_failure'}")

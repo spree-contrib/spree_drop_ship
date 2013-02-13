@@ -97,6 +97,7 @@ Todo
 - Admin state/country selects should use Spree code (double check they may be now)
 - Mailers default from should use spree apps settings
 - Finish/Style Email templates
+- Finish styling views for admin redesign
 - Drop ship order styles
 - Make supplier address form DRY with spree core (requires patching spree_core)
 - Better documentation

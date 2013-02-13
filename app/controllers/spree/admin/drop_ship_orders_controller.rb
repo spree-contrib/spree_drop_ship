@@ -9,9 +9,9 @@ class Spree::Admin::DropShipOrdersController < Spree::Admin::ResourceController
   def deliver
     @dso = load_resource
     if @dso.deliver
-      flash[:notice] = "Drop ship order ##{@dso.id} was successfully sent!"
+      flash[:notice] = t('spree.admin.drop_ship_orders.deliver.success', number: @dso.id)
     else
-      flash[:error] = "Drop ship order ##{@dso.id} could not be sent."
+      flash[:error] = t('spree.admin.drop_ship_orders.deliver.error', number: @dso.id)
     end
     redirect_to admin_drop_ship_order_path(@dso)
   end

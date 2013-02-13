@@ -1,15 +1,17 @@
-<h1>Order #<%= @dso.id %></h1>
-
-<div class="float-left">
-  <%= render "spree/drop_ship_orders/details", :dso => @dso %>
-</div>
-
-<div class="float-left">
+<% content_for :page_actions do %>
   <% if @dso.complete? %>
     <%= render "spree/drop_ship_orders/shipment_info", :dso => @dso %>
   <% elsif !@dso.confirmed? %>
-    <%= link_to "<span>#{@dso.sent? ? "Resend" : "Send"} Order to Supplier</span>".html_safe, deliver_admin_drop_ship_order_path(@dso), :class => 'button' %>
+    <%= button_link_to "#{@dso.sent? ? "Resend" : "Send"} Order to Supplier", deliver_admin_drop_ship_order_path(@dso) %>
   <% end %>
+<% end %>
+
+<% content_for :page_title do %>
+  <h1>Order #<%= @dso.id %></h1>
+<% end %>
+
+<div class="float-left">
+  <%= render "spree/drop_ship_orders/details", :dso => @dso %>
 </div>
 
 <hr class="clear" />
@@ -27,16 +29,6 @@
     <dd><%= @supplier.phone %></dd>
     <dt>URL</dt>
     <dd><%= @supplier.url %></dd>
-    <dt>Contact</dt>
-    <dd><%= @supplier.contact %></dd>
-    <% unless @supplier.contact_email.blank? %>
-      <dt>Contact Email</dt>
-      <dd><%= mail_to @supplier.contact_email %></dd>
-    <% end %>
-    <% unless @supplier.contact_phone.blank? %>
-      <dt>Contact Phone</dt>
-      <dd><%= @supplier.contact_phone %></dd>
-    <% end %>
   </dl>
 </div>
 
