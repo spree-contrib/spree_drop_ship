@@ -45,6 +45,10 @@ en:
           success: "Drop ship order %{number} was successfully sent!"
         orders_sent: All drop ship orders have successfully been sent
         orders_not_sent: Some or all of the drop ship orders could not be sent. Please contact the suppliers directly.
+    shared:
+      unauthorized:
+        explained: Your not authorized to access this page.
+        unauthorized: Unauthorized
     suppliers:
       create:
         success: Thank you for signing up!
