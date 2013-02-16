@@ -8,8 +8,4 @@ Spree::Product.class_eval do
     supplier.present?
   end
 
-  # Returns id of supplier
-  def supplier_id
-    :id
-  end
 end
