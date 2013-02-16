@@ -10,14 +10,14 @@
   <dt>URL</dt>
     <dd><%= @supplier.url %></dd>
   <dt>Contact</dt>
-    <dd><%= @supplier.contact %></dd>
-  <% unless @supplier.contact_email.blank? %>
+    <dd><%= @supplier.name %></dd>
+  <% unless @supplier.email.blank? %>
     <dt>Contact Email</dt>
-    <dd><%= mail_to @supplier.contact_email %></dd>
+    <dd><%= mail_to @supplier.email %></dd>
   <% end %>
-  <% unless @supplier.contact_phone.blank? %>
+  <% unless @supplier.phone.blank? %>
     <dt>Contact Phone</dt>
-    <dd><%= @supplier.contact_phone %></dd>
+    <dd><%= @supplier.phone %></dd>
   <% end %>
   <dt>Order Count</dt>
     <dd><%= link_to @supplier.orders.count, admin_supplier_orders_path(@supplier) %></dd>
