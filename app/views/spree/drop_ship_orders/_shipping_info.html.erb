@@ -1,15 +1,15 @@
-<h2>Shipping Information</h2>
+<h2><%= t(:shipping_information, :scope => :spree_drop_ship) %></h2>
   
 <dl>
-  <dt>Address</dt>
+  <dt><%= t(:address) %> </dt>
     <dd><%= address.firstname %> <%= address.lastname %></dd>
     <dd><%= address.address1 %></dd>
     <% unless address.address2.blank? %>
       <dd><%= address.address2 %></dd>
     <% end %>
     <dd><%= address.state.name %>, <%= address.country.name %> <%= address.zipcode %></dd>
-  <dt>Phone</dt>
-    <dd><%= address.phone %></dd>
-  <dt>Email</dt>
-    <dd><%= mail_to @dso.order.email %></dd>
+  <dt><%= t(:phone) %></dt>
+  <dd><%= address.phone %></dd>
+  <dt><%= t(:email) %></dt>
+  <dd><%= mail_to @drop_ship_order.order.email %></dd>
 </dl>

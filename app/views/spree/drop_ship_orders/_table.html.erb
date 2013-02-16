@@ -6,12 +6,12 @@
     <th>Price</th>
     <th>Subtotal</th>
   </tr>
-<% if dso.line_items.empty? %>
+<% if drop_ship_order.line_items.empty? %>
   <tr>
     <td colspan="5">This order has no line items.</td>
   </tr>
 <% else %>
-  <% dso.line_items.each do |li| %>
+  <% drop_ship_order.line_items.each do |li| %>
     <tr>
       <td><%= li.sku %></td>
       <td><%= li.name %></td>
@@ -24,7 +24,7 @@
   <tr class="totals">
     <td colspan="5">
       Total:
-      <b class="total"><%= number_to_currency dso.total %></b>
+      <b class="total"><%= number_to_currency drop_ship_order.total %></b>
     </td>
   </tr>
 </table>

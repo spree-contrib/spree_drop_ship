@@ -1,33 +1,33 @@
 class Spree::DropShipOrderMailer < ActionMailer::Base
 
-  default :from => 'no-reply@example.com'
+  default :from => Spree::MailMethod.current.try(:preferred_mails_from)
 
-  def supplier_order(dso)
-    get_defaults(dso)
-    send_mail "#{Spree::Config[:site_name]} - Order ##{dso.id}"
+  def supplier_order(drop_ship_order)
+    get_defaults(drop_ship_order)
+    send_mail "#{Spree::Config[:site_name]} - Order ##{drop_ship_order.id}"
   end
 
-  def confirmation(dso)
-    get_defaults(dso)
-    send_mail "Confirmation - #{Spree::Config[:site_name]} - Order ##{dso.id}"
+  def confirmation(drop_ship_order)
+    get_defaults(drop_ship_order)
+    send_mail "Confirmation - #{Spree::Config[:site_name]} - Order ##{drop_ship_order.id}"
   end
 
-  def shipment(dso)
-    get_defaults(dso)
-    send_mail "Shipped - #{Spree::Config[:site_name]} - Order ##{dso.id}"
+  def shipment(drop_ship_order)
+    get_defaults(drop_ship_order)
+    send_mail "Shipped - #{Spree::Config[:site_name]} - Order ##{drop_ship_order.id}"
   end
 
-  def shipment_notification(dso)
-    get_defaults(dso)
-    mail :to => @order.email, :subject => "Shipped - #{Spree::Config[:site_name]} - Order ##{dso.id}"
+  def shipment_notification(drop_ship_order)
+    get_defaults(drop_ship_order)
+    mail :to => @order.email, :subject => "Shipped - #{Spree::Config[:site_name]} - Order ##{drop_ship_order.id}"
   end
 
   private
 
-    def get_defaults(dso)
-      @dso = dso
-      @order = dso.order
-      @supplier = dso.supplier
+    def get_defaults(drop_ship_order)
+      @drop_ship_order = drop_ship_order
+      @order = drop_ship_order.order
+      @supplier = drop_ship_order.supplier
       @address = @order.ship_address
     end
 

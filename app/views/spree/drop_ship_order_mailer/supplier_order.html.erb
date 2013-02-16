@@ -1,5 +1,5 @@
-<h1>Order #<%= @dso.id %></h1>
-<h4>Reference Number <%= @dso.order.number %></h4>
+<h1>Drop Ship Order #<%= @drop_ship_order.id %></h1>
+<h4>Reference Number <%= @drop_ship_order.order.number %></h4>
 
 <br/>
 
@@ -9,7 +9,7 @@
 
 <h3 style="border-bottom: 1px solid #ddd;">Product Information</h3>
 
-<%= render "spree/drop_ship_orders/table", :dso => @dso %>
+<%= render "spree/drop_ship_orders/table", :drop_ship_order => @drop_ship_order %>
 
 <h3 style="border-bottom: 1px solid #ddd;">Shipping Information</h3>
 
@@ -17,7 +17,7 @@
 
 <h3 style="border-bottom: 1px solid #ddd;">Confirmation</h3>
 
-<%= link_to "You must click here to confirm this order", edit_drop_ship_order_url(@dso) %>
+<%= link_to "You must click here to confirm this order", spree.edit_drop_ship_order_url(@drop_ship_order) %>
 
 <p>Thanks,</p>
 

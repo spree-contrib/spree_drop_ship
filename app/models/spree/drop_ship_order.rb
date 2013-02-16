@@ -1,5 +1,7 @@
 class Spree::DropShipOrder < ActiveRecord::Base
 
+  attr_accessible :confirmation_number, :notes, :shipping_method, :tracking_number
+
   #==========================================
   # Associations
 
@@ -84,14 +86,14 @@ class Spree::DropShipOrder < ActiveRecord::Base
 
   private
 
-    def perform_delivery # :nodoc:
-      self.update_attribute(:sent_at, Time.now)
-      Spree::DropShipOrderMailer.supplier_order(self).deliver!
-    end
-
     def perform_confirmation # :nodoc:
       self.update_attribute(:confirmed_at, Time.now)
       Spree::DropShipOrderMailer.confirmation(self).deliver!
+    end
+
+    def perform_delivery # :nodoc:
+      self.update_attribute(:sent_at, Time.now)
+      Spree::DropShipOrderMailer.supplier_order(self).deliver!
     end
 
     def perform_shipment # :nodoc:

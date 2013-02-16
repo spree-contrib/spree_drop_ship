@@ -26,9 +26,7 @@ Spree::LineItem.class_eval do
   private
 
   def set_supplier_id
-    # TODO rewrite after spec exists
-    id = variant.product.supplier_product.supplier_id rescue nil
-    self.supplier_id = id if id && variant.product.has_supplier?
+    self.supplier_id = variant.product.supplier_id if variant.product.has_supplier?
   end
 
 end

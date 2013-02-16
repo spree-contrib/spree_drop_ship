@@ -19,8 +19,8 @@ en:
         update:
           success: Drop ship settings successfully updated.
       orders:
-        dso_order_header:
-          dso_ids: DSO IDs
+        drop_ship_order_order_header:
+          drop_ship_order_ids: DSO IDs
         confirm_drop_ship_info:
           approve_drop_ship_orders: Approve Drop Ship Orders
           resend_drop_ship_orders: Resend Drop Ship Orders

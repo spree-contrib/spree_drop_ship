@@ -1,5 +1,8 @@
 FactoryGirl.define do
 
+  factory :supplier_user, :parent => :user do
+  end
+
   factory :line_item_to_drop_ship, parent: :line_item do
     supplier
   end
@@ -12,7 +15,7 @@ FactoryGirl.define do
   end
 
   factory :supplier, :class => Spree::Supplier do
-    name "Big Store"
+    sequence(:name) { |i| "Big Store #{i}" }
     email { Faker::Internet.email }
     phone "800-555-5555"
     url "http://example.com"

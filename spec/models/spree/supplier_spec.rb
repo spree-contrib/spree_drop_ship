@@ -6,13 +6,13 @@ describe Spree::Supplier do
   it { should belong_to(:user) }
 
   it { should have_many(:orders).dependent(:nullify) }
-  it { should have_many(:products).through(:supplier_products) }
-  it { should have_many(:supplier_products).dependent(:destroy) }
+  it { should have_many(:products) }
 
   it { should validate_presence_of(:address) }
   it { should validate_presence_of(:commission_fee_percentage) }
   it { should validate_presence_of(:email) }
   it { should validate_presence_of(:name) }
+  it { should validate_uniqueness_of(:name) }
   it { should validate_presence_of(:phone) }
 
   # TODO
