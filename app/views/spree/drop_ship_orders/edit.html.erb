@@ -1,12 +1,12 @@
-<h1>Order #<%= @dso.id %></h1>
+<h1>Drop Ship Order #<%= @drop_ship_order.id %></h1>
 
 <div class="left">
-  <%= render "details", :dso => @dso %>
+  <%= render "details", :drop_ship_order => @drop_ship_order %>
 </div>
 
 <div class="right"> 
-  <%= render "spree/shared/error_messages", :target => @dso %>
-  <%= render "form", :dso => @dso %>
+  <%= render "spree/shared/error_messages", :target => @drop_ship_order %>
+  <%= render "form", :drop_ship_order => @drop_ship_order %>
 </div>
 
 <hr class="clear" />
@@ -16,11 +16,11 @@
 </div>
 
 <div class="right">
-  <%= render "shipping_info", :address => @address %>
+  <%= render "shipping_info", :address => @drop_ship_order.order.ship_address %>
 </div>
 
 <hr class="clear" />
 
 <h2>Product Information</h2>
 
-<%= render "table", :dso => @dso %>
+<%= render "table", :drop_ship_order => @drop_ship_order %>

@@ -1,11 +1,11 @@
-<h1>Order #<%= @dso.id %></h1>
+<h1>Order #<%= @drop_ship_order.id %></h1>
 
 <div class="left">
-  <%= render "details", :dso => @dso %>
+  <%= render "details", :drop_ship_order => @drop_ship_order %>
 </div>
 
 <div class="right">
-  <%= render "shipment_info", :dso => @dso if @dso.complete? %>
+  <%= render "shipment_info", :drop_ship_order => @drop_ship_order if @drop_ship_order.complete? %>
 </div>
 
 <hr class="clear" />
@@ -15,11 +15,11 @@
 </div>
 
 <div class="right">
-  <%= render "shipping_info", :address => @address %>
+  <%= render "shipping_info", :address => @drop_ship_order.order.ship_address %>
 </div>
 
 <hr class="clear" />
 
 <h2>Product Information</h2>
 
-<%= render "table", :dso => @dso %>
+<%= render "table", :drop_ship_order => @drop_ship_order %>

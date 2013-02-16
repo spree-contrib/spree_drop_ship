@@ -17,16 +17,16 @@
     </tr>
   </thead>
   <tbody>
-    <%- @collection.each do |dso|%>
-      <tr id="<%= dom_id dso %>">
-        <td><%= link_to "##{dso.id}", admin_drop_ship_order_url(dso) %></td>
-        <td><%= link_to dso.supplier.name, admin_supplier_url(dso.supplier) %></td>
-        <td><%= link_to dso.order.number, admin_order_url(dso.order) %></td>
-        <td><%= number_to_currency dso.total %></td>
-        <td><%= dso.created_at.to_s(:long) %></td>
-        <td><%= dso.confirmed_at.to_s(:long) if dso.confirmed_at.present? %></td>
-        <td><%= dso.shipped_at.to_s(:long) if dso.shipped_at.present? %></td>
-        <td><%= dso.state %></td>
+    <%- @collection.each do |drop_ship_order|%>
+      <tr id="<%= dom_id drop_ship_order %>">
+        <td><%= link_to "##{drop_ship_order.id}", admin_drop_ship_order_url(drop_ship_order) %></td>
+        <td><%= link_to drop_ship_order.supplier.name, admin_supplier_url(drop_ship_order.supplier) %></td>
+        <td><%= link_to drop_ship_order.order.number, admin_order_url(drop_ship_order.order) %></td>
+        <td><%= number_to_currency drop_ship_order.total %></td>
+        <td><%= drop_ship_order.created_at.to_s(:long) %></td>
+        <td><%= drop_ship_order.confirmed_at.to_s(:long) if drop_ship_order.confirmed_at.present? %></td>
+        <td><%= drop_ship_order.shipped_at.to_s(:long) if drop_ship_order.shipped_at.present? %></td>
+        <td><%= drop_ship_order.state %></td>
       </tr>
     <% end %>
   </tbody>

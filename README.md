@@ -95,9 +95,8 @@ Todo
 
 - Finish I18n implementation (mailer views, and anywhere else plain text is found)
 - Admin state/country selects should use Spree code (double check they may be now)
-- Mailers default from should use spree apps settings
 - Finish/Style Email templates
-- Finish styling views for admin redesign
+- Finish styling views for admin redesign & account pages
 - Drop ship order styles
 - Make supplier address form DRY with spree core (requires patching spree_core)
 - Better documentation

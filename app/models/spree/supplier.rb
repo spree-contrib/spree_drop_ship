@@ -10,15 +10,17 @@ class Spree::Supplier < ActiveRecord::Base
   belongs_to :user, class_name: Spree.user_class.to_s
 
   has_many   :orders, :class_name => "Spree::DropShipOrder", :dependent => :nullify
-  has_many   :products, :through => :supplier_products
-  has_many   :supplier_products, :dependent => :destroy
+  has_many   :products
 
   #==========================================
   # Validations
 
   validates_associated :address
-  validates :address, :commission_fee_percentage, :name, :phone, :presence => true
+  validates :address, :presence => true
+  validates :commission_fee_percentage, :presence => true
   validates :email, :presence => true, :email => true
+  validates :name, presence: true, uniqueness: true
+  validates :phone, :presence => true
   validates :url, format: { with: URI::regexp(%w(http https)), allow_blank: true }
 
   #==========================================

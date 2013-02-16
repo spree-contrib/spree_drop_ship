@@ -1,17 +1,17 @@
 <% content_for :page_actions do %>
-  <% if @dso.complete? %>
-    <%= render "spree/drop_ship_orders/shipment_info", :dso => @dso %>
-  <% elsif !@dso.confirmed? %>
-    <%= button_link_to "#{@dso.sent? ? "Resend" : "Send"} Order to Supplier", deliver_admin_drop_ship_order_path(@dso) %>
+  <% if @drop_ship_order.complete? %>
+    <%= render "spree/drop_ship_orders/shipment_info", :drop_ship_order => @drop_ship_order %>
+  <% elsif !@drop_ship_order.confirmed? %>
+    <%= button_link_to "#{@drop_ship_order.sent? ? "Resend" : "Send"} Order to Supplier", deliver_admin_drop_ship_order_path(@drop_ship_order) %>
   <% end %>
 <% end %>
 
 <% content_for :page_title do %>
-  <h1>Order #<%= @dso.id %></h1>
+  <h1>Order #<%= @drop_ship_order.id %></h1>
 <% end %>
 
 <div class="float-left">
-  <%= render "spree/drop_ship_orders/details", :dso => @dso %>
+  <%= render "spree/drop_ship_orders/details", :drop_ship_order => @drop_ship_order %>
 </div>
 
 <hr class="clear" />
@@ -33,14 +33,14 @@
 </div>
 
 <div class="float-left">
-  <%= render "spree/drop_ship_orders/shipping_info", :address => @address %>
+  <%= render "spree/drop_ship_orders/shipping_info", :address => @supplier.address %>
 </div>
 
 <hr class="clear" />
 
 <h2>Product Information</h2>
 
-<%= render "spree/drop_ship_orders/table", :dso => @dso %>
+<%= render "spree/drop_ship_orders/table", :drop_ship_order => @drop_ship_order %>
 
 <% content_for :head do %>
   <style type="text/css">

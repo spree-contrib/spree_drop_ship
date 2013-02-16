@@ -3,7 +3,7 @@ Spree::Order.class_eval do
   has_many :drop_ship_orders
 
   def approve_drop_ship_orders
-    drop_ship_orders.select{ |dso| dso.deliver }.length == drop_ship_orders.length
+    drop_ship_orders.select{ |drop_ship_order| drop_ship_order.deliver }.length == drop_ship_orders.length
   end
 
   def finalize_with_dropship!

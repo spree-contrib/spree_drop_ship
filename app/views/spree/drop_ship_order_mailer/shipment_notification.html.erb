@@ -1,18 +1,18 @@
 <h2>Dear Customer,</h2>
 
-<h3><%= @dso.order.number %> has been shipped.</h3>
+<h3><%= @drop_ship_order.order.number %> has been shipped.</h3>
 
 <h3 style="border-bottom: 1px solid #ddd;">Shipment Information</h3>
 <dl>
   <dt>Shipping Method</dt>
-    <dd><%= @dso.shipping_method %></dd>
+    <dd><%= @drop_ship_order.shipping_method %></dd>
   <dt>Confirmation Number</dt>
-    <dd><%= @dso.confirmation_number %></dd>
+    <dd><%= @drop_ship_order.confirmation_number %></dd>
   <dt>Tracking Number</dt>
-    <dd><%= @dso.tracking_number %></dd>
-  <% if @dso.notes.present? %>
+    <dd><%= @drop_ship_order.tracking_number %></dd>
+  <% if @drop_ship_order.notes.present? %>
     <dt>Notes</dt>
-      <dd><%= simple_format @dso.notes %></dd>
+      <dd><%= simple_format @drop_ship_order.notes %></dd>
   <% end %>
 </dl>
 

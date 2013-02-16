@@ -1,57 +1,43 @@
-class Spree::DropShipOrdersController < Spree::StoreController
+module Spree
+  class DropShipOrdersController < Spree::StoreController
 
-  before_filter :check_authorization
+    load_and_authorize_resource class: 'Spree::DropShipOrder'
 
-  def show
-    Rails.logger.debug "show #{@dso.inspect}"
-    
-    redirect_to edit_drop_ship_order_path(@dso) unless @dso.complete?
-  end
+    def show
+      redirect_to edit_drop_ship_order_path(@drop_ship_order) unless @drop_ship_order.complete?
+    end
 
-  def edit
-    Rails.logger.debug "Edit #{@dso.inspect}"
-    if @dso.sent?
-      flash[:notice] = I18n.t('supplier_orders.flash.sent')
-    elsif @dso.confirmed?
-      if @dso.errors.empty?
-        flash[:notice] = I18n.t('supplier_orders.flash.confirmed')
+    # TODO: sloppy state transition needs to be refactored.
+    def edit
+      if @drop_ship_order.sent?
+        flash[:notice] = I18n.t('supplier_orders.flash.sent')
+      elsif @drop_ship_order.confirmed?
+        if @drop_ship_order.errors.empty?
+          flash[:notice] = I18n.t('supplier_orders.flash.confirmed')
+        end
       end
+      redirect_to @drop_ship_order if @drop_ship_order.complete?
     end
-    redirect_to @dso if @dso.complete?
+
+    # TODO: sloppy state transition needs to be refactored.
+    def update
+      if @drop_ship_order.sent?
+        success = @drop_ship_order.confirm
+        url = edit_drop_ship_order_path(@drop_ship_order)
+      elsif @drop_ship_order.confirmed?
+        success = @drop_ship_order.update_attributes(params[:drop_ship_order]) && @drop_ship_order.ship
+        url = drop_ship_order_path(@drop_ship_order)
+        flash[:notice] = I18n.t('supplier_orders.flash.shipped') if success
+      end
+
+      if success
+        redirect_to url
+      else
+        flash[:error] = I18n.t("supplier_orders.flash.#{@drop_ship_order.confirmed? ? 'confirmation_failure' : 'finalize_failure'}")
+        render :edit
+      end
+
+    end
+
   end
-
-  def update
-    Rails.logger.debug "update #{@dso.inspect}"
-
-    if @dso.sent?
-      success = @dso.confirm
-      url = edit_drop_ship_order_path(@dso)
-    elsif @dso.confirmed?
-      success = @dso.update_attributes(params[:drop_ship_order]) && @dso.ship
-      url = drop_ship_order_path(@dso)
-      flash[:notice] = I18n.t('supplier_orders.flash.shipped') if success
-    end
-
-    if success
-      Rails.logger.debug "update success #{@dso.inspect}"
-      redirect_to url
-    else
-      flash[:error] = I18n.t("supplier_orders.flash.#{@dso.confirmed? ? 'confirmation_failure' : 'finalize_failure'}")
-      render :edit
-    end
-
-  end
-
-  private
-
-    def get_dso
-      @dso = Spree::DropShipOrder.includes(:line_items, :order => [ :ship_address ]).find(params[:id])
-      @address = @dso.order.ship_address
-    end
-
-    def check_authorization
-      get_dso
-      authorize!(:show, @dso)
-    end
-
 end

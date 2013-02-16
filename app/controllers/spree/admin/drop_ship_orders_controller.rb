@@ -1,19 +1,19 @@
 class Spree::Admin::DropShipOrdersController < Spree::Admin::ResourceController
 
   def show
-    @dso = load_resource
-    @supplier = @dso.supplier
-    @address = @dso.order.ship_address
+    @drop_ship_order = load_resource
+    @supplier = @drop_ship_order.supplier
+    @address = @drop_ship_order.order.ship_address
   end
 
   def deliver
-    @dso = load_resource
-    if @dso.deliver
-      flash[:notice] = t('spree.admin.drop_ship_orders.deliver.success', number: @dso.id)
+    @drop_ship_order = load_resource
+    if @drop_ship_order.deliver
+      flash[:notice] = t('spree.admin.drop_ship_orders.deliver.success', number: @drop_ship_order.id)
     else
-      flash[:error] = t('spree.admin.drop_ship_orders.deliver.error', number: @dso.id)
+      flash[:error] = t('spree.admin.drop_ship_orders.deliver.error', number: @drop_ship_order.id)
     end
-    redirect_to admin_drop_ship_order_path(@dso)
+    redirect_to admin_drop_ship_order_path(@drop_ship_order)
   end
 
   private

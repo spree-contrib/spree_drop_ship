@@ -1,6 +1,6 @@
 class Spree::SupplierMailer < ActionMailer::Base
 
-  default :from => 'no-reply@example.com'
+  default :from => Spree::MailMethod.current.try(:preferred_mails_from)
 
   def welcome(supplier)
     @supplier = supplier
