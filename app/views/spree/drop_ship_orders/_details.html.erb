@@ -1,17 +1,20 @@
 <dl>
-  <dt>Order Reference Number</dt>
+  <dt><%= t(:order_reference_number) %></dt>
     <% if current_user && current_user.admin? %>
       <dd><%= link_to @drop_ship_order.order.number, admin_order_path(@drop_ship_order.order) %></dd>
     <% else %>
       <dd><%= @drop_ship_order.order.number %></dd>
     <% end %>
-  <dt>Status</dt>
-    <dd><%= @drop_ship_order.state %></dd>  
+    <br/>
+  <dt><%= t(:status) %></dt>
+    <dd><%= @drop_ship_order.state %></dd>
+    <br/>
   <% %w(sent_at confirmed_at shipped_at).each do |attribute| %>
     <% time = @drop_ship_order.send(attribute) %>
     <% unless time.nil? %>
       <dt><%= attribute.titleize %></dt>
         <dd><%= time.to_s(:long) %></dd>
+        <br/>
     <% end %>
   <% end %>
 </dl>

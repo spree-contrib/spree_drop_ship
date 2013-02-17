@@ -44,9 +44,9 @@ You should be up and running now!
 Sample Data
 -----------
 
-If you'd like to generate sample data, use the included rake tasks
+If you'd like to generate sample data, use the included rake tasks:
 
-    rake db:sample                    # Loads sample data into the store
+    rake spree_sample:load            # Loads sample data into the store
     rake db:sample:suppliers          # Create sample suppliers and randomly link to products
     rake db:sample:drop_ship_orders   # Create sample drop ship orders
 
@@ -60,7 +60,7 @@ You can easily use the spec/dummy app as a demo of spree_drop_ship. Just `cd` to
     bundle install
     bundle exec rake test_app
     cd spec/dummy
-    rake db:migrate db:seed db:sample
+    rake db:migrate db:seed spree_sample:load db:sample:suppliers db:sample:drop_ship_orders
     rails s
 
 Contributing

@@ -1,25 +1,11 @@
-<h1>Drop Ship Order #<%= @drop_ship_order.id %></h1>
+<h1><%= t(:drop_ship_order_number, number: @drop_ship_order.id) %></h1>
 
-<div class="left">
+<div id="drop_ship_info">
   <%= render "details", :drop_ship_order => @drop_ship_order %>
-</div>
-
-<div class="right"> 
   <%= render "spree/shared/error_messages", :target => @drop_ship_order %>
   <%= render "form", :drop_ship_order => @drop_ship_order %>
-</div>
-
-<hr class="clear" />
-
-<div class="left">
-  <%= render "affiliate_info" %>
-</div>
-
-<div class="right">
   <%= render "shipping_info", :address => @drop_ship_order.order.ship_address %>
 </div>
-
-<hr class="clear" />
 
 <h2>Product Information</h2>
 

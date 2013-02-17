@@ -18,7 +18,6 @@
     </p>
     <p class="actions"><%= f.submit "Process and finalize order" %></p>
   <% elsif drop_ship_order.sent? %>
-    <p>Please confirm this order!</p>
     <p class="actions"><%= f.submit "Confirm Order" %></p>
   <% end %>
 <% end %>

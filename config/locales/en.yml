@@ -7,6 +7,7 @@ en:
             url:
               invalid: is invalid. Please be sure to include include 'http://'
               not_responding: 'is invalid, not responding or redirecting to another location'
+  drop_ship_order_number: "Drop Ship Order #%{number}"
   drop_ship_orders: Drop Ship Orders
   edit: Edit
   must_be_logged_in: 'Must Be Logged In'

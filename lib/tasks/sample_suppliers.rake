@@ -2,10 +2,10 @@ namespace :db do
   namespace :sample do
     desc "Create sample suppliers and randomly link to products"
     task :suppliers => :environment do
-      
+
       @usa = Spree::Country.find_by_iso("US")
       @ca  = @usa.states.find_by_abbr("CA") 
-      
+
       count = Spree::Supplier.count
       puts "Creating Suppliers..."
       5.times{|i|
@@ -16,24 +16,23 @@ namespace :db do
       }
       puts
       puts "#{Spree::Supplier.count - count} suppliers created"
-      
-      Spree::SupplierProduct.destroy_all
-      
+
       puts "Randomly linking Products & Suppliers..."
-      
+
       @supplier_ids = Spree::Supplier.select('id').all.map(&:id).shuffle
       @products     = Spree::Product.all
       count         = 0
-      
+
       @products.each do |product|
-        Spree::SupplierProduct.create(:product_id => product.id, :supplier_id => @supplier_ids[rand(@supplier_ids.length)])
+        product.supplier_id = @supplier_ids[rand(@supplier_ids.length)]
+        product.save
         count += 1 
         print "*"
       end
-      
+
       puts
       puts "#{count} products linked."
-      
+
     end
   end
 end
