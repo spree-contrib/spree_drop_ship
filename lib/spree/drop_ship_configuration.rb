@@ -1,8 +1,5 @@
 module Spree
   class DropShipConfiguration < Preferences::Configuration
-    # Email to list as contact email for affiliate information.
-    preference :affiliate_email, :string
-
     # Default percentage to charge drop ship suppliers per order for commission.
     preference :default_order_commission, :float, default: 0
 

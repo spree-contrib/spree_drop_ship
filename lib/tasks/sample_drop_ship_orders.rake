@@ -4,7 +4,7 @@ namespace :db do
     task :drop_ship_orders => :environment do
 
       if Spree::Order.count == 0
-        puts "Please run `rake db:sample` first to create products and orders" 
+        puts "Please run `rake spree_sample:load` first to create products and orders" 
         exit
       end
 
@@ -19,7 +19,7 @@ namespace :db do
 
       puts "Linking existing line items to suppliers"
       Spree::LineItem.where("supplier_id IS NULL").all.each do |li|
-        print "*" if li.update_attributes(:supplier_id => @suppliers.shuffle.first.id)
+        print "*" if li.supplier_id = @suppliers.shuffle.first.id and li.save
       end
       puts
 
@@ -27,7 +27,7 @@ namespace :db do
       Spree::Order.all.each do |order|
         print "*" if order.finalize!
       end
-      puts 
+      puts
 
     end
   end
