@@ -14,6 +14,16 @@ In more detail, once an order is placed for a product that drop ships a drop shi
 
 After the supplier has confirmed an order and is ready to ship, they can log into the site and update the drop ship order with a shipping method, confirmation number and tracking number. Once they 'process & finalize' the order, the customer is notified with the shipment details.
 
+Requirements
+------------
+
+Ruby >= 1.9.3
+SpreeApi >= 2.0.0.beta
+SpreeAuthDevise (No I won't remove the requirement unless you submit a pull request that doesn't butcher the current feature set)
+SpreeBackend >= 2.0.0.beta
+SpreeCore >= 2.0.0.beta
+SpreeFrontend >= 2.0.0.beta (May potentially be replaced with an alternative)
+
 Installation
 ------------
 
@@ -98,10 +108,10 @@ Todo
 - Finish/Style Email templates
 - Finish styling views for admin redesign & account pages
 - Drop ship order styles
-- Make supplier address form DRY with spree core (requires patching spree_core)
+- Make supplier address form DRY with spree core (requires patching spree_frontend)
 - Better documentation
 - Add new languages
-- Support Spree 2.x frontend and SpreeFancy themes.
+- Support Spree 2.x.
 
 Thanks
 ------
