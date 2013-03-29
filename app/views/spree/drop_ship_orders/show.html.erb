@@ -1,24 +1,16 @@
-<h1>Order #<%= @drop_ship_order.id %></h1>
+<% if defined?(SpreeFancy) %>
+  <% content_for :subheader do %>
+    <h1><%= t(:drop_ship_order_number, number: @drop_ship_order.id) %></h1>
+  <% end %>
+<% else %>
+  <h1><%= t(:drop_ship_order_number, number: @drop_ship_order.id) %></h1>
+<% end %>
 
-<div class="left">
+<div id="drop_ship_info">
   <%= render "details", :drop_ship_order => @drop_ship_order %>
-</div>
-
-<div class="right">
   <%= render "shipment_info", :drop_ship_order => @drop_ship_order if @drop_ship_order.complete? %>
-</div>
-
-<hr class="clear" />
-
-<div class="left">
-  <%= render "affiliate_info" %>
-</div>
-
-<div class="right">
   <%= render "shipping_info", :address => @drop_ship_order.order.ship_address %>
 </div>
-
-<hr class="clear" />
 
 <h2>Product Information</h2>
 

@@ -1,4 +1,10 @@
-<h1><%= t(:drop_ship_order_number, number: @drop_ship_order.id) %></h1>
+<% if defined?(SpreeFancy) %>
+  <% content_for :subheader do %>
+    <h1><%= t(:drop_ship_order_number, number: @drop_ship_order.id) %></h1>
+  <% end %>
+<% else %>
+  <h1><%= t(:drop_ship_order_number, number: @drop_ship_order.id) %></h1>
+<% end %>
 
 <div id="drop_ship_info">
   <%= render "details", :drop_ship_order => @drop_ship_order %>
