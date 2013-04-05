@@ -26,7 +26,7 @@ en:
           approve_drop_ship_orders: Approve Drop Ship Orders
           resend_drop_ship_orders: Resend Drop Ship Orders
           drop_ship_order_approval_confirmation: This will send each drop ship order to it's relative supplier. Continue?
-        show:
+        edit:
           approve_drop_ship_orders: Approve Drop Ship Orders
           resend_drop_ship_orders: Resend Drop Ship Orders
           drop_ship_order_approval_confirmation: This will send each drop ship order to it's relative supplier. Continue?
@@ -59,19 +59,16 @@ en:
     already_signed_up: "You've already signed up to become a supplier."
     drop_ship_settings: Drop Ship Settings
   supplier:
-    name: Name
-    email: Email
-    phone: Phone
-    url: URL
-    contact_email: Contact Email
-    contact_name: Contact Name
-    contact_phone: Contact Phone
     address1: Address
     address2: Address (continued)
     city: City
-    state: State
-    zipcode: Zipcode
+    commission: Commission
     country: Country
+    email: Email
+    name: Name
+    state: State
+    url: URL
+    zipcode: Zipcode
   supplier_info: Supplier Info
   supplier_signup: Supplier Signup
   supplier_orders:

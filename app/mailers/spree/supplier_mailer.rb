@@ -4,8 +4,7 @@ class Spree::SupplierMailer < ActionMailer::Base
 
   def welcome(supplier)
     @supplier = supplier
-    @user     = supplier.user
-    mail :to => @supplier.email_with_name, :subject => "#{Spree::Config[:site_name]} - Welcome!"
+    mail :to => @supplier.email_with_name, :subject => I18n.t('spree_drop_ship.supplier_mailer.welcome.subject')
   end
 
 end

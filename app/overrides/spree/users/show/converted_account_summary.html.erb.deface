@@ -1,4 +1,6 @@
-<% if @user.has_supplier? %>
+<!-- insert_after "[data-hook='account_summary'], #account_summary[data-hook]" -->
+
+<% if @user.supplier? %>
   <h3>Drop Ship Orders</h3>
   <% if @user.supplier.orders.present? %>
     <table class="order-summary" width="545">

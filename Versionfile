@@ -1,13 +1,5 @@
 # This file is used to designate compatibilty with different versions of Spree
 # Please see http://spreecommerce.com/documentation/extensions.html#versionfile for details
-
-# Examples
-#
-# '1.2.x'  => { :branch => 'master' }
-# '1.1.x'  => { :branch => '1-1-stable' }
-# '1.0.x'  => { :branch => '1-0-stable' }
-# '0.70.x' => { :branch => '0-70-stable' }
-# '0.40.x' => { :tag => 'v1.0.0', :version => '1.0.0' }
+# '1.3.x' => { :ref => 'e5624f7' } # Not going to be maintained but most of the works there if your looking for a starting point to branch off of.
 
 '2.0.x' => { :branch => 'master' }
-# '1.3.x' => { :ref => 'e5624f7' } # Not going to be maintained but most of the works there if your looking for a starting point to branch off of.

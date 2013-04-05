@@ -1,4 +1,4 @@
-Spree::Admin::OrdersController.class_eval do 
+Spree::Admin::OrdersController.class_eval do
 
   def drop_ship_approve
     @order = load_order

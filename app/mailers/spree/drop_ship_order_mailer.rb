@@ -12,16 +12,6 @@ class Spree::DropShipOrderMailer < ActionMailer::Base
     send_mail "Confirmation - #{Spree::Config[:site_name]} - Order ##{drop_ship_order.id}"
   end
 
-  def shipment(drop_ship_order)
-    get_defaults(drop_ship_order)
-    send_mail "Shipped - #{Spree::Config[:site_name]} - Order ##{drop_ship_order.id}"
-  end
-
-  def shipment_notification(drop_ship_order)
-    get_defaults(drop_ship_order)
-    mail :to => @order.email, :subject => "Shipped - #{Spree::Config[:site_name]} - Order ##{drop_ship_order.id}"
-  end
-
   private
 
     def get_defaults(drop_ship_order)

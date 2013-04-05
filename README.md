@@ -17,12 +17,12 @@ After the supplier has confirmed an order and is ready to ship, they can log int
 Requirements
 ------------
 
-Ruby >= 1.9.3
-SpreeApi >= 2.0.0.beta
-SpreeAuthDevise (No I won't remove the requirement unless you submit a pull request that doesn't butcher the current feature set)
-SpreeBackend >= 2.0.0.beta
-SpreeCore >= 2.0.0.beta
-SpreeFrontend >= 2.0.0.beta (May potentially be replaced with an alternative)
+* Ruby >= 1.9.3
+* SpreeApi >= 2.0.0.beta
+* SpreeAuthDevise (No I won't remove the requirement unless you submit a pull request that doesn't butcher the current feature set)
+* SpreeBackend >= 2.0.0.beta
+* SpreeCore >= 2.0.0.beta
+* SpreeFrontend >= 2.0.0.beta (May potentially be replaced with an alternative)
 
 Installation
 ------------
@@ -56,22 +56,26 @@ Sample Data
 
 If you'd like to generate sample data, use the included rake tasks:
 
-    rake spree_sample:load            # Loads sample data into the store
-    rake db:sample:suppliers          # Create sample suppliers and randomly link to products
-    rake db:sample:drop_ship_orders   # Create sample drop ship orders
+```shell
+rake spree_sample:load            # Loads sample data into the store
+rake db:sample:suppliers          # Create sample suppliers and randomly link to products
+rake db:sample:drop_ship_orders   # Create sample drop ship orders
+```
 
 Demo
 ----
 
 You can easily use the spec/dummy app as a demo of spree_drop_ship. Just `cd` to where you develop and run:
 
-    git clone git://github.com/jdutil/spree_drop_ship.git
-    cd spree_drop_ship
-    bundle install
-    bundle exec rake test_app
-    cd spec/dummy
-    rake db:migrate db:seed spree_sample:load db:sample:suppliers db:sample:drop_ship_orders
-    rails s
+```shell
+git clone git://github.com/jdutil/spree_drop_ship.git
+cd spree_drop_ship
+bundle install
+bundle exec rake test_app
+cd spec/dummy
+rake db:migrate db:seed spree_sample:load db:sample:suppliers db:sample:drop_ship_orders
+rails s
+```
 
 Contributing
 ------------
@@ -86,36 +90,37 @@ Here are some ways *you* can contribute:
 * by [translating to a new language](https://github.com/jdutil/spree_drop_ship/tree/master/config/locales)
 * by writing or editing documentation
 * by writing specifications
-* by writing code (**no patch is too small**: fix typos, add comments, clean up inconsistent whitespace)
+* by writing code (*no patch is too small*: fix typos, add comments, clean up inconsistent whitespace)
 * by refactoring code
 * by resolving [issues](https://github.com/jdutil/spree_drop_ship/issues)
 * by reviewing patches
+* by donating bitcoin to 1L6akT6Aus9r6Ashw1wDtLg7D8zJCVVZac
 
 Testing
 -------
 
 Be sure to bundle your dependencies and then create a dummy test app for the specs to run against.
 
-    $ bundle
-    $ bundle exec rake test_app
-    $ bundle exec rspec spec
+```shell
+bundle
+bundle exec rake test_app
+bundle exec rspec spec
+```
 
 Todo
 ----
 
-- Finish I18n implementation (mailer views, and anywhere else plain text is found)
-- Admin state/country selects should use Spree code (double check they may be now)
-- Finish/Style Email templates
-- Finish styling views for admin redesign & account pages
-- Drop ship order styles
 - Make supplier address form DRY with spree core (requires patching spree_frontend)
+- Finish styling views for admin redesign & account pages
+- Finish/Style Email templates
 - Better documentation
+- Finish I18n implementation (mailer views, and anywhere else plain text is found)
 - Add new languages
-- Support Spree 2.x.
+- Implement strong_params and other Rails 4 compatibilities
 
 Thanks
 ------
 
 This extension is based on past work by [Spencer Steffen](http://github.com/citrus/spree_drop_shipping).
 
-Copyright (c) 2012 Jeff Dutil, released under the [New BSD License](https://github.com/jdutil/spree_drop_ship/tree/master/LICENSE).
+Copyright (c) 2012-2013 Jeff Dutil, released under the [New BSD License](https://github.com/jdutil/spree_drop_ship/tree/master/LICENSE).

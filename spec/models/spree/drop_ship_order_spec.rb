@@ -5,11 +5,11 @@ describe Spree::DropShipOrder do
   it { should belong_to(:order) }
   it { should belong_to(:supplier) }
 
-  it { should have_many(:line_items) }
+  it { should have_many(:drop_ship_line_items).dependent(:destroy) }
+  it { should have_many(:line_items).through(:drop_ship_line_items) }
+  it { should have_many(:users).through(:supplier) }
 
-  it { should have_one(:user).through(:supplier) }
-
-  it { should validate_presence_of(:commission_fee) }
+  it { should validate_presence_of(:commission) }
   it { should validate_presence_of(:order_id) }
   it { should validate_presence_of(:supplier_id) }
 
@@ -18,11 +18,16 @@ describe Spree::DropShipOrder do
     instance.destroy.should eql(false)
   end
 
+  it '#number' do
+    record = create(:drop_ship_order)
+    record.number.should eql(record.id)
+  end
+
   context "A new drop ship order" do
 
     it "should calcluate total when empty" do
       @drop_ship_order = build(:drop_ship_order)
-      assert_equal 0.0, @drop_ship_order.update_total
+      assert_equal 0.0, @drop_ship_order.send(:update_total)
     end
 
   end
@@ -36,30 +41,10 @@ describe Spree::DropShipOrder do
     end
 
     it "should add line relevant line items" do
-      suppliers_item = create(:line_item_to_drop_ship, supplier: @supplier)
-      @line_items = [ create(:line_item), create(:line_item_to_drop_ship), suppliers_item ]
+      suppliers_item = create(:line_item, variant: create(:variant_with_supplier, product: create(:product, supplier: @supplier)))
+      @line_items = [ create(:line_item), create(:line_item, variant: create(:variant_with_supplier)), suppliers_item ]
       @drop_ship_order.add(@line_items)
       assert_equal 1, @drop_ship_order.line_items.count
-      assert_equal suppliers_item.attributes, @drop_ship_order.line_items.first.line_item.attributes
-    end
-
-    it "should update quantity of items already in order" do
-      @line_item = create(:line_item_to_drop_ship, supplier: @supplier)
-      @drop_ship_order.add(@line_item)
-      assert_equal 1, @drop_ship_order.line_items.count
-      assert_equal 1, @drop_ship_order.line_items.first.quantity
-
-      @line_item.quantity = 3
-      @drop_ship_order.add(@line_item)
-      assert_equal 1, @drop_ship_order.line_items.count
-      assert_equal 3, @drop_ship_order.line_items.first.quantity
-    end
-
-    it "should add items and update total" do
-      @line_items = [ create(:line_item_to_drop_ship, supplier: @supplier), create(:line_item_to_drop_ship, supplier: @supplier), create(:line_item_to_drop_ship, supplier: @supplier) ]
-      price = @line_items.map{|li| li.quantity * li.price }.inject(:+)
-      @drop_ship_order.add(@line_items)
-      assert_equal price.to_f, @drop_ship_order.total.to_f
     end
 
   end
@@ -80,7 +65,6 @@ describe Spree::DropShipOrder do
     context "when delivered" do
 
       before do
-        puts @drop_ship_order.inspect
         @drop_ship_order.deliver!
       end
 
@@ -138,24 +122,21 @@ describe Spree::DropShipOrder do
             assert_not_nil @drop_ship_order.shipped_at
           end
 
-          it "should send shipment email to supplier" do
-            # the ship state sends two emails.. so we'll get the second to last here
-            index = ActionMailer::Base.deliveries.length - 2
-            assert_equal @drop_ship_order.supplier.email, ActionMailer::Base.deliveries[index].to.first
-            assert_equal "Shipped - #{Spree::Config[:site_name]} - Order ##{@drop_ship_order.id}", ActionMailer::Base.deliveries[index].subject
-          end
-
-          it "should send shipment email to customer" do
-            assert_equal @drop_ship_order.order.email, ActionMailer::Base.deliveries.last.to.first
-            assert_equal "Shipped - #{Spree::Config[:site_name]} - Order ##{@drop_ship_order.id}", ActionMailer::Base.deliveries.last.subject
-          end
-
         end
 
       end
 
     end
 
+  end
+
+  it '#update_commission' do
+    record = create(:drop_ship_order)
+    record.supplier.stub commission_flat_rate: 0.3
+    record.supplier.stub commission_percentage: 10
+    record.stub total: 110
+    record.save
+    record.reload.commission.to_f.should eql(11.3)
   end
 
 end

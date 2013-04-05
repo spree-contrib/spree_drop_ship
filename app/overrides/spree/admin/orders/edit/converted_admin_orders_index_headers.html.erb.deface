@@ -1,0 +1,3 @@
+<!-- insert_bottom "[data-hook='admin_orders_index_headers'], #admin_orders_index_headers[data-hook]" -->
+
+<th><%= t(".drop_ship_order_ids") %></th>

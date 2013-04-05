@@ -15,6 +15,8 @@ describe 'Admin - Drop Ship Settings', js: true do
   end
 
   it 'should be able to be updated' do
+    fill_in 'default_commission_percentage', with: 10
+    fill_in 'default_commission_flat_rate', with: 0.30
     uncheck 'send_supplier_welcome_email'
     click_button 'Update'
     page.should have_content('Drop ship settings successfully updated.')

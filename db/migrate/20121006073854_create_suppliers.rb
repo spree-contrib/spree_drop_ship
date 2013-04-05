@@ -2,18 +2,19 @@ class CreateSuppliers < ActiveRecord::Migration
 
   def change
     create_table :spree_suppliers do |t|
-      t.references :user
+      t.boolean    :active, default: false, null: false
       t.references :address
-      t.string     :name
+      t.decimal    :commission_flat_rate, :precision => 8, :scale => 2, :default => 0.0, :null => false
+      t.float      :commission_percentage
       t.string     :email
-      t.string     :phone
+      t.string     :name
       t.string     :url
       t.datetime   :deleted_at
       t.timestamps
     end
-    add_index :spree_suppliers, :user_id
     add_index :spree_suppliers, :address_id
     add_index :spree_suppliers, :deleted_at
+    add_index :spree_suppliers, :active
   end
 
 end

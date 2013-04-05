@@ -1,7 +1,5 @@
 <% content_for :head do -%>
   <meta name="title" content="<%= t(:supplier_signup) %>">
-  <%= javascript_include_tag states_url(:format => :js) %>
-  <%= javascript_include_tag countries_url(:format => :js) %>
 <% end -%>
 
 <% if defined?(SpreeFancy) %>
@@ -37,17 +35,12 @@
         <%= form.text_field :name, :class => 'title' %>
       </p>
       <p>
-        <%= form.label :phone, t('supplier.phone') %>
-        <span class="required">*</span><br />
-        <%= form.text_field :phone, :class => 'text' %>
-      </p>
-      <p>
         <%= form.label :url, t('supplier.url') %><br />
         <%= form.text_field :url, :class => 'text' %>
       </p>
     </fieldset>
     <p class="form-buttons">
-      <%= form.submit t(:signup) %> <%= t('or') %> <%= link_to t('cancel'), account_path %>
+      <%= form.submit t(:signup) %> <%= t('or') %> <%= link_to t('cancel'), spree.account_path %>
     </p>
   </div>
 <% end %>

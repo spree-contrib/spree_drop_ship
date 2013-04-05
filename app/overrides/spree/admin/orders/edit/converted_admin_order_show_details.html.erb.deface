@@ -1,0 +1,11 @@
+<!-- insert_after "[data-hook='admin_order_show_details'], #admin_order_show_details[data-hook]" -->
+
+<% if @order.has_drop_ship_orders? %>
+  <div class="drop-ship-orders">
+    <h2>Drop Ship Information</h2>
+    <% @order.drop_ship_orders.each do |drop_ship_order| %>      
+      <h3><%= link_to "##{drop_ship_order.id}", spree.admin_drop_ship_order_path(drop_ship_order) %> - <%= link_to drop_ship_order.supplier.name, spree.admin_supplier_path(drop_ship_order.supplier) %> - <%= drop_ship_order.state %></h3>
+      <%= render "spree/drop_ship_orders/table", :drop_ship_order => drop_ship_order %>
+    <% end %>
+  </div>
+<% end %>
