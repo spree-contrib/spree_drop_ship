@@ -6,8 +6,9 @@ feature 'Supplier editing information', js: true do
 
     it 'should be unauthorized' do
       supplier = create(:supplier)
+      create(:user) # create extra user so admin role isnt assigned to the user we login as
       login_user create(:user)
-      visit spree.edit_supplier_path(@supplier)
+      visit spree.edit_supplier_path(supplier)
       page.should have_content('Unauthorized')
     end
 
