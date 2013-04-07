@@ -1,5 +1,8 @@
 module Spree
   class DropShipConfiguration < Preferences::Configuration
+    # Allow users to signup as a supplier
+    preference :allow_signup, :boolean, default: false
+
     # Default flat rate to charge drop ship suppliers per order for commission.
     preference :default_commission_flat_rate, :float, default: 0.0
 

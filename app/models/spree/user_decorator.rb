@@ -2,13 +2,13 @@ Spree.user_class.class_eval do
 
   belongs_to :supplier
 
-  # TODO: add to spree_auth_devise
+  # TODO Add to SpreeAuthDevise or SpreeCore?
   def admin?
-    self.spree_roles.pluck(:name).include?('admin')
+    has_spree_role?('admin')
   end
 
   def supplier?
-    self.supplier.present?
+    supplier.present?
   end
 
 end
