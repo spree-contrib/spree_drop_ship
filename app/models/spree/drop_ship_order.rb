@@ -12,6 +12,8 @@ class Spree::DropShipOrder < ActiveRecord::Base
   has_many :line_items, through: :drop_ship_line_items
   has_many :users, class_name: Spree.user_class.to_s, through: :supplier
 
+  has_one :user, through: :order
+
   #==========================================
   # Validations
 
@@ -79,6 +81,10 @@ class Spree::DropShipOrder < ActiveRecord::Base
 
   alias_method :number, :id
 
+  def shipments
+    order.shipments.joins(:stock_location).where('spree_stock_locations.supplier_id = ?', self.supplier_id)
+  end
+
   #==========================================
   # Private Methods
 
@@ -86,7 +92,6 @@ class Spree::DropShipOrder < ActiveRecord::Base
 
     def perform_confirmation # :nodoc:
       self.update_attribute(:confirmed_at, Time.now)
-      Spree::DropShipOrderMailer.confirmation(self).deliver!
     end
 
     def perform_delivery # :nodoc:

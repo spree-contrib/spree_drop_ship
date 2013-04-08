@@ -41,7 +41,7 @@ feature 'Supplier Signup', js: true do
       select 'United States', from: 'supplier[address_attributes][country_id]'
       select 'Vermont', from: 'supplier[address_attributes][state_id]'
       fill_in 'supplier[address_attributes][phone]', with: '555-555-5555'
-      click_button 'Signup'
+      click_button 'Sign Up'
       page.should have_content('Thank you for signing up!')
     end
 
@@ -60,7 +60,7 @@ feature 'Supplier Signup', js: true do
       select 'United States', from: 'supplier[address_attributes][country_id]'
       select 'Vermont', from: 'supplier[address_attributes][state_id]'
       fill_in 'supplier[address_attributes][phone]', with: '555-555-5555'
-      click_button 'Signup'
+      click_button 'Sign Up'
       page.should have_content('Address is invalid')
     end
 

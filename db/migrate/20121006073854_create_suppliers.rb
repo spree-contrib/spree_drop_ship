@@ -5,7 +5,7 @@ class CreateSuppliers < ActiveRecord::Migration
       t.boolean    :active, default: false, null: false
       t.references :address
       t.decimal    :commission_flat_rate, :precision => 8, :scale => 2, :default => 0.0, :null => false
-      t.float      :commission_percentage
+      t.float      :commission_percentage, default: 0.0, null: false
       t.string     :email
       t.string     :name
       t.string     :url

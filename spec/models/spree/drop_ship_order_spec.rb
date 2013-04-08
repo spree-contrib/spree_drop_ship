@@ -9,6 +9,8 @@ describe Spree::DropShipOrder do
   it { should have_many(:line_items).through(:drop_ship_line_items) }
   it { should have_many(:users).through(:supplier) }
 
+  it { should have_one(:user) }
+
   it { should validate_presence_of(:commission) }
   it { should validate_presence_of(:order_id) }
   it { should validate_presence_of(:supplier_id) }
@@ -21,6 +23,11 @@ describe Spree::DropShipOrder do
   it '#number' do
     record = create(:drop_ship_order)
     record.number.should eql(record.id)
+  end
+
+  it '#shipments' do
+    create(:order_with_multiple_suppliers)
+    pending 'write it'
   end
 
   context "A new drop ship order" do
@@ -78,7 +85,7 @@ describe Spree::DropShipOrder do
 
       it "should send order to supplier" do
         assert_equal @drop_ship_order.supplier.email, ActionMailer::Base.deliveries.last.to.first
-        assert_equal "#{Spree::Config[:site_name]} - Order ##{@drop_ship_order.id}", ActionMailer::Base.deliveries.last.subject
+        assert_equal "#{Spree::Config[:site_name]} Drop Ship Order ##{@drop_ship_order.id}", ActionMailer::Base.deliveries.last.subject
       end
 
       context "and confirmed" do
@@ -95,22 +102,9 @@ describe Spree::DropShipOrder do
           assert_not_nil @drop_ship_order.confirmed_at
         end
 
-        it "should send confirmation to supplier" do
-          assert_equal @drop_ship_order.supplier.email, ActionMailer::Base.deliveries.last.to.first
-          assert_equal "Confirmation - #{Spree::Config[:site_name]} - Order ##{@drop_ship_order.id}", ActionMailer::Base.deliveries.last.subject
-        end
-
         context "and shipped" do
 
           before do
-            @drop_ship_order.update_attributes(
-              {
-                :shipping_method => "UPS Ground",
-                :confirmation_number => "935468423",
-                :tracking_number => "1Z03294230492345234"
-              },
-              :without_protection => true
-            )
             @drop_ship_order.ship!
           end
 

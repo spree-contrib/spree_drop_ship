@@ -10,6 +10,8 @@ en:
   drop_ship_order_number: "Drop Ship Order #%{number}"
   drop_ship_orders: Drop Ship Orders
   must_be_logged_in: 'Must Be Logged In'
+  save: Save
+  signup: Sign Up
   signup_to_become_a_supplier: 'Signup To Become A Supplier'
   spree:
     admin:
@@ -27,10 +29,6 @@ en:
           approve_drop_ship_orders: Approve Drop Ship Orders
           resend_drop_ship_orders: Resend Drop Ship Orders
           drop_ship_order_approval_confirmation: This will send each drop ship order to it's relative supplier. Continue?
-      products:
-        form:
-          supplier: Drop Shipping Supplier
-          none: --- none ---
       suppliers:
         new:
           new_supplier: New Supplier
@@ -43,6 +41,11 @@ en:
           success: "Drop ship order %{number} was successfully sent!"
         orders_sent: All drop ship orders have successfully been sent
         orders_not_sent: Some or all of the drop ship orders could not be sent. Please contact the suppliers directly.
+    drop_ship_order_mailer:
+      supplier_order:
+        hello: "Hello %{name},"
+        subject: "%{name} Drop Ship Order #%{number}"
+        thank_you_again: "Thank you again for your business, <b>%{name}</b>"
     shared:
       unauthorized:
         explained: Your not authorized to access this page.

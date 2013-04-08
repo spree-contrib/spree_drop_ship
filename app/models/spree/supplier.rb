@@ -57,7 +57,7 @@ class Spree::Supplier < ActiveRecord::Base
     end
 
     def create_stock_location
-      self.stock_locations.create(name: self.name)
+      self.stock_locations.create(active: true, country_id: self.address.country_id, name: self.name)
     end
 
     def send_welcome
