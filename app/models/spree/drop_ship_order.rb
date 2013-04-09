@@ -96,7 +96,7 @@ class Spree::DropShipOrder < ActiveRecord::Base
 
     def perform_delivery # :nodoc:
       self.update_attribute(:sent_at, Time.now)
-      Spree::DropShipOrderMailer.supplier_order(self).deliver!
+      Spree::DropShipOrderMailer.supplier_order(self).deliver! if Spree::DropShipConfig[:send_supplier_email]
     end
 
     def perform_shipment # :nodoc:

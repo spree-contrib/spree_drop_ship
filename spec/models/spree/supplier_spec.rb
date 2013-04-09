@@ -64,7 +64,7 @@ describe Spree::Supplier do
   context '#send_welcome' do
 
     after do
-      Spree::DropShipConfig[:send_supplier_welcome_email] = true
+      Spree::DropShipConfig[:send_supplier_email] = true
     end
 
     before do
@@ -72,10 +72,10 @@ describe Spree::Supplier do
       @mail_message = mock('Mail::Message')
     end
 
-    context 'with Spree::DropShipConfig[:send_supplier_welcome_email] == false' do
+    context 'with Spree::DropShipConfig[:send_supplier_email] == false' do
 
       it 'should not send' do
-        Spree::DropShipConfig[:send_supplier_welcome_email] = false
+        Spree::DropShipConfig[:send_supplier_email] = false
         Spree::SupplierMailer.should_not_receive(:welcome)
         @mail_message.should_not_receive :deliver!
         @instance.save
@@ -83,7 +83,7 @@ describe Spree::Supplier do
 
     end
 
-    context 'with Spree::DropShipConfig[:send_supplier_welcome_email] == true' do
+    context 'with Spree::DropShipConfig[:send_supplier_email] == true' do
 
       it 'should send welcome email' do
         Spree::SupplierMailer.should_receive(:welcome).and_return(@mail_message)

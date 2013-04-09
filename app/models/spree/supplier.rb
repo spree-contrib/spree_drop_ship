@@ -29,7 +29,7 @@ class Spree::Supplier < ActiveRecord::Base
 
   after_create :assign_user
   after_create :create_stock_location
-  after_create :send_welcome, if: -> { Spree::DropShipConfig[:send_supplier_welcome_email] }
+  after_create :send_welcome, if: -> { Spree::DropShipConfig[:send_supplier_email] }
   before_validation :set_commission
 
   #==========================================

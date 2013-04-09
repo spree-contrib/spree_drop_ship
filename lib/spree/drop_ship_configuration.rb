@@ -10,6 +10,6 @@ module Spree
     preference :default_commission_percentage, :float, default: 0.0
 
     # Determines whether or not to email a new supplier their welcome email.
-    preference :send_supplier_welcome_email, :boolean, default: true
+    preference :send_supplier_email, :boolean, default: true
   end
 end
