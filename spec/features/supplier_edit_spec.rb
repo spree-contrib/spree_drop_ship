@@ -2,24 +2,35 @@ require 'spec_helper'
 
 feature 'Supplier editing information', js: true do
 
-  context 'logged in' do
+  context 'logged in as a user other than the suppliers' do
+
+    it 'should be unauthorized' do
+      supplier = create(:supplier)
+      create(:user) # create extra user so admin role isnt assigned to the user we login as
+      login_user create(:user)
+      visit spree.edit_supplier_path(supplier)
+      page.should have_content('Unauthorized')
+    end
+
+  end
+
+  context 'logged in as a suppliers user' do
 
     before do
       country = create(:country, name: "United States")
       create(:state, name: "Vermont", country: country)
       @user = create(:user)
-      create(:supplier, email: @user.email, user: @user)
+      create(:supplier, email: @user.email, users: [@user])
       login_user @user
       visit spree.account_path
     end
 
-    scenario 'should be able to create new supplier' do
+    scenario 'should be able to update supplier' do
       within 'dd.supplier-info' do
         click_link 'Edit'
       end
       fill_in 'supplier[name]', with: 'Test Supplier'
       fill_in 'supplier[email]', with: @user.email
-      fill_in 'supplier[phone]', with: '555-555-5555'
       fill_in 'supplier[url]', with: 'http://www.test.com'
       fill_in 'supplier[address_attributes][firstname]', with: 'First'
       fill_in 'supplier[address_attributes][lastname]', with: 'Last'
@@ -33,13 +44,12 @@ feature 'Supplier editing information', js: true do
       page.should have_content('Your information has been successfully updated.')
     end
 
-    scenario 'should display errors with invalid supplier' do
+    scenario 'should display errors with invalid supplier update' do
       within 'dd.supplier-info' do
         click_link 'Edit'
       end
       fill_in 'supplier[name]', with: 'Test Supplier'
       fill_in 'supplier[email]', with: @user.email
-      fill_in 'supplier[phone]', with: '555-555-5555'
       fill_in 'supplier[url]', with: 'http://www.test.com'
       fill_in 'supplier[address_attributes][firstname]', with: ''
       fill_in 'supplier[address_attributes][lastname]', with: 'Last'

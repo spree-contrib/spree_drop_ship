@@ -4,7 +4,7 @@ Spree::Product.class_eval do
   attr_accessible :supplier_id
 
   # Returns true if the product has a drop shipping supplier.
-  def has_supplier?
+  def supplier?
     supplier.present?
   end
 

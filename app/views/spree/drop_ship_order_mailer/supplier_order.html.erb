@@ -1,24 +1,122 @@
-<h1>Drop Ship Order #<%= @drop_ship_order.id %></h1>
-<h4>Reference Number <%= @drop_ship_order.order.number %></h4>
-
-<br/>
-
-<h4>Hello <%= @supplier.name %>,</h4>
-
-<p>You've got a new order! Here's the details:</p>
-
-<h3 style="border-bottom: 1px solid #ddd;">Product Information</h3>
-
-<%= render "spree/drop_ship_orders/table", :drop_ship_order => @drop_ship_order %>
-
-<h3 style="border-bottom: 1px solid #ddd;">Shipping Information</h3>
-
-<%= render "spree/drop_ship_orders/shipping_info", :address => @address %>
-
-<h3 style="border-bottom: 1px solid #ddd;">Confirmation</h3>
-
-<%= link_to "You must click here to confirm this order", spree.edit_drop_ship_order_url(@drop_ship_order) %>
-
-<p>Thanks,</p>
-
-<p>- <%= Spree::Config[:site_name] %></p>
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+  <tbody>
+    <tr>
+      <td align="center" valign="top" style="padding:20px 0 20px 0">
+        <table bgcolor="#FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:1px solid #e0e0e0">
+          <tbody>
+            <tr>
+              <td valign="top">
+                <figure id="logo" data-hook><%= link_to image_tag(Spree::Config[:logo]), spree.root_url %></figure>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">
+                <h1 style="font-size:22px;font-weight:normal;line-height:22px;"><%= t('.hello', name: @supplier.name ) %></h1>
+                <p style="font-size:12px;line-height:16px;margin:0">
+                  An order has been placed.  Please confirm the shipment details, and <%= link_to 'update the drop ship order', spree.edit_admin_drop_ship_order_url(@drop_ship_order) %> once it has shipped.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h2 style="font-size:18px;font-weight:normal;">Drop Ship Order #<%= @drop_ship_order.id %> <small>(placed on <%= @drop_ship_order.order.completed_at %>)</small></h2>
+                <h4style="font-size:14px;font-weight:normal;">Reference Number: <%= @order.number %></h4>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                  <thead>
+                    <tr>
+                      <th align="left" width="325" bgcolor="#EAEAEA" style="font-size:13px;padding:5px 9px 6px 9px;line-height:1em">Shipping Information:</th>
+                      <th width="10"></th>
+                      <th align="left" width="325" bgcolor="#EAEAEA" style="font-size:13px;padding:5px 9px 6px 9px;line-height:1em">Shipping Method:</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td valign="top" style="font-size:12px;padding:7px 9px 9px 9px;border-left:1px solid #eaeaea;border-bottom:1px solid #eaeaea;border-right:1px solid #eaeaea">
+                        <%= @order.ship_address.firstname %> <%= @order.ship_address.lastname %><br/>
+                        <%= @order.ship_address.address1 %><br/>
+                        <% unless @order.ship_address.address2.blank? %><%= @order.ship_address.address2 %><br/><% end %>
+                        <%= @order.ship_address.city %>, <%= @order.ship_address.state.name %> <%= @order.ship_address.zipcode %><br/>
+                        <%= @order.ship_address.country.name %><br/>
+                        T: <a href="tel:<%= @order.ship_address.phone %>" value="<%= @order.ship_address.phone %>" target="_blank"><%= @order.ship_address.phone %></a>
+                      </td>
+                      <td>&nbsp;</td>
+                      <td valign="top" style="font-size:12px;padding:7px 9px 9px 9px;border-left:1px solid #eaeaea;border-bottom:1px solid #eaeaea;border-right:1px solid #eaeaea">
+                        <% @drop_ship_order.shipments.each do |shipment| %>
+                          <%= shipment.shipping_method.name %><br/>
+                        <% end %>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <% @drop_ship_order.shipments.each do |shipment| %>
+                  <br>
+                  <table cellspacing="0" cellpadding="0" border="0" width="650" style="border:1px solid #eaeaea">
+                    <thead>
+                      <tr>
+                        <th align="left" bgcolor="#EAEAEA" style="font-size:13px;padding:3px 9px">Item</th>
+                        <th align="left" bgcolor="#EAEAEA" style="font-size:13px;padding:3px 9px">Sku</th>
+                        <th align="center" bgcolor="#EAEAEA" style="font-size:13px;padding:3px 9px">Qty</th>
+                        <th align="right" bgcolor="#EAEAEA" style="font-size:13px;padding:3px 9px">Subtotal</th>
+                      </tr>
+                    </thead>
+                    <tbody bgcolor="#F6F6F6">
+                      <% shipment.line_items.each do |line_item| %>
+                        <tr>
+                          <td align="left" valign="top" style="font-size:11px;padding:3px 9px;border-bottom:1px dotted #cccccc">
+                            <strong style="font-size:11px"><%= line_item.variant.name %></strong>
+                          </td>
+                          <td align="left" valign="top" style="font-size:11px;padding:3px 9px;border-bottom:1px dotted #cccccc"><%= line_item.variant.sku %></td>
+                          <td align="center" valign="top" style="font-size:11px;padding:3px 9px;border-bottom:1px dotted #cccccc"><%= line_item.quantity %></td>
+                          <td align="right" valign="top" style="font-size:11px;padding:3px 9px;border-bottom:1px dotted #cccccc">
+                            <span><%= line_item.display_amount %></span>
+                          </td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                    <tbody>
+                      <tr>
+                        <td colspan="3" align="right" style="padding:3px 9px">
+                          Subtotal
+                        </td>
+                        <td align="right" style="padding:3px 9px">
+                          <span><%= shipment.display_item_cost %></span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="3" align="right" style="padding:3px 9px">
+                          Shipping &amp; Handling
+                        </td>
+                        <td align="right" style="padding:3px 9px">
+                          <span><%= shipment.display_cost %></span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="3" align="right" style="padding:3px 9px">
+                          <strong>Grand Total</strong>
+                        </td>
+                        <td align="right" style="padding:3px 9px">
+                          <strong><span><%= shipment.display_total_cost %></span></strong>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td bgcolor="#EAEAEA" align="center" style="background:#eaeaea;text-align:center">
+                <center>
+                  <p style="font-size:12px;margin:0"><%= raw t('.thank_you_again', name: Spree::Config[:site_name]) %></p>
+                </center>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>

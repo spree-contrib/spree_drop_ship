@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Spree.user_class do
 
-  it { should have_one(:supplier) }
+  it { should belong_to(:supplier) }
 
   let(:user) { build :user }
 
@@ -11,10 +11,10 @@ describe Spree.user_class do
     pending 'should be moved and tested in spree_auth_devise'
   end
 
-  it '#has_supplier?' do
-    user.has_supplier?.should be_false
+  it '#supplier?' do
+    user.supplier?.should be_false
     user.supplier = build :supplier
-    user.has_supplier?.should be_true
+    user.supplier?.should be_true
   end
 
 end

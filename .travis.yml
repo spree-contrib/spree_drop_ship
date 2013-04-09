@@ -3,8 +3,12 @@ before_script:
 script: 'bundle exec rspec spec'
 rvm:
   - 1.9.3
-  # - ruby-head
+  - 2.0.0
+  - ruby-head
 language: ruby
+matrix:
+  allow_failures:
+    - rvm: ruby-head
 notifications:
   recipients:
     - JDutil@BurlingtonWebApps.com

@@ -1,0 +1,5 @@
+<!-- insert_bottom "[data-hook='admin_order_tabs'], #admin_order_tabs[data-hook]" -->
+
+<li<%== ' class="active"' if current == "Drop Ship Orders" %>>
+  <%= link_to t(:drop_ship_orders), spree.admin_order_drop_ship_orders_url(@order) %>
+</li>

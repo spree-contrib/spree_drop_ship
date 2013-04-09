@@ -1,34 +1,21 @@
-<%= render "spree/admin/shared/supplier_tabs", :current => "Supplier Details" %>
+<% content_for :page_actions do %>
+  <li><%= button_link_to t(:edit_supplier), spree.edit_admin_supplier_path(@supplier), :icon => 'icon-edit' %></li>
+<% end %>
 
-<h2><%= @supplier.name %></h2>
+<% content_for :page_title do %>
+  <h1><%= @supplier.name %></h1>
+<% end %>
+
+TODO make it look nice...
+
 <h4><%= render "spree/admin/shared/address", :address => @supplier.address %></h4>
 <dl>
-  <dt>Email</dt>
+  <dt><%= t(:email) %></dt>
     <dd><%= @supplier.email %></dd>
-  <dt>Phone</dt>
-    <dd><%= @supplier.phone %></dd>
-  <dt>URL</dt>
+  <dt><%= t(:url) %></dt>
     <dd><%= @supplier.url %></dd>
-  <dt>Contact</dt>
+  <dt><%= t(:name) %></dt>
     <dd><%= @supplier.name %></dd>
-  <% unless @supplier.email.blank? %>
-    <dt>Contact Email</dt>
-    <dd><%= mail_to @supplier.email %></dd>
-  <% end %>
-  <% unless @supplier.phone.blank? %>
-    <dt>Contact Phone</dt>
-    <dd><%= @supplier.phone %></dd>
-  <% end %>
-  <dt>Order Count</dt>
-    <dd><%= link_to @supplier.orders.count, admin_supplier_orders_path(@supplier) %></dd>
-  <dt>User ID</dt>
-    <dd><%= link_to @supplier.user.id, admin_user_path(@supplier.user) %></dd>
-    
+  <dt><%= t(:order_count) %></dt>
+    <dd><%= link_to @supplier.orders.count, spree.admin_supplier_orders_path(@supplier) %></dd>
 </dl>
-
-<hr class="clear" />
-  
-<p>
-  <%= link_to_edit @supplier %> &nbsp;
-  <%= link_to t('back'), collection_url %>
-</p>

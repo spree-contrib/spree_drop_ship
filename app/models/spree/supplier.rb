@@ -1,32 +1,36 @@
 class Spree::Supplier < ActiveRecord::Base
 
-  attr_accessible :address_attributes, :contact_email, :contact_phone, :email, :name, :phone, :url
+  attr_accessible :address_attributes, :commission_flat_rate, :commission_percentage, :email, :name, :url
 
   #==========================================
   # Associations
 
   belongs_to :address, class_name: 'Spree::Address'
   accepts_nested_attributes_for :address
-  belongs_to :user, class_name: Spree.user_class.to_s
 
-  has_many   :orders, :class_name => "Spree::DropShipOrder", :dependent => :nullify
+  has_many   :orders, class_name: "Spree::DropShipOrder", dependent: :nullify
   has_many   :products
+  has_many   :stock_locations
+  has_many   :users, class_name: Spree.user_class.to_s
 
   #==========================================
   # Validations
 
   validates_associated :address
-  validates :address, :presence => true
-  validates :commission_fee_percentage, :presence => true
-  validates :email, :presence => true, :email => true
-  validates :name, presence: true, uniqueness: true
-  validates :phone, :presence => true
-  validates :url, format: { with: URI::regexp(%w(http https)), allow_blank: true }
+  validates :address,               presence: true
+  validates :commission_flat_rate,  presence: true
+  validates :commission_percentage, presence: true
+  validates :email,                 presence: true, email: true
+  validates :name,                  presence: true, uniqueness: true
+  validates :url,                   format: { with: URI::regexp(%w(http https)), allow_blank: true }
 
   #==========================================
   # Callbacks
 
-  after_create :find_or_create_user_and_send_welcome
+  after_create :assign_user
+  after_create :create_stock_location
+  after_create :send_welcome, if: -> { Spree::DropShipConfig[:send_supplier_welcome_email] }
+  before_validation :set_commission
 
   #==========================================
   # Instance Methods
@@ -45,17 +49,28 @@ class Spree::Supplier < ActiveRecord::Base
 
   protected
 
-    def find_or_create_user_and_send_welcome
-      unless self.user ||= Spree.user_class.find_by_email(self.email)
-        password = Digest::SHA1.hexdigest(email.to_s)[0..16]
-        self.user = self.create_user(:email => email, :password => password, :password_confirmation => password)
-        # TODO not kosher to send private methods what other solutions are there and one that probably actually sends the reset email.
-        self.user.send(:generate_reset_password_token!) if self.user.respond_to?(:generate_reset_password_token!)
+    def assign_user
+      if self.users.empty? and user = Spree.user_class.find_by_email(self.email)
+        self.users << user
+        self.save
       end
-      if Spree::DropShipConfig[:send_supplier_welcome_email]
-        Spree::SupplierMailer.welcome(self).deliver!
+    end
+
+    def create_stock_location
+      self.stock_locations.create(active: true, country_id: self.address.country_id, name: self.name)
+    end
+
+    def send_welcome
+      Spree::SupplierMailer.welcome(self).deliver!
+    end
+
+    def set_commission
+      if self.commission_flat_rate.blank?
+        self.commission_flat_rate = Spree::DropShipConfig[:default_commission_flat_rate]
       end
-      self.save
+      if self.commission_percentage.blank?
+        self.commission_percentage = Spree::DropShipConfig[:default_commission_percentage]
+      end
     end
 
 end

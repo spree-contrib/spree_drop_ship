@@ -1,14 +1,14 @@
 Spree.user_class.class_eval do
 
-  has_one :supplier, :foreign_key => :user_id
+  belongs_to :supplier
 
-  # TODO: add to spree_auth_devise
+  # TODO Add to SpreeAuthDevise or SpreeCore?
   def admin?
-    self.spree_roles.pluck(:name).include?('admin')
+    has_spree_role?('admin')
   end
 
-  def has_supplier?
-    self.supplier.present?
+  def supplier?
+    supplier.present?
   end
 
 end

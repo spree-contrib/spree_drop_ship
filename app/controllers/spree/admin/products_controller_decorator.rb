@@ -13,8 +13,7 @@ Spree::Admin::ProductsController.class_eval do
   end
 
   def get_suppliers
-    # TODO refactor: should just use a select2 ajax dropdown in the view instead
-    @supplier_options = Spree::Supplier.order(:name).all.map{ |s| [ s.name, s.id ] }
+    @suppliers = Spree::Supplier.order(:name)
   end
 
 end

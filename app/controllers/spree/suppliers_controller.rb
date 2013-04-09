@@ -28,7 +28,7 @@ class Spree::SuppliersController < Spree::StoreController
     authorize! :update, @supplier
     if @supplier.update_attributes(params[:supplier])
       flash[:success] = t('spree.suppliers.update.success')
-      redirect_to spree.account_path(@supplier.user)
+      redirect_to spree.account_path
     else
       render :edit
     end
@@ -44,7 +44,7 @@ class Spree::SuppliersController < Spree::StoreController
   end
 
   def check_if_supplier
-    if spree_current_user.has_supplier?
+    if spree_current_user.supplier?
       flash[:error] = t('spree_drop_ship.already_signed_up')
       redirect_to spree.account_path and return
     end

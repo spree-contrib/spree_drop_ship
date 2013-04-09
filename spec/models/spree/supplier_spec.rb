@@ -3,17 +3,15 @@ require 'spec_helper'
 describe Spree::Supplier do
 
   it { should belong_to(:address) }
-  it { should belong_to(:user) }
 
   it { should have_many(:orders).dependent(:nullify) }
   it { should have_many(:products) }
+  it { should have_many(:stock_locations) }
+  it { should have_many(:users) }
 
   it { should validate_presence_of(:address) }
-  it { should validate_presence_of(:commission_fee_percentage) }
   it { should validate_presence_of(:email) }
   it { should validate_presence_of(:name) }
-  it { should validate_uniqueness_of(:name) }
-  it { should validate_presence_of(:phone) }
 
   # TODO
   # validates :email, email: true
@@ -32,38 +30,50 @@ describe Spree::Supplier do
     subject.deleted_at?.should eql(true)
   end
 
-  context '#find_or_create_user_and_send_welcome' do
+  context '#assign_user' do
+
+    before do
+      @instance = build(:supplier)
+    end
+
+    it 'with user' do
+      Spree.user_class.should_not_receive :find_by_email
+      @instance.email = 'test@test.com'
+      @instance.users << create(:user)
+      @instance.save
+    end
+
+    it 'with existing user email' do
+      user = create(:user, email: 'test@test.com')
+      Spree.user_class.should_receive(:find_by_email).with(user.email).and_return(user)
+      @instance.email = user.email
+      @instance.save
+      @instance.reload.users.first.should eql(user)
+    end
+
+  end
+
+  it '#create_stock_location' do
+    Spree::StockLocation.count.should eql(0)
+    supplier = create :supplier
+    Spree::StockLocation.first.active.should be_true
+    Spree::StockLocation.first.country.should eql(supplier.address.country)
+    Spree::StockLocation.first.supplier.should eql(supplier)
+  end
+
+  context '#send_welcome' do
+
+    before do
+      @instance = build(:supplier)
+      @mail_message = mock('Mail::Message')
+    end
 
     context 'with Spree::DropShipConfig[:send_supplier_welcome_email] == false' do
 
-      before do
+      it 'should not send' do
         Spree::DropShipConfig[:send_supplier_welcome_email] = false
-        @instance = build(:supplier)
-        mail_message = mock('Mail::Message')
-        mail_message.should_not_receive :deliver!
-        Spree::SupplierMailer.should_not_receive(:welcome).with(@instance)
-      end
-
-      it 'with user' do
-        @instance.email = 'test@test.com'
-        @instance.user = create(:user)
-        @instance.should_not_receive(:create_user)
-        # Spree.user_class.should_not_recieve(:find_by_email).with('test@test.com')
-        @instance.save
-      end
-
-      it'with existing user email' do
-        user = create(:user, email: 'test@test.com')
-        @instance.email = 'test@test.com'
-        @instance.user = nil
-        @instance.should_not_receive(:create_user)
-        @instance.save
-      end
-
-      it'without user or existing user email' do
-        @instance.should_receive(:create_user)
-        @instance.email = 'test@test.com'
-        @instance.user = nil
+        Spree::SupplierMailer.should_not_receive(:welcome)
+        @mail_message.should_not_receive :deliver!
         @instance.save
       end
 
@@ -73,15 +83,22 @@ describe Spree::Supplier do
 
       it 'should send welcome email' do
         Spree::DropShipConfig[:send_supplier_welcome_email] = true
-        @instance = build :supplier, user: create(:user)
-        mail_message = mock('Mail::Message')
-        mail_message.should_receive :deliver!
-        Spree::SupplierMailer.should_receive(:welcome).with(@instance).and_return(mail_message)
+        Spree::SupplierMailer.should_receive(:welcome).and_return(@mail_message)
+        @mail_message.should_receive :deliver!
         @instance.save
       end
 
     end
 
+  end
+
+  it '#set_commission' do
+    supplier = create :supplier
+    supplier.commission_flat_rate.should eql(Spree::DropShipConfig[:default_commission_flat_rate])
+    supplier.commission_percentage.should eql(Spree::DropShipConfig[:default_commission_percentage])
+    supplier = create :supplier, commission_flat_rate: 123, commission_percentage: 25
+    supplier.commission_flat_rate.should eql(123.0)
+    supplier.commission_percentage.should eql(25.0)
   end
 
 end

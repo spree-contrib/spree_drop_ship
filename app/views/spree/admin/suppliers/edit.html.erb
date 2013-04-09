@@ -6,8 +6,6 @@
   <%= t('.editing_supplier') + " &ldquo;#{@supplier.name}&rdquo;".html_safe %>
 <% end %>
 
-<%= render "spree/admin/shared/supplier_tabs", :current => "Edit Supplier" %>
-
 <%= render 'spree/shared/error_messages', :target => @supplier %>
 
 <%= form_for [:admin, @supplier] do |f| %>

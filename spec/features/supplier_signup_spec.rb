@@ -4,7 +4,7 @@ feature 'Supplier Signup', js: true do
 
   scenario 'existing supplier' do
     @user = create(:user)
-    create(:supplier, email: @user.email, user: @user)
+    create(:supplier, email: @user.email, users: [@user])
     login_user @user
     visit spree.new_supplier_path
     page.current_path.should eql(spree.account_path)
@@ -32,7 +32,6 @@ feature 'Supplier Signup', js: true do
       end
       fill_in 'supplier[name]', with: 'Test Supplier'
       fill_in 'supplier[email]', with: @user.email
-      fill_in 'supplier[phone]', with: '555-555-5555'
       fill_in 'supplier[url]', with: 'http://www.test.com'
       fill_in 'supplier[address_attributes][firstname]', with: 'First'
       fill_in 'supplier[address_attributes][lastname]', with: 'Last'
@@ -42,7 +41,7 @@ feature 'Supplier Signup', js: true do
       select 'United States', from: 'supplier[address_attributes][country_id]'
       select 'Vermont', from: 'supplier[address_attributes][state_id]'
       fill_in 'supplier[address_attributes][phone]', with: '555-555-5555'
-      click_button 'Signup'
+      click_button 'Sign Up'
       page.should have_content('Thank you for signing up!')
     end
 
@@ -52,7 +51,6 @@ feature 'Supplier Signup', js: true do
       end
       fill_in 'supplier[name]', with: 'Test Supplier'
       fill_in 'supplier[email]', with: @user.email
-      fill_in 'supplier[phone]', with: '555-555-5555'
       fill_in 'supplier[url]', with: 'http://www.test.com'
       fill_in 'supplier[address_attributes][firstname]', with: ''
       fill_in 'supplier[address_attributes][lastname]', with: 'Last'
@@ -62,7 +60,7 @@ feature 'Supplier Signup', js: true do
       select 'United States', from: 'supplier[address_attributes][country_id]'
       select 'Vermont', from: 'supplier[address_attributes][state_id]'
       fill_in 'supplier[address_attributes][phone]', with: '555-555-5555'
-      click_button 'Signup'
+      click_button 'Sign Up'
       page.should have_content('Address is invalid')
     end
 

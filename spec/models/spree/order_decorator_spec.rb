@@ -6,7 +6,7 @@ describe Spree::Order do
 
   it '#approve_drop_ship_orders' do
     order = create(:order_with_totals, bill_address: create(:address), ship_address: create(:address))
-    order.line_items = [create(:line_item_to_drop_ship), create(:line_item_to_drop_ship)]
+    order.line_items = [create(:line_item, variant: create(:variant_with_supplier)), create(:line_item, variant: create(:variant_with_supplier))]
     order.finalize!
 
     order.approve_drop_ship_orders.should be_true
@@ -14,7 +14,7 @@ describe Spree::Order do
 
   it '#finalize_with_dropship!' do
    order = create(:order_with_totals)
-   order.line_items = [create(:line_item_to_drop_ship), create(:line_item_to_drop_ship)]
+   order.line_items = [create(:line_item, variant: create(:variant_with_supplier)), create(:line_item, variant: create(:variant_with_supplier))]
 
    order.finalize!
 

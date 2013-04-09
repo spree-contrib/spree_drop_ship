@@ -1,6 +1,6 @@
 class Spree::DropShipOrder < ActiveRecord::Base
 
-  attr_accessible :confirmation_number, :notes, :shipping_method, :tracking_number
+  attr_accessible :notes
 
   #==========================================
   # Associations
@@ -8,20 +8,24 @@ class Spree::DropShipOrder < ActiveRecord::Base
   belongs_to :order
   belongs_to :supplier
 
-  has_many   :line_items, :class_name => "Spree::DropShipLineItem"
+  has_many :drop_ship_line_items, dependent: :destroy
+  has_many :line_items, through: :drop_ship_line_items
+  has_many :users, class_name: Spree.user_class.to_s, through: :supplier
 
-  has_one    :user, :through => :supplier
+  has_one :user, through: :order
 
   #==========================================
   # Validations
 
-  validates :commission_fee, presence: true
-  validates :supplier_id, :order_id, :presence => true
+  validates :commission, presence: true
+  validates :order_id, presence: true
+  validates :supplier_id, presence: true
 
   #==========================================
   # Callbacks
-  
+
   before_save :update_total
+  before_save :update_commission # Must go after update_total so that proper total amount is available to calculate commission.
 
   #==========================================
   # State Machine
@@ -45,7 +49,7 @@ class Spree::DropShipOrder < ActiveRecord::Base
     end 
 
     state :complete do
-      validates :shipping_method, :tracking_number, :presence => true 
+
     end
 
   end
@@ -59,12 +63,11 @@ class Spree::DropShipOrder < ActiveRecord::Base
   # TODO: This is overly complex and need to refactor
   #       start of refactoring makes me think this should be update_line_items rather than add for clarity
   def add(new_line_items)
-    new_line_items = Array.wrap(new_line_items).reject{ |li| li.supplier_id.nil? || li.supplier_id != self.supplier_id }
+    new_line_items = Array.wrap(new_line_items).reject{ |li| li.product.supplier_id.nil? || li.product.supplier_id != self.supplier_id }
     new_line_items.each do |new_line_item|
-      if line_item = self.line_items.find_by_line_item_id(new_line_item.id)
-        line_item.update_attributes(:quantity => new_line_item.quantity)
+      if line_item = self.drop_ship_line_items.find_by_line_item_id(new_line_item.id)
       else
-        self.line_items.create(new_line_item.drop_ship_attributes, without_protection: true)
+        self.drop_ship_line_items.create({line_item_id: new_line_item.id}, without_protection: true)
       end
     end
     # TODO: remove any old line items?
@@ -76,9 +79,10 @@ class Spree::DropShipOrder < ActiveRecord::Base
     false
   end
 
-  # Updates the drop ship order's total by getting the sum of its line items' subtotals
-  def update_total
-    self.total = self.line_items.reload.map(&:subtotal).inject(:+).to_f
+  alias_method :number, :id
+
+  def shipments
+    order.shipments.joins(:stock_location).where('spree_stock_locations.supplier_id = ?', self.supplier_id)
   end
 
   #==========================================
@@ -88,7 +92,6 @@ class Spree::DropShipOrder < ActiveRecord::Base
 
     def perform_confirmation # :nodoc:
       self.update_attribute(:confirmed_at, Time.now)
-      Spree::DropShipOrderMailer.confirmation(self).deliver!
     end
 
     def perform_delivery # :nodoc:
@@ -98,8 +101,15 @@ class Spree::DropShipOrder < ActiveRecord::Base
 
     def perform_shipment # :nodoc:
       self.update_attribute(:shipped_at, Time.now)
-      Spree::DropShipOrderMailer.shipment(self).deliver!
-      Spree::DropShipOrderMailer.shipment_notification(self).deliver!
+    end
+
+    def update_commission
+      self.commission = (self.total * self.supplier.commission_percentage / 100) + self.supplier.commission_flat_rate
+    end
+
+    # Updates the drop ship order's total by getting the sum of its line items' subtotals
+    def update_total
+      self.total = self.line_items.reload.map(&:total).inject(:+).to_f
     end
 
 end

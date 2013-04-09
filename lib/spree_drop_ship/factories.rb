@@ -1,27 +1,38 @@
 FactoryGirl.define do
 
-  factory :supplier_user, :parent => :user do
-  end
-
-  factory :line_item_to_drop_ship, parent: :line_item do
-    supplier
-  end
-
   factory :drop_ship_order, :class => Spree::DropShipOrder do
     supplier
     order { create(:completed_order_with_totals) }
-    total 0
-    commission_fee 0
+    commission 0
+  end
+
+  factory :order_with_multiple_suppliers, parent: :order do
+    
   end
 
   factory :supplier, :class => Spree::Supplier do
     sequence(:name) { |i| "Big Store #{i}" }
     email { Faker::Internet.email }
-    phone "800-555-5555"
     url "http://example.com"
     address
-    commission_fee_percentage 0
-    user
+  end
+
+  factory :supplier_user, parent: :user do
+    after :create do |user|
+      create(:supplier, users: [user])
+    end
+  end
+
+  factory :supplier_with_user, parent: :supplier do
+    after :create do |supplier|
+      unless supplier.users.first
+        supplier.users << create(:user)
+      end
+    end
+  end
+
+  factory :variant_with_supplier, parent: :variant do
+    product { create(:product, supplier: create(:supplier)) }
   end
 
 end

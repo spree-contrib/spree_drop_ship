@@ -2,6 +2,13 @@ require 'spec_helper'
 
 describe 'Admin - Orders', js: true do
 
+  it 'Supplier should not be authorized' do
+    create(:user) # create extra user so admin role isnt assigned to the user we login as
+    login_user create(:supplier_user)
+    visit spree.admin_orders_path
+    page.should have_content('Unauthorized')
+  end
+
   context 'as Admin' do
 
     before do
@@ -20,10 +27,9 @@ describe 'Admin - Orders', js: true do
       page.should have_content(order3.order.number)
     end
 
-    it 'show - should render properly' do
+    it 'edit - should render properly' do
       drop_ship_order = create(:drop_ship_order)
-
-      visit spree.admin_order_path(drop_ship_order.order)
+      visit spree.edit_admin_order_path(drop_ship_order.order.number)
       page.should have_content(drop_ship_order.order.number)
       # TODO make this check within a proper scope
       page.should have_content(drop_ship_order.id)
@@ -31,7 +37,7 @@ describe 'Admin - Orders', js: true do
 
     it 'approve - should properly fire' do
       drop_ship_order = create(:drop_ship_order)
-      visit spree.admin_order_path(drop_ship_order.order)
+      visit spree.edit_admin_order_path(drop_ship_order.order.number)
       page.should have_content(drop_ship_order.order.number)
 
       click_link 'Approve Drop Ship Orders'
@@ -41,14 +47,6 @@ describe 'Admin - Orders', js: true do
       click_link 'Resend Drop Ship Orders'
       page.driver.browser.switch_to.alert.accept
       page.should have_content(I18n.t('spree.admin.drop_ship_orders.orders_sent'))
-    end
-
-  end
-
-  context 'as Supplier' do
-
-    it 'should not be accessible' do
-      pending 'need to write'
     end
 
   end

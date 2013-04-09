@@ -38,7 +38,6 @@
     <thead>
       <tr data-hook='admin_suppliers_index_headers'>
         <th><%= sort_link @search, :name,  t('supplier.name') %></th>
-        <th><%= sort_link @search, :phone, t('supplier.phone') %></th>
         <th><%= sort_link @search, :email, t('supplier.email') %></th>
         <th data-hook="admin_suppliers_index_header_actions" class="actions"></th>
       </tr>
@@ -47,7 +46,6 @@
       <%- @collection.each do |supplier| %>
         <tr <%= "style='color: red;'" if supplier.deleted? %> id="<%= dom_id supplier %>" data-hook="admin_suppliers_index_rows" class="<%= cycle('odd', 'even') %>">
           <td class='align-center'><%= link_to supplier.name, object_url(supplier) %></td>
-          <td class='align-center'><%= supplier.phone %></td>
           <td class='align-center'><%= mail_to supplier.email %></td>
           <td class='actions' data-hook='admin_suppliers_index_row_actions'>
             <% unless supplier.deleted? %>

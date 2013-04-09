@@ -9,10 +9,9 @@ en:
               not_responding: 'is invalid, not responding or redirecting to another location'
   drop_ship_order_number: "Drop Ship Order #%{number}"
   drop_ship_orders: Drop Ship Orders
-  edit: Edit
   must_be_logged_in: 'Must Be Logged In'
   save: Save
-  signup: Signup
+  signup: Sign Up
   signup_to_become_a_supplier: 'Signup To Become A Supplier'
   spree:
     admin:
@@ -26,14 +25,10 @@ en:
           approve_drop_ship_orders: Approve Drop Ship Orders
           resend_drop_ship_orders: Resend Drop Ship Orders
           drop_ship_order_approval_confirmation: This will send each drop ship order to it's relative supplier. Continue?
-        show:
+        edit:
           approve_drop_ship_orders: Approve Drop Ship Orders
           resend_drop_ship_orders: Resend Drop Ship Orders
           drop_ship_order_approval_confirmation: This will send each drop ship order to it's relative supplier. Continue?
-      products:
-        form:
-          supplier: Drop Shipping Supplier
-          none: --- none ---
       suppliers:
         new:
           new_supplier: New Supplier
@@ -46,10 +41,24 @@ en:
           success: "Drop ship order %{number} was successfully sent!"
         orders_sent: All drop ship orders have successfully been sent
         orders_not_sent: Some or all of the drop ship orders could not be sent. Please contact the suppliers directly.
+    drop_ship_order_mailer:
+      supplier_order:
+        hello: "Hello %{name},"
+        subject: "%{name} Drop Ship Order #%{number}"
+        thank_you_again: "Thank you again for your business, <b>%{name}</b>"
     shared:
       unauthorized:
         explained: Your not authorized to access this page.
         unauthorized: Unauthorized
+    supplier_mailer:
+      welcome:
+        hello: "Hello %{name},"
+        check_your_status: You can check the status of your request by
+        logging_into_your_account: logging into your account.
+        once_your_request_is_approved: Once your request has been approved you will be able to manage your inventory.
+        subject: 'Thank you for signing up.  Please verify your information.'
+        thank_you_again: "Thank you again for your business, <b>%{name}</b>"
+        thank_you_for_signing_up: Thank you for signing up to be a drop ship supplier.
     suppliers:
       create:
         success: Thank you for signing up!
@@ -59,19 +68,16 @@ en:
     already_signed_up: "You've already signed up to become a supplier."
     drop_ship_settings: Drop Ship Settings
   supplier:
-    name: Name
-    email: Email
-    phone: Phone
-    url: URL
-    contact_email: Contact Email
-    contact_name: Contact Name
-    contact_phone: Contact Phone
     address1: Address
     address2: Address (continued)
     city: City
-    state: State
-    zipcode: Zipcode
+    commission: Commission
     country: Country
+    email: Email
+    name: Name
+    state: State
+    url: URL
+    zipcode: Zipcode
   supplier_info: Supplier Info
   supplier_signup: Supplier Signup
   supplier_orders:

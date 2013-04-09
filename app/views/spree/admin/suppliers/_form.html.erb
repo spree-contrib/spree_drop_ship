@@ -18,17 +18,17 @@
       <%= form.label :email, t('supplier.email') %><br />
       <%= form.email_field :email, :class => 'text' %>
     <% end %>
-    <%= form.field_container :phone do %>
-      <%= form.label :phone, t('supplier.phone') %><br />
-      <%= form.text_field :phone, :class => 'text' %>
-    <% end %>
     <%= form.field_container :url do %>
       <%= form.label :url, t('supplier.url') %><br />
       <%= form.text_field :url, :class => 'text' %>
     <% end %>
+    <%= form.field_container :commission_flat_rate do %>
+      <%= form.label :commission_flat_rate, t('supplier.commission_flat_rate') %><br />
+      <%= form.text_field :commission_flat_rate, :class => 'text' %>
+    <% end %>
+    <%= form.field_container :commission_percentage do %>
+      <%= form.label :commission_percentage, t('supplier.commission_percentage') %><br />
+      <%= form.text_field :commission_percentage, :class => 'text' %>
+    <% end %>
   </fieldset>
 </div>
-
-<% content_for :head do %>
-  <%= javascript_include_tag states_path, 'admin/address_states.js' %>
-<% end %>
