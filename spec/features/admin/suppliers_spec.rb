@@ -35,9 +35,6 @@ feature 'Admin - Suppliers', js: true do
       select2 'Vermont', from: 'State:'
       fill_in 'supplier[address_attributes][phone]', with: '555-555-5555'
       click_button 'Create'
-      within 'table' do
-        page.should have_content('Test Supplier')
-      end
       page.should have_content('Supplier "Test Supplier" has been successfully created!')
     end
 
@@ -66,9 +63,6 @@ feature 'Admin - Suppliers', js: true do
       fill_in 'supplier[address_attributes][phone]', with: '555-555-5555'
       page.should have_css('#s2id_supplier_user_ids') # can edit assigned users
       click_button 'Update'
-      within 'table' do
-        page.should have_content('Test Supplier')
-      end
       page.should have_content('Supplier "Test Supplier" has been successfully updated!')
     end
 
@@ -77,7 +71,9 @@ feature 'Admin - Suppliers', js: true do
   context 'as a Supplier' do
 
     before do
-      login_user create(:supplier_user)
+      @user = create(:supplier_user)
+      login_user @user
+      visit spree.account_path
     end
 
     scenario 'should be able to update supplier' do
@@ -97,7 +93,7 @@ feature 'Admin - Suppliers', js: true do
       fill_in 'supplier[address_attributes][phone]', with: '555-555-5555'
       page.should_not have_css('#s2id_supplier_user_ids') # cannot edit assigned users
       click_button 'Update'
-      page.should have_content('Your information has been successfully updated.')
+      page.should have_content('Supplier "Test Supplier" has been successfully updated!')
       page.current_path.should eql(spree.edit_admin_supplier_path(@user.supplier))
     end
 
@@ -118,7 +114,7 @@ feature 'Admin - Suppliers', js: true do
       fill_in 'supplier[address_attributes][phone]', with: '555-555-5555'
       click_button 'Update'
       page.should have_content('Address is invalid')
-      page.current_path.should eql(spree.edit_admin_supplier_path(@user.supplier))
+      page.current_path.should eql(spree.admin_supplier_path(@user.supplier))
     end
 
   end

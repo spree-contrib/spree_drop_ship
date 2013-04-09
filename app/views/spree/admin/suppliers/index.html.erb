@@ -45,7 +45,7 @@
     <tbody>
       <%- @collection.each do |supplier| %>
         <tr <%= "style='color: red;'" if supplier.deleted? %> id="<%= dom_id supplier %>" data-hook="admin_suppliers_index_rows" class="<%= cycle('odd', 'even') %>">
-          <td class='align-center'><%= link_to supplier.name, object_url(supplier) %></td>
+          <td class='align-center'><%= link_to supplier.name, edit_object_url(supplier) %></td>
           <td class='align-center'><%= mail_to supplier.email %></td>
           <td class='actions' data-hook='admin_suppliers_index_row_actions'>
             <% unless supplier.deleted? %>

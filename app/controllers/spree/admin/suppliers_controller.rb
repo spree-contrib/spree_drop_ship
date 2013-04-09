@@ -13,4 +13,8 @@ class Spree::Admin::SuppliersController < Spree::Admin::ResourceController
       @collection = @search.result.page(params[:page]).per(Spree::Config[:orders_per_page])
     end
 
+    def location_after_save
+      spree.edit_admin_supplier_path(@supplier)
+    end
+
 end

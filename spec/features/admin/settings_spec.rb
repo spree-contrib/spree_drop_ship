@@ -22,8 +22,8 @@ describe 'Admin - Drop Ship Settings', js: true do
     click_button 'Update'
     page.should have_content('Drop ship settings successfully updated.')
     uncheck 'allow_signup'
-    find('#default_commission_flat_rate').should have_content(0.3)
-    find('#default_commission_percentage').should have_content(10.0)
+    find_field('default_commission_flat_rate').value.to_f.should eql(0.3)
+    find_field('default_commission_percentage').value.to_f.should eql(10.0)
     check 'send_supplier_welcome_email'
     click_button 'Update'
     page.should have_content('Drop ship settings successfully updated.')
