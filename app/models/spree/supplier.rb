@@ -1,6 +1,6 @@
 class Spree::Supplier < ActiveRecord::Base
 
-  attr_accessible :address_attributes, :commission_flat_rate, :commission_percentage, :email, :name, :url
+  attr_accessible :address_attributes, :commission_flat_rate, :commission_percentage, :email, :name, :url, :user_ids
 
   #==========================================
   # Associations

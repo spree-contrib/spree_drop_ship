@@ -11,24 +11,30 @@
   <fieldset class="no-border-bottom">
     <legend><%= t('.supplier_details') %></legend>
     <%= form.field_container :name do %>
-      <%= form.label :name, t('supplier.name') %><br />
+      <%= form.label :name, t('supplier.name') %>:<br />
       <%= form.text_field :name, :class => 'title' %>
     <% end %>
     <%= form.field_container :email do %>
-      <%= form.label :email, t('supplier.email') %><br />
+      <%= form.label :email, t('supplier.email') %>:<br />
       <%= form.email_field :email, :class => 'text' %>
     <% end %>
     <%= form.field_container :url do %>
-      <%= form.label :url, t('supplier.url') %><br />
+      <%= form.label :url, t('supplier.url') %>:<br />
       <%= form.text_field :url, :class => 'text' %>
     <% end %>
     <%= form.field_container :commission_flat_rate do %>
-      <%= form.label :commission_flat_rate, t('supplier.commission_flat_rate') %><br />
+      <%= form.label :commission_flat_rate, t('supplier.commission_flat_rate') %>:<br />
       <%= form.text_field :commission_flat_rate, :class => 'text' %>
     <% end %>
     <%= form.field_container :commission_percentage do %>
-      <%= form.label :commission_percentage, t('supplier.commission_percentage') %><br />
+      <%= form.label :commission_percentage, t('supplier.commission_percentage') %>:<br />
       <%= form.text_field :commission_percentage, :class => 'text' %>
+    <% end %>
+    <% if spree_current_user.admin? %>
+      <%= form.field_container :users do %>
+        <%= form.label :users %><br/>
+        <%= form.select :user_ids, Spree.user_class.all.collect { |u| [u.email, u.id] }, {:include_blank => true}, class: 'fullwidth multiple select2', multiple: true %>
+      <% end %>
     <% end %>
   </fieldset>
 </div>

@@ -9,10 +9,10 @@ en:
               not_responding: 'is invalid, not responding or redirecting to another location'
   drop_ship_order_number: "Drop Ship Order #%{number}"
   drop_ship_orders: Drop Ship Orders
+  drop_ship_settings: Drop Ship Settings
   must_be_logged_in: 'Must Be Logged In'
-  save: Save
   signup: Sign Up
-  signup_to_become_a_supplier: 'Signup To Become A Supplier'
+  signup_to_become_a_supplier: 'Sign Up To Become A Supplier'
   spree:
     admin:
       drop_ship_settings:
@@ -21,14 +21,14 @@ en:
       orders:
         drop_ship_order_order_header:
           drop_ship_order_ids: DSO IDs
-        confirm_drop_ship_info:
-          approve_drop_ship_orders: Approve Drop Ship Orders
-          resend_drop_ship_orders: Resend Drop Ship Orders
-          drop_ship_order_approval_confirmation: This will send each drop ship order to it's relative supplier. Continue?
         edit:
           approve_drop_ship_orders: Approve Drop Ship Orders
           resend_drop_ship_orders: Resend Drop Ship Orders
-          drop_ship_order_approval_confirmation: This will send each drop ship order to it's relative supplier. Continue?
+          drop_ship_order_approval_confirmation: This will send an email notification to each supplier. Continue?
+        show:
+          approve_drop_ship_orders: Approve Drop Ship Orders
+          resend_drop_ship_orders: Resend Drop Ship Orders
+          drop_ship_order_approval_confirmation: This will send an email notification to each supplier. Continue?
       suppliers:
         new:
           new_supplier: New Supplier
@@ -60,13 +60,10 @@ en:
         thank_you_again: "Thank you again for your business, <b>%{name}</b>"
         thank_you_for_signing_up: Thank you for signing up to be a drop ship supplier.
     suppliers:
+      already_signed_up: "You've already signed up to become a supplier."
       create:
         success: Thank you for signing up!
-      update:
-        success: Your information has been successfully updated.
-  spree_drop_ship:
-    already_signed_up: "You've already signed up to become a supplier."
-    drop_ship_settings: Drop Ship Settings
+  # TODO move to under activerecord model attributes
   supplier:
     address1: Address
     address2: Address (continued)
@@ -79,12 +76,5 @@ en:
     url: URL
     zipcode: Zipcode
   supplier_info: Supplier Info
-  supplier_signup: Supplier Signup
-  supplier_orders:
-    flash:
-      sent: "Please review and click 'Confirm Order' to continue."
-      confirmed: "We've been notified that you've confirmed this order. To complete the order please, upon shipping, enter the shipping information and click 'Process and finalize order'. Thank You."
-      shipped: "Thank you for your shipment!"
-      confirmation_failure: "We're sorry, this order could not be confirmed. Please try again."
-      finalize_failure: "We're sorry, this order could not be finalized at this time. Please try again."
+  supplier_signup: Supplier Sign Up
   suppliers: Suppliers

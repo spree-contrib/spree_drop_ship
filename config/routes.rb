@@ -20,7 +20,6 @@ Spree::Core::Engine.routes.draw do
     resource :drop_ship_settings
   end
 
-  resources :drop_ship_orders
-  resources :suppliers
+  resources :suppliers, only: [:create, :new]
 
 end

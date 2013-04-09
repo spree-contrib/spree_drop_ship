@@ -9,9 +9,8 @@ Spree::Order.class_eval do
   def finalize_with_dropship!
     finalize_without_dropship!
 
-    self.line_items.group_by{|li| li.product.supplier_id }.each do |supplier_id, supplier_items|
+    self.line_items.group_by{ |li| li.product.supplier_id }.each do |supplier_id, supplier_items|
       if supplier_id.present?
-        logger.debug "finalize: #{supplier_id} - #{Spree::Supplier.all.inspect}"
         supplier = Spree::Supplier.find(supplier_id)
         # TODO: make delivering orders automatically a preference
         supplier.orders.create({:order_id => self.id}, without_protection: true).add(supplier_items) #.deliver!

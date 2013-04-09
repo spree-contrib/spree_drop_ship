@@ -8,7 +8,7 @@ describe 'Admin - Products', js: true do
       product = create :product
 
       login_user create(:admin_user)
-      visit spree.admin_product_stock_path(product)
+      visit spree.stock_admin_product_path(product)
 
       page.should have_content(product.name)
       pending 'finish writing'
@@ -27,7 +27,7 @@ describe 'Admin - Products', js: true do
     it 'should only display suppliers stock locations' do
       product = create :product
 
-      visit spree.admin_product_stock_path(product)
+      visit spree.stock_admin_product_path(product)
 
       page.should have_content(product.name)
       pending 'finish writing'

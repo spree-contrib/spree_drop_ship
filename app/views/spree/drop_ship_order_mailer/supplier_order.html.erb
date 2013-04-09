@@ -13,13 +13,13 @@
               <td valign="top">
                 <h1 style="font-size:22px;font-weight:normal;line-height:22px;"><%= t('.hello', name: @supplier.name ) %></h1>
                 <p style="font-size:12px;line-height:16px;margin:0">
-                  An order has been placed.  Please confirm the shipment details, and <%= link_to 'update the drop ship order', spree.edit_admin_drop_ship_order_url(@drop_ship_order) %> once it has shipped.
+                  An order has been placed.  Please confirm the shipment details, and <%= link_to 'update the drop ship order', spree.admin_drop_ship_order_url(@drop_ship_order) %> once it has shipped.
                 </p>
               </td>
             </tr>
             <tr>
               <td>
-                <h2 style="font-size:18px;font-weight:normal;">Drop Ship Order #<%= @drop_ship_order.id %> <small>(placed on <%= @drop_ship_order.order.completed_at %>)</small></h2>
+                <h2 style="font-size:18px;font-weight:normal;">Drop Ship Order #<%= @drop_ship_order.id %> <small>(placed on <%= @drop_ship_order.order.completed_at.strftime('%A %b %e, %Y at %l:%M%p %Z') %>)</small></h2>
                 <h4style="font-size:14px;font-weight:normal;">Reference Number: <%= @order.number %></h4>
               </td>
             </tr>

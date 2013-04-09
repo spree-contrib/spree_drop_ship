@@ -63,6 +63,10 @@ describe Spree::Supplier do
 
   context '#send_welcome' do
 
+    after do
+      Spree::DropShipConfig[:send_supplier_welcome_email] = true
+    end
+
     before do
       @instance = build(:supplier)
       @mail_message = mock('Mail::Message')
@@ -82,7 +86,6 @@ describe Spree::Supplier do
     context 'with Spree::DropShipConfig[:send_supplier_welcome_email] == true' do
 
       it 'should send welcome email' do
-        Spree::DropShipConfig[:send_supplier_welcome_email] = true
         Spree::SupplierMailer.should_receive(:welcome).and_return(@mail_message)
         @mail_message.should_receive :deliver!
         @instance.save
@@ -94,8 +97,10 @@ describe Spree::Supplier do
 
   it '#set_commission' do
     supplier = create :supplier
-    supplier.commission_flat_rate.should eql(Spree::DropShipConfig[:default_commission_flat_rate])
-    supplier.commission_percentage.should eql(Spree::DropShipConfig[:default_commission_percentage])
+    # Default configuration is 0.0 for each.
+    supplier.commission_flat_rate.to_f.should eql(0.0)
+    supplier.commission_percentage.to_f.should eql(0.0)
+    # With custom commission applied.
     supplier = create :supplier, commission_flat_rate: 123, commission_percentage: 25
     supplier.commission_flat_rate.should eql(123.0)
     supplier.commission_percentage.should eql(25.0)
