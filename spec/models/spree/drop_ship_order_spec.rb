@@ -35,6 +35,12 @@ describe Spree::DropShipOrder do
     record.number.should eql(record.id)
   end
 
+  it '#shipment_state' do
+    pending 'write or remove'
+    record = create(:drop_ship_order)
+    record.shipment_state.should eql(record.order.currency)
+  end
+
   it '#shipments' do
     pending 'write it'
   end
@@ -85,26 +91,46 @@ describe Spree::DropShipOrder do
 
     context "when delivered" do
 
-      before do
-        @drop_ship_order.deliver!
+      context 'with DropShopConfig[:send_supplier_email] == false' do
+        after do
+          Spree::DropShipConfig.set send_supplier_email: true
+          ActionMailer::Base.deliveries = []
+        end
+        before do
+          Spree::DropShipConfig.set send_supplier_email: false
+          ActionMailer::Base.deliveries = []
+          @drop_ship_order.deliver!
+        end
+        it 'should not deliver mail' do
+          ActionMailer::Base.deliveries.size.should eql(0)
+        end
       end
 
-      it "should move to the 'sent' state" do
-        assert_equal "sent", @drop_ship_order.state
-      end
+      context 'with DropShopConfig[:send_supplier_email] == true (default)' do
 
-      it "should set sent at" do
-        assert_not_nil @drop_ship_order.sent_at
-      end
+        before do
+          @drop_ship_order.deliver!
+        end
 
-      it "should send order to supplier" do
-        assert_equal @drop_ship_order.supplier.email, ActionMailer::Base.deliveries.last.to.first
-        assert_equal "#{Spree::Config[:site_name]} Drop Ship Order ##{@drop_ship_order.id}", ActionMailer::Base.deliveries.last.subject
+        it "should move to the 'sent' state" do
+          assert_equal "sent", @drop_ship_order.state
+        end
+
+        it "should set sent at" do
+          assert_not_nil @drop_ship_order.sent_at
+        end
+
+        it "should send order to supplier" do
+          assert_equal @drop_ship_order.supplier.email, ActionMailer::Base.deliveries.last.to.first
+          assert_equal "#{Spree::Config[:site_name]} Drop Ship Order ##{@drop_ship_order.id}", ActionMailer::Base.deliveries.last.subject
+        end
+
       end
 
       context "and confirmed" do
 
         before do
+          @drop_ship_order.deliver!
           @drop_ship_order.confirm!
         end
 
@@ -116,18 +142,18 @@ describe Spree::DropShipOrder do
           assert_not_nil @drop_ship_order.confirmed_at
         end
 
-        context "and shipped" do
+        context "and completed" do
 
           before do
-            @drop_ship_order.ship!
+            @drop_ship_order.complete!
           end
 
           it "should move to the 'complete' state" do
-            assert_equal "complete", @drop_ship_order.state
+            assert_equal "completed", @drop_ship_order.state
           end
 
-          it "should set shipped at" do
-            assert_not_nil @drop_ship_order.shipped_at
+          it "should set completed at" do
+            assert_not_nil @drop_ship_order.completed_at
           end
 
         end

@@ -1,4 +1,8 @@
 <!-- insert_bottom "[data-hook='admin_tabs']" -->
 
-<%= tab :suppliers, :label => t(:suppliers), :match_path => '/suppliers' %>
-<%= tab :drop_ship_orders, :label => t(:drop_ship_orders), :match_path => '/drop_ship_orders' %>
+<% if can? :index, Spree::Supplier %>
+  <%= tab :suppliers, :label => t(:suppliers), :match_path => '/suppliers' %>
+<% end %>
+<% if can? :index, Spree::DropShipOrder %>
+  <%= tab :drop_ship_orders, :label => t(:drop_ship_orders), :match_path => '/drop_ship_orders' %>
+<% end %>

@@ -14,19 +14,6 @@ describe 'Admin - Drop Ship Orders', js: true do
       login_user create(:admin_user)
     end
 
-    it 'index - should display all drop ship orders' do
-      visit spree.admin_drop_ship_orders_path
-
-      page.should have_content(@order1.id)
-      page.should have_content(@order2.id)
-      page.should have_content(@order3.id)
-    end
-
-    it 'show - should render properly' do
-      visit spree.admin_drop_ship_order_path(@order1)
-      page.should have_content(@order1.id)
-    end
-
     it 'deliver - should properly fire for initial send and resend' do
       visit spree.admin_drop_ship_order_path(@order1)
       page.should have_content(@order1.id)
@@ -36,6 +23,19 @@ describe 'Admin - Drop Ship Orders', js: true do
 
       click_link 'Resend Order to Supplier'
       page.should have_content(I18n.t('spree.admin.drop_ship_orders.deliver.success', number: @order1.id))
+    end
+
+    it 'edit - should render properly' do
+      visit spree.edit_admin_drop_ship_order_path(@order1)
+      page.should have_content(@order1.id)
+    end
+
+    it 'index - should display all drop ship orders' do
+      visit spree.admin_drop_ship_orders_path
+
+      page.should have_content(@order1.id)
+      page.should have_content(@order2.id)
+      page.should have_content(@order3.id)
     end
 
   end
@@ -56,28 +56,17 @@ describe 'Admin - Drop Ship Orders', js: true do
     end
 
     it 'should render unauthorized visiting another suppliers order' do
-      visit spree.admin_drop_ship_order_path(@order1)
+      visit spree.edit_admin_drop_ship_order_path(@order1)
       page.should have_content('Unauthorized')
     end
 
-    it 'should render suppliers orders' do
-      visit spree.admin_drop_ship_order_path(@order2)
+    it 'should edit suppliers orders' do
+      visit spree.edit_admin_drop_ship_order_path(@order2)
       page.should have_content(@order2.id)
-    end
-
-    it 'should properly fire for initial send and resend' do
-      visit spree.admin_drop_ship_order_path(@order2)
-      page.should have_content(@order2.id)
-
-      click_link 'Send Order to Supplier'
-      page.should have_content(I18n.t('spree.admin.drop_ship_orders.deliver.success', number: @order2.id))
-
-      click_link 'Resend Order to Supplier'
-      page.should have_content(I18n.t('spree.admin.drop_ship_orders.deliver.success', number: @order2.id))
     end
 
     it 'edit - should properly display and allow confirmation' do
-      visit spree.admin_drop_ship_order_path(@order2)
+      visit spree.edit_admin_drop_ship_order_path(@order2)
       page.should have_content(@order2.id)
 
       click_button 'Confirm Order'
@@ -85,7 +74,7 @@ describe 'Admin - Drop Ship Orders', js: true do
     end
 
     it 'confirm - should properly fire for initial send and resend' do
-      visit spree.admin_drop_ship_order_path(@order2)
+      visit spree.edit_admin_drop_ship_order_path(@order2)
       page.should have_content(@order2.id)
 
       click_button 'Confirm Order'

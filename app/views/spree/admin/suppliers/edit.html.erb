@@ -1,5 +1,7 @@
-<% content_for :page_actions do %>
-  <li><%= button_link_to t('.back_to_suppliers'), admin_suppliers_path, :icon => 'icon-arrow-left' %></li>
+<% if can? :index, Spree::Supplier %>
+  <% content_for :page_actions do %>
+    <li><%= button_link_to t('.back_to_suppliers'), admin_suppliers_path, :icon => 'icon-arrow-left' %></li>
+  <% end %>
 <% end %>
 
 <% content_for :page_title do %>
@@ -10,5 +12,10 @@
 
 <%= form_for [:admin, @supplier] do |f| %>
   <%= render "form", :form => f %>
-  <%= button t("update") %> <%= t('or') %> <%= link_to t('cancel'), collection_url %>
+  <%= button t("update") %> <%= t('or') %> 
+  <% if can? :index, Spree::Supplier %>
+    <%= link_to t('cancel'), collection_url %>
+  <% else %>
+    <%= link_to t('cancel'), spree.account_path %>
+  <% end %>
 <% end %>

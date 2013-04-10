@@ -30,6 +30,8 @@ en:
           resend_drop_ship_orders: Resend Drop Ship Orders
           drop_ship_order_approval_confirmation: This will send an email notification to each supplier. Continue?
       suppliers:
+        edit:
+          back_to_suppliers: Back To Suppliers
         new:
           new_supplier: New Supplier
         form:

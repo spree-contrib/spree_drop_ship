@@ -34,7 +34,7 @@ class Spree::DropShipOrder < ActiveRecord::Base
 
     after_transition :on => :deliver, :do => :perform_delivery
     after_transition :on => :confirm, :do => :perform_confirmation
-    after_transition :on => :ship,    :do => :perform_shipment
+    after_transition :on => :complete, :do => :perform_complete
 
     event :deliver do
       transition [ :active, :sent ] => :sent
@@ -44,12 +44,8 @@ class Spree::DropShipOrder < ActiveRecord::Base
       transition :sent => :confirmed
     end
 
-    event :ship do
-      transition :confirmed => :complete
-    end 
-
-    state :complete do
-
+    event :complete do
+      transition :confirmed => :completed
     end
 
   end
@@ -72,11 +68,6 @@ class Spree::DropShipOrder < ActiveRecord::Base
     end
     # TODO: remove any old line items?
     self.save ? self : nil
-  end
-
-  # TODO test
-  def completed?
-    state == 'complete'
   end
 
   delegate :currency, to: :order
@@ -110,8 +101,8 @@ class Spree::DropShipOrder < ActiveRecord::Base
       Spree::DropShipOrderMailer.supplier_order(self).deliver! if Spree::DropShipConfig[:send_supplier_email]
     end
 
-    def perform_shipment # :nodoc:
-      self.update_attribute(:shipped_at, Time.now)
+    def perform_complete # :nodoc:
+      self.update_attribute(:completed_at, Time.now)
     end
 
     def update_commission

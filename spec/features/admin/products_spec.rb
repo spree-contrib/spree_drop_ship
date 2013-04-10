@@ -125,7 +125,6 @@ describe 'Admin - Products', js: true do
         @option_type_prototype = prototype
         @property_prototype = create(:prototype, :name => "Random")
         visit spree.admin_products_path
-        sleep 10
         click_link "admin_new_product"
         within('#new_product') do
           page.should have_content("SKU")

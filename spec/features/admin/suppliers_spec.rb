@@ -74,12 +74,25 @@ feature 'Admin - Suppliers', js: true do
       @user = create(:supplier_user)
       login_user @user
       visit spree.account_path
-    end
-
-    scenario 'should be able to update supplier' do
       within 'dd.supplier-info' do
         click_link 'Edit'
       end
+    end
+
+    scenario 'should only see tabs they have access to' do
+      within '#admin-menu' do
+        page.should have_content('OVERVIEW')
+        page.should_not have_content('ORDERS')
+        page.should have_content('PRODUCTS')
+        page.should_not have_content('REPORTS')
+        page.should_not have_content('CONFIGURATIONS')
+        page.should_not have_content('PROMOTIONS')
+        page.should_not have_content('SUPPLIERS')
+        page.should have_content('DROP SHIP ORDERS')
+      end
+    end
+
+    scenario 'should be able to update supplier' do
       fill_in 'supplier[name]', with: 'Test Supplier'
       fill_in 'supplier[email]', with: @user.email
       fill_in 'supplier[url]', with: 'http://www.test.com'
@@ -98,9 +111,6 @@ feature 'Admin - Suppliers', js: true do
     end
 
     scenario 'should display errors with invalid supplier update' do
-      within 'dd.supplier-info' do
-        click_link 'Edit'
-      end
       fill_in 'supplier[name]', with: 'Test Supplier'
       fill_in 'supplier[email]', with: @user.email
       fill_in 'supplier[url]', with: 'http://www.test.com'

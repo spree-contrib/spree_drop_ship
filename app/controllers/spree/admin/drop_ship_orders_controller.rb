@@ -1,6 +1,6 @@
 module Spree
   module Admin
-    class DropShipOrdersController < Spree::Admin::BaseController
+    class DropShipOrdersController < Spree::Admin::ResourceController
 
       # def deliver
       #   @order = DropShipOrder.accessible_by(current_ability, :show).find(params[:id])
@@ -11,6 +11,10 @@ module Spree
       #   end
       #   redirect_to spree.admin_drop_ship_order_path(@order)
       # end
+
+      def edit
+        @order = DropShipOrder.accessible_by(current_ability, :show).find(params[:id])
+      end
 
       def index
         params[:q] ||= {}
@@ -40,17 +44,13 @@ module Spree
         end
 
         @search = DropShipOrder.accessible_by(current_ability, :index).ransack(params[:q])
-        @orders = @search.result.includes([:user, :shipments, :payments]).
+        @orders = @search.result.
           page(params[:page]).
           per(params[:per_page] || Spree::Config[:orders_per_page])
 
         # Restore dates
         params[:q][:created_at_gt] = created_at_gt
         params[:q][:created_at_lt] = created_at_lt
-      end
-
-      def show
-        @order = DropShipOrder.accessible_by(current_ability, :show).find(params[:id])
       end
 
     end
