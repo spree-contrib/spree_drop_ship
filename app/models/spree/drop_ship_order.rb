@@ -74,9 +74,20 @@ class Spree::DropShipOrder < ActiveRecord::Base
     self.save ? self : nil
   end
 
+  # TODO test
+  def completed?
+    state == 'complete'
+  end
+
+  delegate :currency, to: :order
+
   # Don't allow drop ship orders to be destroyed
   def destroy
     false
+  end
+
+  def display_total
+    Spree::Money.new(self.total, { currency: currency })
   end
 
   alias_method :number, :id
@@ -107,9 +118,9 @@ class Spree::DropShipOrder < ActiveRecord::Base
       self.commission = (self.total * self.supplier.commission_percentage / 100) + self.supplier.commission_flat_rate
     end
 
-    # Updates the drop ship order's total by getting the sum of its line items' subtotals
+    # Updates the drop ship order's total by getting the shipment totals.
     def update_total
-      self.total = self.line_items.reload.map(&:total).inject(:+).to_f
+      self.total = self.shipments.map(&:total_cost).sum
     end
 
 end

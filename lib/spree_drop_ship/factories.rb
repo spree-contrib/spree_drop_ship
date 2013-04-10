@@ -6,8 +6,12 @@ FactoryGirl.define do
     commission 0
   end
 
-  factory :order_with_multiple_suppliers, parent: :order do
-    
+  factory :order_for_drop_ship, parent: :order_with_line_items do
+    after :create do |order|
+      supplier = create(:supplier)
+      order.shipments.update_all(stock_location_id: supplier.stock_locations.first.id)
+      create(:drop_ship_order, line_items: order.line_items, order: order, supplier: supplier)
+    end
   end
 
   factory :supplier, :class => Spree::Supplier do

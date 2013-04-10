@@ -77,16 +77,16 @@ describe 'Admin - Drop Ship Orders', js: true do
     end
 
     it 'edit - should properly display and allow confirmation' do
-      visit spree.admin_drop_ship_order_path(@order)
-      page.should have_content(@order.id)
+      visit spree.admin_drop_ship_order_path(@order2)
+      page.should have_content(@order2.id)
 
       click_button 'Confirm Order'
       page.should have_content("We've been notified that you've confirmed this order. To complete the order please, upon shipping, enter the shipping information and click 'Process and finalize order'.")
     end
 
     it 'confirm - should properly fire for initial send and resend' do
-      visit spree.admin_drop_ship_order_path(@order)
-      page.should have_content(@order.id)
+      visit spree.admin_drop_ship_order_path(@order2)
+      page.should have_content(@order2.id)
 
       click_button 'Confirm Order'
       page.should have_content("We've been notified that you've confirmed this order. To complete the order please, upon shipping, enter the shipping information and click 'Process and finalize order'.")

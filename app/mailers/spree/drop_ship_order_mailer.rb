@@ -1,6 +1,6 @@
 class Spree::DropShipOrderMailer < ActionMailer::Base
 
-  default :from => Spree::MailMethod.current.try(:preferred_mails_from) || 'replace@test.com'
+  default :from => Spree::MailMethod.current.try(:preferred_mails_from) || 'replace@example.com'
 
   def supplier_order(drop_ship_order)
     @drop_ship_order = drop_ship_order

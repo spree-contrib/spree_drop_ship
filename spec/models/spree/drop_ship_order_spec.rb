@@ -15,9 +15,19 @@ describe Spree::DropShipOrder do
   it { should validate_presence_of(:order_id) }
   it { should validate_presence_of(:supplier_id) }
 
+  it '#currency' do
+    record = create(:drop_ship_order)
+    record.currency.should eql(record.order.currency)
+  end
+
   it '#destroy' do
     instance = create(:drop_ship_order)
     instance.destroy.should eql(false)
+  end
+
+  it '#display_total' do
+    record = create(:order_for_drop_ship).drop_ship_orders.first
+    record.display_total.should == Spree::Money.new(50.0)
   end
 
   it '#number' do
@@ -26,8 +36,12 @@ describe Spree::DropShipOrder do
   end
 
   it '#shipments' do
-    create(:order_with_multiple_suppliers)
     pending 'write it'
+  end
+
+  it '#total' do
+    record = create(:order_for_drop_ship).drop_ship_orders.first
+    record.total.to_f.should eql(50.0)
   end
 
   context "A new drop ship order" do
