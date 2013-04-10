@@ -7,8 +7,7 @@ module Spree
 
       if user.supplier
         can [:admin, :index, :read, :update], Spree::DropShipOrder, supplier_id: user.supplier_id
-        can [:manage, :stock], Spree::Product, supplier_id: user.supplier_id
-        can [:admin, :index], Spree::Product
+        can [:admin, :manage, :stock], Spree::Product, supplier_id: user.supplier_id
         can [:admin, :manage], Spree::Shipment, stock_location: { supplier_id: user.supplier_id }
         can [:admin, :manage], Spree::StockLocation, supplier_id: user.supplier_id
         can [:admin, :manage], Spree::Supplier, id: user.supplier_id
@@ -20,4 +19,3 @@ module Spree
     end
   end
 end
-Spree::Ability.register_ability(Spree::SupplierAbility)
