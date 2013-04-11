@@ -39,7 +39,6 @@ en:
           supplier_address: Supplier Address
       drop_ship_orders:
         deliver:
-          error: "Drop ship order %{number} could not be sent."
           success: "Drop ship order %{number} was successfully sent!"
         orders_sent: All drop ship orders have successfully been sent
         orders_not_sent: Some or all of the drop ship orders could not be sent. Please contact the suppliers directly.
@@ -65,7 +64,6 @@ en:
       already_signed_up: "You've already signed up to become a supplier."
       create:
         success: Thank you for signing up!
-  # TODO move to under activerecord model attributes
   supplier:
     address1: Address
     address2: Address (continued)

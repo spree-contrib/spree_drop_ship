@@ -6,13 +6,18 @@ module Spree
       user ||= Spree.user_class.new
 
       if user.supplier
-        can [:admin, :index, :sync], Spree::Dash
+        if defined?(Spree::Dash)
+          can [:admin, :index, :sync], Spree::Admin::OverviewController
+        end
         can [:admin, :index, :read, :update], Spree::DropShipOrder, supplier_id: user.supplier_id
         can [:admin, :manage, :stock], Spree::Product, supplier_id: user.supplier_id
         can :create, Spree::Product
         can [:admin, :manage], Spree::Shipment, stock_location: { supplier_id: user.supplier_id }
+        can [:admin, :manage], Spree::StockItem, variant: { product: { supplier_id: user.supplier_id } } 
         can [:admin, :manage], Spree::StockLocation, supplier_id: user.supplier_id
+        can [:admin, :manage], Spree::StockMovement, stock_item: { variant: { product: { supplier_id: user.supplier_id } } }
         can [:admin, :update], Spree::Supplier, id: user.supplier_id
+        can [:admin, :manage], Spree::Variant, product: { supplier_id: user.supplier_id }
       end
 
       if Spree::DropShipConfig[:allow_signup]

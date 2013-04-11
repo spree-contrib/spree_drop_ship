@@ -96,10 +96,14 @@ describe Spree::Supplier do
   end
 
   it '#set_commission' do
+    Spree::DropShipConfig.set default_commission_flat_rate: 1
+    Spree::DropShipConfig.set default_commission_percentage: 1
     supplier = create :supplier
+    Spree::DropShipConfig.set default_commission_flat_rate: 0
+    Spree::DropShipConfig.set default_commission_percentage: 0
     # Default configuration is 0.0 for each.
-    supplier.commission_flat_rate.to_f.should eql(0.0)
-    supplier.commission_percentage.to_f.should eql(0.0)
+    supplier.commission_flat_rate.to_f.should eql(1.0)
+    supplier.commission_percentage.to_f.should eql(1.0)
     # With custom commission applied.
     supplier = create :supplier, commission_flat_rate: 123, commission_percentage: 25
     supplier.commission_flat_rate.should eql(123.0)

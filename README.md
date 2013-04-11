@@ -115,6 +115,7 @@ Todo
 - Finish/Style Email templates
 - Better documentation
 - Finish I18n implementation (mailer views, and anywhere else plain text is found)
+- Integrate SupplierAbility w/Spree::API (this is actually a todo for making spree api respect cancan in missing places particular read actions)
 - Add new languages
 - Implement strong_params and other Rails 4 compatibilities
 

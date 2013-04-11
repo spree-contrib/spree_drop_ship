@@ -22,9 +22,7 @@ FactoryGirl.define do
   end
 
   factory :supplier_user, parent: :user do
-    after :create do |user|
-      create(:supplier, users: [user])
-    end
+    supplier
   end
 
   factory :supplier_with_user, parent: :supplier do

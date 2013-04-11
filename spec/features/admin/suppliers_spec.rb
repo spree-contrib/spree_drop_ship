@@ -81,14 +81,14 @@ feature 'Admin - Suppliers', js: true do
 
     scenario 'should only see tabs they have access to' do
       within '#admin-menu' do
-        page.should have_content('OVERVIEW')
-        page.should_not have_content('ORDERS')
-        page.should have_content('PRODUCTS')
-        page.should_not have_content('REPORTS')
-        page.should_not have_content('CONFIGURATIONS')
-        page.should_not have_content('PROMOTIONS')
-        page.should_not have_content('SUPPLIERS')
-        page.should have_content('DROP SHIP ORDERS')
+        page.should have_link('Overview')
+        page.should_not have_link('Orders')
+        page.should have_link('Products')
+        page.should_not have_link('Reports')
+        page.should_not have_link('Configuration')
+        page.should_not have_link('Promotions')
+        page.should_not have_link('Suppliers')
+        page.should have_link('Drop Ship Orders')
       end
     end
 

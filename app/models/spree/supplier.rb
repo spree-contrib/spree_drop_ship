@@ -30,7 +30,7 @@ class Spree::Supplier < ActiveRecord::Base
   after_create :assign_user
   after_create :create_stock_location
   after_create :send_welcome, if: -> { Spree::DropShipConfig[:send_supplier_email] }
-  before_validation :set_commission
+  before_create :set_commission
 
   #==========================================
   # Instance Methods
@@ -65,10 +65,10 @@ class Spree::Supplier < ActiveRecord::Base
     end
 
     def set_commission
-      if self.commission_flat_rate.blank?
+      unless changes.has_key?(:commission_flat_rate)
         self.commission_flat_rate = Spree::DropShipConfig[:default_commission_flat_rate]
       end
-      if self.commission_percentage.blank?
+      unless changes.has_key?(:commission_percentage)
         self.commission_percentage = Spree::DropShipConfig[:default_commission_percentage]
       end
     end

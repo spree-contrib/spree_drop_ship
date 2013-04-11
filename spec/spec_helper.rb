@@ -63,6 +63,7 @@ RSpec.configure do |config|
   config.before :each do
     DatabaseCleaner.strategy = example.metadata[:js] ? :truncation : :transaction
     DatabaseCleaner.start
+    ActionMailer::Base.default_url_options[:host] ||= Spree::Config[:site_url]
   end
 
   # After each spec clean the database.
