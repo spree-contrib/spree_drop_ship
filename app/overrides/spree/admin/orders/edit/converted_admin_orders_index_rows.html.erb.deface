@@ -1,3 +1,3 @@
 <!-- insert_bottom "[data-hook='admin_orders_index_rows'], #admin_orders_index_rows[data-hook]" -->
 
-<td><%= order.has_drop_ship_orders? ? order.drop_ship_orders.map{|i| link_to i.id, admin_drop_ship_order_path(i) }.join(", ").html_safe : nil %></td>
+<td><%= order.has_drop_ship_orders? ? order.drop_ship_orders.map{|i| link_to i.id, spree.edit_admin_drop_ship_order_path(i) }.join(", ").html_safe : nil %></td>

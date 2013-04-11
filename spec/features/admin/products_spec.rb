@@ -137,6 +137,7 @@ describe 'Admin - Products', js: true do
         fill_in "product_price", :with => "100"
         fill_in "product_available_on", :with => "2012/01/24"
         select "Size", :from => "Prototype"
+        sleep 10
         check "Large"
         click_button "Create"
         page.should have_content("successfully created!")

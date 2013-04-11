@@ -9,7 +9,7 @@ module Spree
       #   else
       #     flash[:error] = t('spree.admin.drop_ship_orders.deliver.error', number: @order.id)
       #   end
-      #   redirect_to spree.admin_drop_ship_order_path(@order)
+      #   redirect_to spree.edit_admin_drop_ship_order_path(@order)
       # end
 
       def edit

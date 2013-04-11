@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Admin - Products', js: true do
+feature 'Admin - Product Stock Management', js: true do
 
   before do
     @user = create(:supplier_user)

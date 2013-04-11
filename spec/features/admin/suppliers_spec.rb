@@ -82,7 +82,7 @@ feature 'Admin - Suppliers', js: true do
     scenario 'should only see tabs they have access to' do
       within '#admin-menu' do
         page.should have_link('Overview')
-        page.should_not have_link('Orders')
+        page.should_not have_css('.icon-shopping-cart')
         page.should have_link('Products')
         page.should_not have_link('Reports')
         page.should_not have_link('Configuration')
