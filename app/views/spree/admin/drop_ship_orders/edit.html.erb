@@ -5,39 +5,32 @@
   <li><%= button_link_to t(:back_to_orders_list), spree.admin_drop_ship_orders_path, :icon => 'icon-arrow-left' %></li>
 <% end %>
 
-<% content_for :page_title do %>
-  <h1>Order #<%= @order.id %></h1>
+<% if spree_current_user.admin? %>
+  <div data-hook="admin_order_show_supplier" class="row">
+    <fieldset class="alpha twelve columns no-border-bottom">
+      <legend align="center"><%= t(:supplier_information) %></legend>
+      <div>
+        <b><%= t('supplier.name') %>:</b> <%= @order.supplier.name %><br/>
+        <b><%= t('supplier.email') %>:</b> <%= @order.supplier.email %><br/>
+        <b><%= t('supplier.url') %>:</b> <%= link_to @order.supplier.url, @order.supplier.url if @order.supplier.url.present? %><br/>
+      </div>
+      <div>
+        <b><%= t('contact_information') %>:</b>
+      </div>
+      <%= render :partial => 'spree/shared/address', :locals => { :address => @order.supplier.address } %>
+    </fieldset>
+  </div>
 <% end %>
-
-<div class="float-left">
-  <h2>Supplier Information</h2>
-  <dl>
-    <dt>Name</dt>
-    <dd><%= @order.supplier.name %></dd>
-    <dt>Address</dt>
-    <dd><%= render "spree/admin/shared/address", :address => @order.supplier.address %></dd>
-    <dt>Email</dt>
-    <dd><%= @order.supplier.email %></dd>
-    <dt>URL</dt>
-    <dd><%= @order.supplier.url %></dd>
-  </dl>
-</div>
 
 <%= render :partial => 'spree/admin/shared/order_tabs', :locals => { :current => 'Order Details' } %>
 
 <div data-hook="admin_order_show_addresses" class="row">
-  <% if @order.bill_address %>
-    <fieldset class="alpha six columns no-border-bottom">
-      <legend align="center"><%= t(:bill_address) %></legend>
-      <%= render :partial => 'spree/shared/address', :locals => { :address => @order.bill_address } %>
-    </fieldset>
-  <% end %>
   <% if @order.ship_address %>
-    <fieldset class="omega six columns no-border-bottom">
+    <fieldset class="alpha twelve columns no-border-bottom">
       <legend align="center"><%= t(:ship_address) %></legend>
       <%= render :partial => 'spree/shared/address', :locals => { :address => @order.ship_address } %>
     </fieldset>
-    <% end %>
+  <% end %>
 </div>
 
 <div data-hook="admin_order_show_details">

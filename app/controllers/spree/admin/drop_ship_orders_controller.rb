@@ -2,15 +2,13 @@ module Spree
   module Admin
     class DropShipOrdersController < Spree::Admin::ResourceController
 
-      # def deliver
-      #   @order = DropShipOrder.accessible_by(current_ability, :show).find(params[:id])
-      #   if @order.deliver
-      #     flash[:notice] = t('spree.admin.drop_ship_orders.deliver.success', number: @order.id)
-      #   else
-      #     flash[:error] = t('spree.admin.drop_ship_orders.deliver.error', number: @order.id)
-      #   end
-      #   redirect_to spree.edit_admin_drop_ship_order_path(@order)
-      # end
+      def deliver
+        @order = DropShipOrder.accessible_by(current_ability, :show).find(params[:id])
+        if @order.deliver
+          flash[:notice] = t('spree.admin.drop_ship_orders.deliver.success', number: @order.id)
+        end
+        redirect_to spree.edit_admin_drop_ship_order_path(@order)
+      end
 
       def edit
         @order = DropShipOrder.accessible_by(current_ability, :show).find(params[:id])

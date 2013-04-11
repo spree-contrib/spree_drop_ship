@@ -66,12 +66,14 @@ describe Spree::SupplierAbility do
     it_should_behave_like 'admin granted'
 
     context 'requested by another suppliers user' do
-      let(:resource) { Spree::Image.new({viewable: create(:product, supplier: create(:supplier))}, without_protection: true) }
+      let(:product) { create(:product, supplier: create(:supplier)) }
+      let(:resource) { Spree::Image.new({viewable_id: product.id, viewable_type: product.class.to_s}, without_protection: true) }
       it_should_behave_like 'create only'
     end
 
     context 'requested by suppliers user' do
-      let(:resource) { Spree::Image.new({viewable: create(:product, supplier: user.supplier)}, without_protection: true) }
+      let(:product) { create(:product, supplier: user.supplier) }
+      let(:resource) { Spree::Image.new({viewable_id: product.id, viewable_type: product.class.to_s}, without_protection: true) }
       it_should_behave_like 'access granted'
     end
   end

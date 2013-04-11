@@ -19,10 +19,8 @@ Requirements
 
 * Ruby >= 1.9.3
 * SpreeApi >= 2.0.0.beta
-* SpreeAuthDevise (No I won't remove the requirement unless you submit a pull request that doesn't butcher the current feature set)
 * SpreeBackend >= 2.0.0.beta
 * SpreeCore >= 2.0.0.beta
-* SpreeFrontend >= 2.0.0.beta (May potentially be replaced with an alternative)
 
 Installation
 ------------
@@ -110,18 +108,10 @@ bundle exec rspec spec
 Todo
 ----
 
-- Make supplier address form DRY with spree core (requires patching spree_frontend)
-- Finish styling views for admin redesign & account pages
-- Finish/Style Email templates
 - Better documentation
 - Finish I18n implementation (mailer views, and anywhere else plain text is found)
-- Integrate SupplierAbility w/Spree::API (this is actually a todo for making spree api respect cancan in missing places particular read actions)
+- Integrate SupplierAbility w/Spree::API (actually making spree api respect cancan in missing places particular read actions)
 - Add new languages
 - Implement strong_params and other Rails 4 compatibilities
-
-Thanks
-------
-
-This extension is based on past work by [Spencer Steffen](http://github.com/citrus/spree_drop_shipping).
 
 Copyright (c) 2012-2013 Jeff Dutil, released under the [New BSD License](https://github.com/jdutil/spree_drop_ship/tree/master/LICENSE).

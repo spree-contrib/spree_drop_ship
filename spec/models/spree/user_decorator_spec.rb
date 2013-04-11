@@ -4,12 +4,10 @@ describe Spree.user_class do
 
   it { should belong_to(:supplier) }
 
-  let(:user) { build :user }
+  it { should have_many(:products).through(:supplier) }
+  it { should have_many(:variants).through(:products) }
 
-  it '#admin?' do
-    #spree_roles.pluck(:name).include?('admin')
-    pending 'should be moved and tested in spree_auth_devise'
-  end
+  let(:user) { build :user }
 
   it '#supplier?' do
     user.supplier?.should be_false

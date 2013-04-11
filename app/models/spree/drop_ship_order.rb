@@ -70,6 +70,9 @@ class Spree::DropShipOrder < ActiveRecord::Base
     self.save ? self : nil
   end
 
+  # TODO should scope to shipments
+  delegate :adjustments, to: :order
+
   delegate :currency, to: :order
 
   # Don't allow drop ship orders to be destroyed
@@ -81,7 +84,11 @@ class Spree::DropShipOrder < ActiveRecord::Base
     Spree::Money.new(self.total, { currency: currency })
   end
 
+  delegate :find_line_item_by_variant, to: :order
+
   alias_method :number, :id
+
+  delegate :ship_address, to: :order
 
   def shipments
     order.shipments.joins(:stock_location).where('spree_stock_locations.supplier_id = ?', self.supplier_id)

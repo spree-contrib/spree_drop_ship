@@ -17,10 +17,8 @@ Gem::Specification.new do |s|
   s.requirements << 'none'
 
   s.add_dependency 'spree_api',         '~> 2.0.0.beta'
-  s.add_dependency 'spree_auth_devise'
   s.add_dependency 'spree_backend',     '~> 2.0.0.beta'
   s.add_dependency 'spree_core',        '~> 2.0.0.beta'
-  s.add_dependency 'spree_frontend',    '~> 2.0.0.beta'
 
   s.add_development_dependency 'capybara',           '~> 2.1'
   s.add_development_dependency 'coffee-rails'
@@ -32,6 +30,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'selenium-webdriver'
   s.add_development_dependency 'shoulda-matchers'
   s.add_development_dependency 'simplecov'
+  s.add_development_dependency 'spree_auth_devise'
   s.add_development_dependency 'spree_dash'
   s.add_development_dependency 'spree_related_products'
   s.add_development_dependency 'spree_sample'

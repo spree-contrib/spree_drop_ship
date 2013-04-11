@@ -35,13 +35,27 @@ describe Spree::DropShipOrder do
     record.number.should eql(record.id)
   end
 
+  it '#ship_address' do
+    record = create(:drop_ship_order)
+    record.ship_address.should eql(record.order.ship_address)
+  end
+
   it '#shipments' do
-    pending 'write it'
+    pending 'TODO'
   end
 
   it '#total' do
     record = create(:order_for_drop_ship).drop_ship_orders.first
     record.total.to_f.should eql(50.0)
+  end
+
+  it '#update_commission' do
+    record = create(:drop_ship_order)
+    record.supplier.stub commission_flat_rate: 0.3
+    record.supplier.stub commission_percentage: 10
+    record.stub total: 110
+    record.save
+    record.reload.commission.to_f.should eql(11.3)
   end
 
   context "A new drop ship order" do
@@ -156,15 +170,6 @@ describe Spree::DropShipOrder do
 
     end
 
-  end
-
-  it '#update_commission' do
-    record = create(:drop_ship_order)
-    record.supplier.stub commission_flat_rate: 0.3
-    record.supplier.stub commission_percentage: 10
-    record.stub total: 110
-    record.save
-    record.reload.commission.to_f.should eql(11.3)
   end
 
 end

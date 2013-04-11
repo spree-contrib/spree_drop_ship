@@ -10,10 +10,8 @@ module Spree
           can [:admin, :index, :sync], Spree::Admin::OverviewController
         end
         can [:admin, :index, :read, :update], Spree::DropShipOrder, supplier_id: user.supplier_id
-        # can [:admin, :manage], Spree::Image, viewable: { supplier_id: user.supplier_id }
-        can [:admin, :manage], Spree::Image do |image|
-          image.viewable.supplier_id == user.supplier_id
-        end
+        can [:admin, :manage], Spree::Image, viewable_id: user.products.pluck(:id), viewable_type: 'Spree::Product'
+        can [:admin, :manage], Spree::Image, viewable_id: user.variants.pluck(:id), viewable_type: 'Spree::Variant'
         can :create, Spree::Image
         if defined?(Spree::Relation)
           can [:admin, :manage], Spree::Relation, relatable: { supplier_id: user.supplier_id }
