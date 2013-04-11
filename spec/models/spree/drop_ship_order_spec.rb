@@ -35,12 +35,6 @@ describe Spree::DropShipOrder do
     record.number.should eql(record.id)
   end
 
-  it '#shipment_state' do
-    pending 'write or remove'
-    record = create(:drop_ship_order)
-    record.shipment_state.should eql(record.order.currency)
-  end
-
   it '#shipments' do
     pending 'write it'
   end

@@ -104,21 +104,9 @@ describe 'Admin - Products', js: true do
         ot
       end
 
-      let(:product_attributes) do
-        attributes_for(:simple_product)
-      end
-
       let(:prototype) do
         size = build_option_type_with_values("size", %w(Small Medium Large))
         create(:prototype, :name => "Size", :option_types => [ size ])
-      end
-
-      let(:option_values_hash) do
-        hash = {}
-        prototype.option_types.each do |i|
-          hash[i.id.to_s] = i.option_value_ids
-        end
-        hash
       end
 
       before(:each) do
@@ -137,7 +125,6 @@ describe 'Admin - Products', js: true do
         fill_in "product_price", :with => "100"
         fill_in "product_available_on", :with => "2012/01/24"
         select "Size", :from => "Prototype"
-        sleep 10
         check "Large"
         click_button "Create"
         page.should have_content("successfully created!")

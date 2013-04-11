@@ -25,14 +25,6 @@ FactoryGirl.define do
     supplier
   end
 
-  factory :supplier_with_user, parent: :supplier do
-    after :create do |supplier|
-      unless supplier.users.first
-        supplier.users << create(:user)
-      end
-    end
-  end
-
   factory :variant_with_supplier, parent: :variant do
     product { create(:product, supplier: create(:supplier)) }
   end

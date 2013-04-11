@@ -13,16 +13,16 @@ feature 'Admin - Product Relation Management', js: true do
   end
 
   context 'as Supplier' do
-
     scenario 'should be able to add relations' do
       login_user @user
       visit spree.related_admin_product_path(@product1)
-
-      select2 @product2.name, from: 'add_variant_name'
-      click_button 'Add'
-      page.should have_content('created related product')
+      targetted_select2_search @product2.name, from: 'Name or SKU'
+      select2 @product2.name, from: 'Name or SKU'
+      click_link 'Add'
+      within '#products-table-wrapper' do
+        page.should have_content(@product2.name)
+      end
     end
-
   end
 
 end

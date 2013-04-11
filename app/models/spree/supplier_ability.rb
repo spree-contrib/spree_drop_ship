@@ -14,11 +14,15 @@ module Spree
         can [:admin, :manage], Spree::Image do |image|
           image.viewable.supplier_id == user.supplier_id
         end
+        can :create, Spree::Image
         if defined?(Spree::Relation)
           can [:admin, :manage], Spree::Relation, relatable: { supplier_id: user.supplier_id }
         end
         can [:admin, :manage, :stock], Spree::Product, supplier_id: user.supplier_id
         can :create, Spree::Product
+        can [:admin, :manage], Spree::ProductProperty, product: { supplier_id: user.supplier_id }
+        can [:admin, :index, :read], Spree::Property
+        can [:admin, :read], Spree::Prototype
         can [:admin, :manage], Spree::Shipment, stock_location: { supplier_id: user.supplier_id }
         can [:admin, :manage], Spree::StockItem, variant: { product: { supplier_id: user.supplier_id } } 
         can [:admin, :manage], Spree::StockLocation, supplier_id: user.supplier_id

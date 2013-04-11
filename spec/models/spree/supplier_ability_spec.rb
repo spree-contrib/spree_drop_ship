@@ -15,12 +15,12 @@ describe Spree::SupplierAbility do
       let(:ability) { Spree::SupplierAbility.new(create(:user)) }
       it_should_behave_like 'access denied'
       it_should_behave_like 'no index allowed'
-      # it_should_behave_like 'admin denied'
+      it_should_behave_like 'admin denied'
     end
 
     context 'requested by supplier' do
       it_should_behave_like 'index allowed'
-      # it_should_behave_like 'admin granted'
+      it_should_behave_like 'admin granted'
 
       it 'should be able to sync' do
         ability.should be_able_to :sync, resource
@@ -32,13 +32,13 @@ describe Spree::SupplierAbility do
     let(:resource) { Spree::DropShipOrder }
 
     it_should_behave_like 'index allowed'
-    # it_should_behave_like 'admin granted'
+    it_should_behave_like 'admin granted'
 
     context 'requested by any user' do
       let(:ability) { Spree::SupplierAbility.new(create(:user)) }
       it_should_behave_like 'access denied'
       it_should_behave_like 'no index allowed'
-      # it_should_behave_like 'admin denied'
+      it_should_behave_like 'admin denied'
     end
 
     context 'requested by another suppliers user' do
@@ -63,11 +63,11 @@ describe Spree::SupplierAbility do
     let(:resource) { Spree::Image }
 
     it_should_behave_like 'index allowed'
-    # it_should_behave_like 'admin granted'
+    it_should_behave_like 'admin granted'
 
     context 'requested by another suppliers user' do
       let(:resource) { Spree::Image.new({viewable: create(:product, supplier: create(:supplier))}, without_protection: true) }
-      it_should_behave_like 'access denied'
+      it_should_behave_like 'create only'
     end
 
     context 'requested by suppliers user' do
@@ -80,7 +80,7 @@ describe Spree::SupplierAbility do
     let(:resource) { Spree::Product }
 
     it_should_behave_like 'index allowed'
-    # it_should_behave_like 'admin granted'
+    it_should_behave_like 'admin granted'
 
     context 'requested by another suppliers user' do
       let(:resource) { Spree::Product.new({supplier: create(:supplier)}, without_protection: true) }
@@ -93,11 +93,42 @@ describe Spree::SupplierAbility do
     end
   end
 
+  context 'for ProductProperty' do
+    let(:resource) { Spree::ProductProperty }
+
+    it_should_behave_like 'index allowed'
+    it_should_behave_like 'admin granted'
+
+    context 'requested by another suppliers user' do
+      let(:resource) { Spree::ProductProperty.new({product: create(:product, supplier: create(:supplier))}, without_protection: true) }
+      it_should_behave_like 'access denied'
+    end
+
+    context 'requested by suppliers user' do
+      let(:resource) { Spree::ProductProperty.new({product: create(:product, supplier: user.supplier)}, without_protection: true) }
+      it_should_behave_like 'access granted'
+    end
+  end
+
+  context 'for Property' do
+    let(:resource) { Spree::Property }
+
+    it_should_behave_like 'admin granted'
+    it_should_behave_like 'read only'
+  end
+
+  context 'for Prototype' do
+    let(:resource) { Spree::Prototype }
+
+    it_should_behave_like 'admin granted'
+    it_should_behave_like 'read only'
+  end
+
   context 'for Relation' do
     let(:resource) { Spree::Relation }
 
     it_should_behave_like 'index allowed'
-    # it_should_behave_like 'admin granted'
+    it_should_behave_like 'admin granted'
 
     context 'requested by another suppliers user' do
       let(:resource) { Spree::Relation.new({relatable: create(:product, supplier: create(:supplier))}, without_protection: true) }
@@ -115,14 +146,14 @@ describe Spree::SupplierAbility do
       let(:resource) { Spree::Shipment.new({stock_location: create(:stock_location, supplier: create(:supplier))}, without_protection: true) }
       it_should_behave_like 'access denied'
       it_should_behave_like 'no index allowed'
-      # it_should_behave_like 'admin denied'
+      it_should_behave_like 'admin denied'
     end
 
     context 'requested by suppliers user' do
       let(:resource) { Spree::Shipment.new({stock_location: create(:stock_location, supplier: user.supplier)}, without_protection: true) }
       it_should_behave_like 'access granted'
       it_should_behave_like 'index allowed'
-      # it_should_behave_like 'admin granted'
+      it_should_behave_like 'admin granted'
     end
   end
 
@@ -130,7 +161,7 @@ describe Spree::SupplierAbility do
     let(:resource) { Spree::StockItem }
 
     it_should_behave_like 'index allowed'
-    # it_should_behave_like 'admin granted'
+    it_should_behave_like 'admin granted'
 
     context 'requested by another suppliers user' do
       let(:resource) { Spree::StockItem.new({variant: create(:product, supplier: create(:supplier)).master}, without_protection: true) }
@@ -152,7 +183,7 @@ describe Spree::SupplierAbility do
     context 'requested by suppliers user' do
       let(:resource) { Spree::StockLocation.new({supplier: user.supplier}, without_protection: true) }
       it_should_behave_like 'access granted'
-      # it_should_behave_like 'admin granted'
+      it_should_behave_like 'admin granted'
       it_should_behave_like 'index allowed'
     end
   end
@@ -161,7 +192,7 @@ describe Spree::SupplierAbility do
     let(:resource) { Spree::StockMovement }
 
     it_should_behave_like 'index allowed'
-    # it_should_behave_like 'admin granted'
+    it_should_behave_like 'admin granted'
 
     context 'requested by another suppliers user' do
       let(:resource) { Spree::StockMovement.new({stock_item: build(:stock_item, variant: create(:product, supplier: create(:supplier)).master)}, without_protection: true) }
@@ -179,7 +210,7 @@ describe Spree::SupplierAbility do
       let(:ability) { Spree::SupplierAbility.new(create(:user)) }
       let(:resource) { Spree::Supplier }
 
-      # it_should_behave_like 'admin denied'
+      it_should_behave_like 'admin denied'
 
       context 'w/ DropShipConfig[:allow_signup] == false (the default)' do
         it_should_behave_like 'access denied'
@@ -198,7 +229,7 @@ describe Spree::SupplierAbility do
 
     context 'requested by suppliers user' do
       let(:resource) { user.supplier }
-      # it_should_behave_like 'admin granted'
+      it_should_behave_like 'admin granted'
       it_should_behave_like 'update only'
     end
   end
@@ -207,7 +238,7 @@ describe Spree::SupplierAbility do
     let(:resource) { Spree::Variant }
 
     it_should_behave_like 'index allowed'
-    # it_should_behave_like 'admin granted'
+    it_should_behave_like 'admin granted'
 
     context 'requested by another suppliers user' do
       let(:resource) { Spree::Variant.new({product: create(:product, supplier: create(:supplier))}, without_protection: true) }
