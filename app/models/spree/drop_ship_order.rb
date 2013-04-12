@@ -10,6 +10,9 @@ class Spree::DropShipOrder < ActiveRecord::Base
 
   has_many :drop_ship_line_items, dependent: :destroy
   has_many :line_items, through: :drop_ship_line_items
+  has_many :return_authorizations, through: :order
+  has_many :shipments, through: :order
+  has_many :stock_locations, through: :supplier
   has_many :users, class_name: Spree.user_class.to_s, through: :supplier
 
   has_one :user, through: :order
@@ -37,11 +40,11 @@ class Spree::DropShipOrder < ActiveRecord::Base
     after_transition :on => :complete, :do => :perform_complete
 
     event :deliver do
-      transition [ :active, :sent ] => :sent
+      transition [ :active, :delivered ] => :delivered
     end
 
     event :confirm do
-      transition :sent => :confirmed
+      transition :delivered => :confirmed
     end
 
     event :complete do
@@ -52,23 +55,6 @@ class Spree::DropShipOrder < ActiveRecord::Base
 
   #==========================================
   # Instance Methods
-
-  # Adds line items to the drop ship order. This method will group similar line items
-  # and update quantities as necessary. You can add a single line item or an array of
-  # line items.
-  # TODO: This is overly complex and need to refactor
-  #       start of refactoring makes me think this should be update_line_items rather than add for clarity
-  def add(new_line_items)
-    new_line_items = Array.wrap(new_line_items).reject{ |li| li.product.supplier_id.nil? || li.product.supplier_id != self.supplier_id }
-    new_line_items.each do |new_line_item|
-      if line_item = self.drop_ship_line_items.find_by_line_item_id(new_line_item.id)
-      else
-        self.drop_ship_line_items.create({line_item_id: new_line_item.id}, without_protection: true)
-      end
-    end
-    # TODO: remove any old line items?
-    self.save ? self : nil
-  end
 
   # TODO should scope to shipments
   delegate :adjustments, to: :order
@@ -88,6 +74,8 @@ class Spree::DropShipOrder < ActiveRecord::Base
 
   alias_method :number, :id
 
+  delegate :payments, to: :order
+
   delegate :ship_address, to: :order
 
   def shipments
@@ -99,6 +87,10 @@ class Spree::DropShipOrder < ActiveRecord::Base
 
   private
 
+    def perform_complete # :nodoc:
+      self.update_attribute(:completed_at, Time.now)
+    end
+
     def perform_confirmation # :nodoc:
       self.update_attribute(:confirmed_at, Time.now)
     end
@@ -106,10 +98,6 @@ class Spree::DropShipOrder < ActiveRecord::Base
     def perform_delivery # :nodoc:
       self.update_attribute(:sent_at, Time.now)
       Spree::DropShipOrderMailer.supplier_order(self).deliver! if Spree::DropShipConfig[:send_supplier_email]
-    end
-
-    def perform_complete # :nodoc:
-      self.update_attribute(:completed_at, Time.now)
     end
 
     def update_commission

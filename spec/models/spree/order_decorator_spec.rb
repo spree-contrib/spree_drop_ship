@@ -4,28 +4,17 @@ describe Spree::Order do
 
   it { should have_many(:drop_ship_orders) }
 
-  it '#approve_drop_ship_orders' do
-    order = create(:order_with_totals, bill_address: create(:address), ship_address: create(:address))
-    order.line_items = [create(:line_item, variant: create(:variant_with_supplier)), create(:line_item, variant: create(:variant_with_supplier))]
-    order.finalize!
-
-    order.approve_drop_ship_orders.should be_true
-  end
-
   it '#finalize_with_dropship!' do
-   order = create(:order_with_totals)
+   order = create(:order_with_totals, ship_address: create(:address))
    order.line_items = [create(:line_item, variant: create(:variant_with_supplier)), create(:line_item, variant: create(:variant_with_supplier))]
 
    order.finalize!
 
    order.drop_ship_orders.size.should eql(2)
-  end
-
-  it '#has_drop_ship_orders?' do
-    order = create(:order)
-    order.has_drop_ship_orders?.should eql(false)
-    order = create(:drop_ship_order).order
-    order.has_drop_ship_orders?.should eql(true)
+   order.drop_ship_orders.each do |dso|
+     dso.line_items.size.should eql(1)
+     dso.line_items.first.product.supplier.should eql(dso.supplier)
+   end
   end
 
 end

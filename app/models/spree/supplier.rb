@@ -12,6 +12,7 @@ class Spree::Supplier < ActiveRecord::Base
   has_many   :products
   has_many   :stock_locations
   has_many   :users, class_name: Spree.user_class.to_s
+  has_many   :variants, through: :products
 
   #==========================================
   # Validations

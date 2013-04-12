@@ -2,23 +2,31 @@ module Spree
   module Admin
     class DropShipOrdersController < Spree::Admin::ResourceController
 
+      def confirm
+        @order = DropShipOrder.accessible_by(current_ability, :update).find(params[:id])
+        if @order.confirm!
+          flash[:notice] = t('spree.admin.drop_ship_orders.confirm.success', number: @order.id)
+        end
+        redirect_to spree.edit_admin_drop_ship_order_path(@order)
+      end
+
       def deliver
-        @order = DropShipOrder.accessible_by(current_ability, :show).find(params[:id])
-        if @order.deliver
+        @order = DropShipOrder.accessible_by(current_ability, :update).find(params[:id])
+        if @order.deliver!
           flash[:notice] = t('spree.admin.drop_ship_orders.deliver.success', number: @order.id)
         end
         redirect_to spree.edit_admin_drop_ship_order_path(@order)
       end
 
       def edit
-        @order = DropShipOrder.accessible_by(current_ability, :show).find(params[:id])
+        @order = DropShipOrder.accessible_by(current_ability, :edit).find(params[:id])
       end
 
       def index
         params[:q] ||= {}
-        params[:q][:completed_at_not_null] ||= '1' if Spree::Config[:show_only_complete_orders_by_default]
-        @show_only_completed = params[:q][:completed_at_not_null].present?
-        params[:q][:s] ||= @show_only_completed ? 'completed_at desc' : 'created_at desc'
+        params[:q][:completed_at_is_null] ||= '1'
+        @show_only_incomplete = params[:q][:completed_at_is_null].present?
+        params[:q][:s] ||= @show_only_incomplete ? 'completed_at desc' : 'created_at desc'
 
         # As date params are deleted if @show_only_completed, store
         # the original date so we can restore them into the params
@@ -34,11 +42,6 @@ module Spree
 
         if !params[:q][:created_at_lt].blank?
           params[:q][:created_at_lt] = Time.zone.parse(params[:q][:created_at_lt]).end_of_day rescue ""
-        end
-
-        if @show_only_completed
-          params[:q][:completed_at_gt] = params[:q].delete(:created_at_gt)
-          params[:q][:completed_at_lt] = params[:q].delete(:created_at_lt)
         end
 
         @search = DropShipOrder.accessible_by(current_ability, :index).ransack(params[:q])

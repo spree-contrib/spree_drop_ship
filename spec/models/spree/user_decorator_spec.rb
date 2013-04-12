@@ -4,8 +4,7 @@ describe Spree.user_class do
 
   it { should belong_to(:supplier) }
 
-  it { should have_many(:products).through(:supplier) }
-  it { should have_many(:variants).through(:products) }
+  it { should have_many(:variants).through(:supplier) }
 
   let(:user) { build :user }
 

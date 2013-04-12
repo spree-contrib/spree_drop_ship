@@ -8,13 +8,26 @@ en:
               invalid: is invalid. Please be sure to include include 'http://'
               not_responding: 'is invalid, not responding or redirecting to another location'
   drop_ship_order_number: "Drop Ship Order #%{number}"
+  drop_ship_order_state:
+    active: Active
+    completed: Completed
+    confirmed: Confirmed
+    delivered: Delivered
   drop_ship_orders: Drop Ship Orders
   drop_ship_settings: Drop Ship Settings
   must_be_logged_in: 'Must Be Logged In'
+  resend_order_to_supplier: Resend Order To Supplier
+  send_order_to_supplier: Send Order To Supplier
+  show_only_incomplete_orders: Show Only Incomplete Orders
   signup: Sign Up
   signup_to_become_a_supplier: 'Sign Up To Become A Supplier'
   spree:
     admin:
+      drop_ship_orders:
+        confirm:
+          success: "Drop ship order %{number} was successfully confirmed!"
+        deliver:
+          success: "Drop ship order %{number} was successfully delivered!"
       drop_ship_settings:
         update:
           success: Drop ship settings successfully updated.

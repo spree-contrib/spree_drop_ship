@@ -8,6 +8,7 @@ describe Spree::Supplier do
   it { should have_many(:products) }
   it { should have_many(:stock_locations) }
   it { should have_many(:users) }
+  it { should have_many(:variants).through(:products) }
 
   it { should validate_presence_of(:address) }
   it { should validate_presence_of(:email) }

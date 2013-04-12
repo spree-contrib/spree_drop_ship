@@ -1,0 +1,30 @@
+<!-- replace_contents '[data-hook=admin_order_tabs]' -->
+
+<% if @order.is_a?(Spree::Order) and can? :update, @order %>
+<li>test</li>
+  <li<%== ' class="active"' if current == 'Order Details' %>>
+    <%= link_to_with_icon 'icon-edit', t(:order_details), edit_admin_order_url(@order) %>
+  </li>
+<% end %>
+<% if @order.is_a?(Spree::Order) and can? :update, @order %>
+  <li<%== ' class="active"' if current == 'Customer Details' %>>
+    <%= link_to_with_icon 'icon-user', t(:customer_details), admin_order_customer_url(@order) %>
+  </li>
+<% end %>
+<% if can? :index, @order.adjustments %>
+  <li<%== ' class="active"' if current == 'Adjustments' %>>
+    <%= link_to_with_icon 'icon-cogs', t(:adjustments), admin_order_adjustments_url(@order) %>
+  </li>
+<% end %>
+<% if can? :index, @order.payments %>
+  <li<%== ' class="active"' if current == 'Payments' %>>
+    <%= link_to_with_icon 'icon-credit-card', t(:payments), admin_order_payments_url(@order) %>
+  </li>
+<% end %>
+<% if can? :index, @order.return_authorizations %>
+  <% if @order.completed? %>
+    <li<%== ' class="active"' if current == 'Return Authorizations' %>>
+      <%= link_to_with_icon 'icon-share-alt', t(:return_authorizations), admin_order_return_authorizations_url(@order) %>
+    </li>
+  <% end %>
+<% end %>

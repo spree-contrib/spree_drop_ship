@@ -7,6 +7,9 @@ describe Spree::DropShipOrder do
 
   it { should have_many(:drop_ship_line_items).dependent(:destroy) }
   it { should have_many(:line_items).through(:drop_ship_line_items) }
+  it { should have_many(:return_authorizations).through(:order) }
+  it { should have_many(:shipments).through(:order) }
+  it { should have_many(:stock_locations).through(:supplier) }
   it { should have_many(:users).through(:supplier) }
 
   it { should have_one(:user) }
@@ -67,23 +70,6 @@ describe Spree::DropShipOrder do
 
   end
 
-  context "A suppliers active drop ship order" do
-
-    before do
-      @supplier = create(:supplier)
-      @drop_ship_order = create(:drop_ship_order, supplier: @supplier)
-      @supplier.orders << @drop_ship_order
-    end
-
-    it "should add line relevant line items" do
-      suppliers_item = create(:line_item, variant: create(:variant_with_supplier, product: create(:product, supplier: @supplier)))
-      @line_items = [ create(:line_item), create(:line_item, variant: create(:variant_with_supplier)), suppliers_item ]
-      @drop_ship_order.add(@line_items)
-      assert_equal 1, @drop_ship_order.line_items.count
-    end
-
-  end
-
   context "A drop ship order's state machine" do
 
     before do
@@ -120,8 +106,8 @@ describe Spree::DropShipOrder do
           @drop_ship_order.deliver!
         end
 
-        it "should move to the 'sent' state" do
-          assert_equal "sent", @drop_ship_order.state
+        it "should move to the 'delivered' state" do
+          assert_equal 'delivered', @drop_ship_order.state
         end
 
         it "should set sent at" do

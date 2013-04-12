@@ -1,7 +1,0 @@
-<% if @order.has_drop_ship_orders? %>
-  <% if @order.drop_ship_orders.reject(&:sent?).empty? %>
-    <li><%= button_link_to t('.resend_drop_ship_orders'), spree.approve_drop_ship_admin_order_path(@order), :icon => 'accept', :confirm => t(".drop_ship_order_approval_confirmation") %></li>
-  <% else %>
-    <li><%= button_link_to t('.approve_drop_ship_orders'), spree.approve_drop_ship_admin_order_path(@order), :icon => 'accept', :confirm => t(".drop_ship_order_approval_confirmation") %></li>
-  <% end %>
-<% end %>
