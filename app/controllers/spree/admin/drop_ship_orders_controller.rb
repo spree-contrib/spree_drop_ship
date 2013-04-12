@@ -24,11 +24,11 @@ module Spree
 
       def index
         params[:q] ||= {}
-        params[:q][:completed_at_is_null] ||= '1'
-        @show_only_incomplete = params[:q][:completed_at_is_null].present?
-        params[:q][:s] ||= @show_only_incomplete ? 'completed_at desc' : 'created_at desc'
+        params[:q][:completed_at_null] ||= '1'
+        @show_only_incomplete = params[:q][:completed_at_null].present?
+        params[:q][:s] ||= @show_only_incomplete ? 'created_at desc' : 'completed_at desc'
 
-        # As date params are deleted if @show_only_completed, store
+        # As date params are deleted if @show_only_incomplete, store
         # the original date so we can restore them into the params
         # after the search
         created_at_gt = params[:q][:created_at_gt]

@@ -51,6 +51,7 @@ describe Spree::SupplierAbility do
 
       it 'should be able to administer updates' do
         ability.should be_able_to :admin, resource
+        ability.should be_able_to :confirm, resource
         ability.should_not be_able_to :create, resource
         ability.should_not be_able_to :destroy, resource
         ability.should be_able_to :read, resource

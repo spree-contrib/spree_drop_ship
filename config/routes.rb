@@ -1,14 +1,10 @@
 Spree::Core::Engine.routes.draw do
 
   namespace :admin do
-    resources :orders do
-      member do
-        get :approve_drop_ship
-      end
-    end
     resources :drop_ship_orders, only: [:edit, :index, :update] do
       member do
-        get :deliver
+        put :confirm
+        put :deliver
       end
     end
     resource :drop_ship_settings

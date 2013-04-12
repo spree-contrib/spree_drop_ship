@@ -43,27 +43,27 @@ describe "Admin - Properties" do
       end
     end
 
-    context "editing a property" do
-      before(:each) do
-        pending 'Not sure if we want to allow this yet.'
-        # create(:property)
-        # click_link "Properties"
-        # within_row(1) { click_icon :edit }
-      end
-
-      # it "should allow an admin to edit an existing product property" do
-      #   fill_in "property_name", :with => "model 99"
-      #   click_button "Update"
-      #   page.should have_content("successfully updated!")
-      #   page.should have_content("model 99")
-      # end
-      # 
-      # it "should show validation errors" do
-      #   fill_in "property_name", :with => ""
-      #   click_button "Update"
-      #   page.should have_content("Name can't be blank")
-      # end
-    end
+    # TODO 'Not sure if we want to allow this yet.'
+    # context "editing a property" do
+    #   before(:each) do
+    #     create(:property)
+    #     click_link "Properties"
+    #     within_row(1) { click_icon :edit }
+    #   end
+    # 
+    #   it "should allow an admin to edit an existing product property" do
+    #     fill_in "property_name", :with => "model 99"
+    #     click_button "Update"
+    #     page.should have_content("successfully updated!")
+    #     page.should have_content("model 99")
+    #   end
+    #   
+    #   it "should show validation errors" do
+    #     fill_in "property_name", :with => ""
+    #     click_button "Update"
+    #     page.should have_content("Name can't be blank")
+    #   end
+    # end
 
     context "linking a property to a product", :js => true do
       before do

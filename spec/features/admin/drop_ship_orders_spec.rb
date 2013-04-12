@@ -3,9 +3,11 @@ require 'spec_helper'
 describe 'Admin - Drop Ship Orders', js: true do
 
   before do
-    @order1 = create(:drop_ship_order)
-    @order2 = create(:drop_ship_order)
-    @order3 = create(:drop_ship_order, completed_at: Time.now)
+    @order1 = create(:drop_ship_order, created_at: 1.day.ago)
+    @order1.deliver!
+    @order2 = create(:drop_ship_order, created_at: 2.day.ago)
+    @order2.deliver!
+    @order3 = create(:drop_ship_order, created_at: 3.day.ago, completed_at: Time.now)
   end
 
   context 'as Admin' do
@@ -26,27 +28,29 @@ describe 'Admin - Drop Ship Orders', js: true do
         page.should have_css('[data-hook=admin_order_show_details]')
       end
 
-      it 'deliver button should properly fire for initial send and resend' do
-        click_link 'Send Order To Supplier'
-        page.should have_content(I18n.t('spree.admin.drop_ship_orders.deliver.success', number: @order1.id))
-
-        click_link 'Resend Order To Supplier'
+      it 'deliver button should properly fire for resend' do
+        click_button 'Resend Order To Supplier'
         page.should have_content(I18n.t('spree.admin.drop_ship_orders.deliver.success', number: @order1.id))
       end
     end
 
     context 'index page' do
       it 'should display all drop ship orders with incomplete only by default' do
+        @order1.stub number: 12345
+        @order2.stub number: 23456
         visit spree.admin_drop_ship_orders_path
-
-        page.should have_content(@order1.id)
-        page.should have_content(@order2.id)
-        page.should_not have_content(@order3.id)
-
-        uncheck 'completed_at_is_null'
-        page.should have_content(@order1.id)
-        page.should have_content(@order2.id)
-        page.should have_content(@order3.id)
+        within 'tbody' do
+          page.should have_content(@order1.created_at.to_date)
+          page.should have_content(@order2.created_at.to_date)
+          page.should_not have_content(@order3.created_at.to_date)
+        end
+        uncheck 'q_completed_at_null'
+        click_button 'Filter Results'
+        within 'tbody' do
+          page.should have_content(@order1.created_at.to_date)
+          page.should have_content(@order2.created_at.to_date)
+          page.should have_content(@order3.created_at.to_date)
+        end
       end
     end
   end
@@ -92,10 +96,11 @@ describe 'Admin - Drop Ship Orders', js: true do
     context 'index page' do
       it 'should only display the suppliers orders' do
         visit spree.admin_drop_ship_orders_path
-
-        page.should_not have_content(@order1.id)
-        page.should have_content(@order2.id)
-        page.should_not have_content(@order3.id)
+        within 'tbody' do
+          page.should_not have_content(@order1.created_at.to_date)
+          page.should have_content(@order2.created_at.to_date)
+          page.should_not have_content(@order3.created_at.to_date)
+        end
       end
     end
   end

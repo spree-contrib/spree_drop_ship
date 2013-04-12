@@ -1,9 +1,9 @@
 <% content_for :page_actions do %>
   <% if spree_current_user.admin? and !@order.confirmed? %>
-    <%= button_link_to t((@order.delivered? ? :resend_order_to_supplier : :send_order_to_supplier)), spree.deliver_admin_drop_ship_order_path(@order) %>
+    <%= button_link_to t((@order.delivered? ? :resend_order_to_supplier : :send_order_to_supplier)), spree.deliver_admin_drop_ship_order_path(@order), method: 'put' %>
   <% end %>
   <% if spree_current_user.supplier? and @order.delivered? %>
-    <%= button_link_to t(:confirm_order), spree.confirm_admin_drop_ship_order_path(@order) %>
+    <%= button_link_to t(:confirm_order), spree.confirm_admin_drop_ship_order_path(@order), method: 'put' %>
   <% end %>
   <li><%= button_link_to t(:back_to_orders_list), spree.admin_drop_ship_orders_path, :icon => 'icon-arrow-left' %></li>
 <% end %>
