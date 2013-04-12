@@ -21,6 +21,11 @@
     <%= link_to_with_icon 'icon-credit-card', t(:payments), admin_order_payments_url(@order) %>
   </li>
 <% end %>
+<% if @order.is_a?(Spree::Order) %>
+  <li<%== ' class="active"' if current == "Drop Ship Orders" %>>
+    <%= link_to t(:drop_ship_orders), spree.admin_drop_ship_orders_path(q: { order_id_eq: @order.id }) %>
+  </li>
+<% end %>
 <% if can? :index, @order.return_authorizations %>
   <% if @order.completed? %>
     <li<%== ' class="active"' if current == 'Return Authorizations' %>>

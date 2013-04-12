@@ -108,6 +108,7 @@ bundle exec rspec spec
 Todo
 ----
 
+- Return authorization ui
 - Better documentation
 - Finish I18n implementation (mailer views, and anywhere else plain text is found)
 - Integrate SupplierAbility w/Spree::API (actually making spree api respect cancan in missing places particular read actions)
