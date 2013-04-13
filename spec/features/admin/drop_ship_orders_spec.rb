@@ -23,9 +23,9 @@ describe 'Admin - Drop Ship Orders', js: true do
       end
 
       it 'should display supplier information' do
-        page.should have_css('[data-hook=admin_order_show_supplier]')
-        page.should have_css('[data-hook=admin_order_show_addresses]')
-        page.should have_css('[data-hook=admin_order_show_details]')
+        page.should have_css('[data-hook=admin_drop_ship_order_supplier]')
+        page.should have_css('[data-hook=admin_drop_ship_order_addresses]')
+        page.should have_css('[data-hook=admin_drop_ship_order_form]')
       end
 
       it 'deliver button should properly fire for resend' do
@@ -77,9 +77,9 @@ describe 'Admin - Drop Ship Orders', js: true do
         # Page Actions
         page.should_not have_link('Send Order To Supplier')
         # Supplier Info
-        page.should_not have_css('[data-hook=admin_order_show_supplier]')
-        page.should have_css('[data-hook=admin_order_show_addresses]')
-        page.should have_css('[data-hook=admin_order_show_details]')
+        page.should_not have_css('[data-hook=admin_drop_ship_order_supplier]')
+        page.should have_css('[data-hook=admin_drop_ship_order_addresses]')
+        page.should have_css('[data-hook=admin_drop_ship_order_form]')
       end
 
       it 'should properly display and allow confirmation' do

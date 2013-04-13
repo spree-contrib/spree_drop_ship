@@ -9,7 +9,7 @@
 <% end %>
 
 <% if spree_current_user.admin? %>
-  <div data-hook="admin_order_show_supplier" class="row">
+  <div data-hook="admin_drop_ship_order_supplier" class="row">
     <fieldset class="alpha twelve columns no-border-bottom">
       <legend align="center"><%= t(:supplier_information) %></legend>
       <div>
@@ -27,7 +27,7 @@
 
 <%= render :partial => 'spree/admin/shared/order_tabs', :locals => { :current => 'Order Details' } %>
 
-<div data-hook="admin_order_show_addresses" class="row">
+<div data-hook="admin_drop_ship_order_addresses" class="row">
   <% if @order.ship_address %>
     <fieldset class="alpha twelve columns no-border-bottom">
       <legend align="center"><%= t(:ship_address) %></legend>
@@ -36,6 +36,8 @@
   <% end %>
 </div>
 
-<div data-hook="admin_order_show_details">
-  <%= render :partial => 'spree/admin/shared/order_details', :locals => { :order => @order } %>
+<div data-hook="admin_drop_ship_order_form">
+  <div id="order-form-wrapper">
+    <%= render :partial => 'spree/admin/orders/form', :locals => { :order => @order } %>
+  </div>
 </div>

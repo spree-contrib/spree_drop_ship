@@ -5,7 +5,7 @@ module Spree
       def confirm
         @order = DropShipOrder.accessible_by(current_ability, :update).find(params[:id])
         if @order.confirm!
-          flash[:notice] = t('spree.admin.drop_ship_orders.confirm.success', number: @order.id)
+          flash[:notice] = I18n.t('spree.admin.drop_ship_orders.confirm.success', number: @order.id)
         end
         redirect_to spree.edit_admin_drop_ship_order_path(@order)
       end
@@ -13,7 +13,7 @@ module Spree
       def deliver
         @order = DropShipOrder.accessible_by(current_ability, :update).find(params[:id])
         if @order.deliver!
-          flash[:notice] = t('spree.admin.drop_ship_orders.deliver.success', number: @order.id)
+          flash[:notice] = I18n.t('spree.admin.drop_ship_orders.deliver.success', number: @order.id)
         end
         redirect_to spree.edit_admin_drop_ship_order_path(@order)
       end

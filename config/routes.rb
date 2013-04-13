@@ -11,6 +11,19 @@ Spree::Core::Engine.routes.draw do
     resources :suppliers
   end
 
+  namespace :api, :defaults => { :format => 'json' } do
+    resources :drop_ship_orders do
+      resources :return_authorizations
+      resources :shipments, :only => [:create, :update] do
+        member do
+          put :ship
+          # TODO eventually let them cancel with remove?
+          # put :remove
+        end
+      end
+    end
+  end
+
   resources :suppliers, only: [:create, :new]
 
 end

@@ -14,6 +14,14 @@ FactoryGirl.define do
     end
   end
 
+  factory :order_ready_for_drop_ship, parent: :order_ready_to_ship do
+    after :create do |order|
+      supplier = create(:supplier)
+      order.shipments.update_all(stock_location_id: supplier.stock_locations.first.id)
+      create(:drop_ship_order, line_items: order.line_items, order: order, supplier: supplier)
+    end
+  end
+
   factory :supplier, :class => Spree::Supplier do
     sequence(:name) { |i| "Big Store #{i}" }
     email { Faker::Internet.email }

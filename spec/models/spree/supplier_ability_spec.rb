@@ -157,6 +157,7 @@ describe Spree::SupplierAbility do
       it_should_behave_like 'access granted'
       it_should_behave_like 'index allowed'
       it_should_behave_like 'admin granted'
+      it { ability.should be_able_to :ship, resource }
     end
   end
 
