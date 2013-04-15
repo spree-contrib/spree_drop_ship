@@ -5,6 +5,7 @@ describe 'Admin - Shipments', js: true do
   context 'as Supplier' do
 
     before do
+      create(:shipping_method, :name => "Default")
       @order = create(:order_ready_for_drop_ship).drop_ship_orders.first
       @supplier = @order.supplier
       login_user create(:user, supplier: @supplier)

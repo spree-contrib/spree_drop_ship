@@ -20,7 +20,7 @@ module Spree
         can [:admin, :manage], Spree::ProductProperty, product: { supplier_id: user.supplier_id }
         can [:admin, :index, :read], Spree::Property
         can [:admin, :read], Spree::Prototype
-        can [:admin, :manage, :read, :ship], Spree::Shipment, stock_location: { supplier_id: user.supplier_id }
+        can [:admin, :manage, :read, :ready, :ship], Spree::Shipment, stock_location: { supplier_id: user.supplier_id }
         can [:admin, :manage], Spree::StockItem, variant: { product: { supplier_id: user.supplier_id } } 
         can [:admin, :manage], Spree::StockLocation, supplier_id: user.supplier_id
         can [:admin, :manage], Spree::StockMovement, stock_item: { variant: { product: { supplier_id: user.supplier_id } } }

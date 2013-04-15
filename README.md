@@ -109,6 +109,7 @@ Todo
 ----
 
 - Return authorization ui
+- Shipment ajax should update DOM rather than reload page. (fix in spree core)
 - Better documentation
 - Finish I18n implementation (mailer views, and anywhere else plain text is found)
 - Integrate SupplierAbility w/Spree::API (actually making spree api respect cancan in missing places particular read actions)

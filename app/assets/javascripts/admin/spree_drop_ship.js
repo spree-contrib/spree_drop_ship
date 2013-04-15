@@ -13,6 +13,7 @@ $(document).ready(function() {
       type: "PUT",
       url: url
     }).done(function( msg ) {
+      // TODO update this and spree core to update the dom not reload the page..
       window.location.reload();
     }).error(function( msg ) {
       console.log(msg);
