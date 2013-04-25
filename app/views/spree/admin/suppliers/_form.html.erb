@@ -22,15 +22,15 @@
       <%= form.label :url, t('supplier.url') %>:<br />
       <%= form.text_field :url, :class => 'fullwidth text' %>
     <% end %>
-    <%= form.field_container :commission_flat_rate do %>
-      <%= form.label :commission_flat_rate, t('supplier.commission_flat_rate') %>:<br />
-      <%= form.text_field :commission_flat_rate, :class => 'fullwidth text' %>
-    <% end %>
-    <%= form.field_container :commission_percentage do %>
-      <%= form.label :commission_percentage, t('supplier.commission_percentage') %>:<br />
-      <%= form.text_field :commission_percentage, :class => 'fullwidth text' %>
-    <% end %>
     <% if spree_current_user.admin? %>
+      <%= form.field_container :commission_flat_rate do %>
+        <%= form.label :commission_flat_rate, t('supplier.commission_flat_rate') %>:<br />
+        <%= form.text_field :commission_flat_rate, :class => 'fullwidth text' %>
+      <% end %>
+      <%= form.field_container :commission_percentage do %>
+        <%= form.label :commission_percentage, t('supplier.commission_percentage') %>:<br />
+        <%= form.text_field :commission_percentage, :class => 'fullwidth text' %>
+      <% end %>
       <%= form.field_container :users do %>
         <%= form.label :users %><br/>
         <%= form.select :user_ids, Spree.user_class.all.collect { |u| [u.email, u.id] }, {:include_blank => true}, class: 'fullwidth multiple select2', multiple: true %>

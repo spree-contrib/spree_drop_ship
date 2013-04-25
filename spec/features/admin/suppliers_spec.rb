@@ -105,6 +105,8 @@ feature 'Admin - Suppliers', js: true do
       select 'Vermont', from: 'supplier[address_attributes][state_id]'
       fill_in 'supplier[address_attributes][phone]', with: '555-555-5555'
       page.should_not have_css('#s2id_supplier_user_ids') # cannot edit assigned users
+      page.should_not have_css('#supplier_commission_flat_rate') # cannot edit flat rate commission
+      page.should_not have_css('#supplier_commission_percentage') # cannot edit comission percentage
       click_button 'Update'
       page.should have_content('Supplier "Test Supplier" has been successfully updated!')
       page.current_path.should eql(spree.edit_admin_supplier_path(@user.supplier))
