@@ -1,11 +1,13 @@
-Spree Drop Ship [![Build Status](https://secure.travis-ci.org/jdutil/spree_drop_ship.png)](http://travis-ci.org/jdutil/spree_drop_ship) [![Code Climate](https://codeclimate.com/github/jdutil/spree_drop_ship.png)](https://codeclimate.com/github/jdutil/spree_drop_ship) [![Coverage Status](https://coveralls.io/repos/jdutil/spree_drop_ship/badge.png?branch=master)](https://coveralls.io/r/jdutil/spree_drop_ship) [![Dependency Status](https://gemnasium.com/jdutil/spree_drop_ship.png?travis)](https://gemnasium.com/jdutil/spree_drop_ship)
+# Spree Drop Ship
 
-[travis]: http://travis-ci.org/jdutil/spree_drop_ship
-[gemnasium]: https://gemnasium.com/jdutil/spree_drop_ship
+[![Build Status](https://secure.travis-ci.org/jdutil/spree_drop_ship.png)](http://travis-ci.org/jdutil/spree_drop_ship)
+[![Code Climate](https://codeclimate.com/github/jdutil/spree_drop_ship.png)](https://codeclimate.com/github/jdutil/spree_drop_ship)
+[![Coverage Status](https://coveralls.io/repos/jdutil/spree_drop_ship/badge.png?branch=master)](https://coveralls.io/r/jdutil/spree_drop_ship)
+[![Dependency Status](https://gemnasium.com/jdutil/spree_drop_ship.png?travis)](https://gemnasium.com/jdutil/spree_drop_ship)
 
 What is drop shipping?
 
-"Drop shipping is a supply chain management technique in which the retailer does not keep goods in stock, but instead transfers customer orders and shipment details to either the manufacturer or a wholesaler, who then ships the goods directly to the customer." [[wikipedia](http://en.wikipedia.org/wiki/Drop_shipping)]
+"Drop shipping is a supply chain management technique in which the retailer does not keep goods in stock, but instead transfers customer orders and shipment details to either the manufacturer or a wholesaler, who then ships the goods directly to the customer." - [wikipedia](http://en.wikipedia.org/wiki/Drop_shipping)
 
 So the main goal with spree_drop_ship is to link products to suppliers and forward orders to the appropriate suppliers.
 
