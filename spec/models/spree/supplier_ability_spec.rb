@@ -11,20 +11,10 @@ describe Spree::SupplierAbility do
   context 'for Dash' do
     let(:resource) { Spree::Admin::OverviewController }
 
-    context 'requested by any user' do
-      let(:ability) { Spree::SupplierAbility.new(create(:user)) }
+    context 'requested by supplier' do
       it_should_behave_like 'access denied'
       it_should_behave_like 'no index allowed'
       it_should_behave_like 'admin denied'
-    end
-
-    context 'requested by supplier' do
-      it_should_behave_like 'index allowed'
-      it_should_behave_like 'admin granted'
-
-      it 'should be able to sync' do
-        ability.should be_able_to :sync, resource
-      end
     end
   end
 

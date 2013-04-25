@@ -6,6 +6,16 @@
   text-align: center;
 }
 
+.state.delivered,
+.state.confirmed {
+  background-color: #9fc820;
+  color: white;
+
+  a {
+    color: white;
+  }
+}
+
 .supplier-banks ol li {
   margin-left: 20px;
   margin-bottom: 5px;

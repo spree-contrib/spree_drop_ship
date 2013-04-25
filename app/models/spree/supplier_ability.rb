@@ -6,9 +6,6 @@ module Spree
       user ||= Spree.user_class.new
 
       if user.supplier
-        if defined?(Spree::Dash)
-          can [:admin, :index, :sync], Spree::Admin::OverviewController
-        end
         can [:admin, :confirm, :deliver, :index, :read, :update], Spree::DropShipOrder, supplier_id: user.supplier_id
         can [:admin, :manage], Spree::Image, viewable: { product: { supplier_id: user.supplier_id } }
         can :create, Spree::Image

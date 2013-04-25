@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'capybara',           '~> 2.1'
   s.add_development_dependency 'coffee-rails'
+  s.add_development_dependency 'coveralls'
   s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'factory_girl_rails', '~> 4.2'
   s.add_development_dependency 'ffaker'
@@ -30,9 +31,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'sass-rails'
   s.add_development_dependency 'selenium-webdriver'
   s.add_development_dependency 'shoulda-matchers'
-  s.add_development_dependency 'simplecov'
   s.add_development_dependency 'spree_auth_devise'
-  s.add_development_dependency 'spree_dash'
   s.add_development_dependency 'spree_related_products'
   s.add_development_dependency 'spree_sample'
   s.add_development_dependency 'sqlite3'
