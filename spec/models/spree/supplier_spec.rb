@@ -4,6 +4,7 @@ describe Spree::Supplier do
 
   it { should belong_to(:address) }
 
+  it { should have_many(:bank_accounts) }
   it { should have_many(:orders).dependent(:nullify) }
   it { should have_many(:products) }
   it { should have_many(:stock_locations) }

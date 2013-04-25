@@ -1,0 +1,21 @@
+<% content_for :page_actions do %>
+  <li><%= button_link_to t(:cancel), spree.edit_admin_supplier_path(@supplier), :icon => 'icon-arrow-left' %></li>
+<% end %>
+
+<% content_for :page_title do %>
+   <%= t '.verify_bank_account', number: @object.masked_number %>
+<% end %>
+
+<%= render 'spree/shared/error_messages', :target => @object %>
+
+<%= form_for @object, method: :put, url: spree.admin_supplier_bank_account_path(@supplier, @object) do |f| %>
+  <%= f.field_container :amount_1 do %>
+    <%= f.label :amount_1 %>:<br />
+    <%= f.text_field :amount_1, :class => 'fullwidth' %>
+  <% end %>
+  <%= f.field_container :amount_2 do %>
+    <%= f.label :amount_2 %>:<br />
+    <%= f.text_field :amount_2, :class => 'fullwidth' %>
+  <% end %>
+  <%= f.submit t(:verify) %>
+<% end %>

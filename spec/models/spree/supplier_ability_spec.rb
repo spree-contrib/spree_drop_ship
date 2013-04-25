@@ -239,6 +239,27 @@ describe Spree::SupplierAbility do
     end
   end
 
+  context 'for SupplierBankAccount' do
+    context 'requested by non supplier user' do
+      let(:ability) { Spree::SupplierAbility.new(create(:user)) }
+      let(:resource) { Spree::SupplierBankAccount }
+
+      it_should_behave_like 'admin denied'
+      it_should_behave_like 'access denied'
+    end
+
+    context 'requested by suppliers user' do
+      let(:resource) { Spree::SupplierBankAccount.new({supplier: user.supplier}, without_protection: true) }
+      it_should_behave_like 'admin granted'
+      it_should_behave_like 'access granted'
+    end
+
+    context 'requested by another suppliers user' do
+      let(:resource) { Spree::SupplierBankAccount.new({supplier: create(:supplier)}, without_protection: true) }
+      it_should_behave_like 'create only'
+    end
+  end
+
   context 'for Variant' do
     let(:resource) { Spree::Variant }
 

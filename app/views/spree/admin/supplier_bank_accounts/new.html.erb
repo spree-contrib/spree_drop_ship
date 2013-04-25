@@ -1,0 +1,29 @@
+<% content_for :page_actions do %>
+  <li><%= button_link_to t(:cancel), spree.edit_admin_supplier_path(@supplier), :icon => 'icon-arrow-left' %></li>
+<% end %>
+
+<% content_for :page_title do %>
+   <%= t '.new_bank_account' %>
+<% end %>
+
+<%= render 'spree/shared/error_messages', :target => @bank_account %>
+
+<%= form_for @bank_account, url: spree.admin_supplier_bank_accounts_path(@supplier) do |f| %>
+  <%= f.field_container :name do %>
+    <%= f.label :name %>:<br />
+    <%= f.text_field :name, :class => 'fullwidth' %>
+  <% end %>
+  <%= f.field_container :account_number do %>
+    <%= f.label :account_number %>:<br />
+    <%= f.text_field :account_number, :class => 'fullwidth' %>
+  <% end %>
+  <%= f.field_container :routing_number do %>
+    <%= f.label :routing_number %>:<br />
+    <%= f.text_field :routing_number, :class => 'fullwidth' %>
+  <% end %>
+  <%= f.field_container :type do %>
+    <%= f.label :type %>:<br />
+    <%= f.select :type, [[t(:checking), 'checking'], [t(:savings), 'savings']], {}, class: 'fullwidth select2' %>
+  <% end %>
+  <%= f.submit t('save') %>
+<% end %>

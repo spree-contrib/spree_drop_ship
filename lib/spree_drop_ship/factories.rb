@@ -29,6 +29,15 @@ FactoryGirl.define do
     address
   end
 
+  factory :supplier_bank_account, class: Spree::SupplierBankAccount do
+    supplier
+    # Details sent to Balanced.
+    name 'John Doe'
+    account_number '9900000001'
+    routing_number '121000358'
+    type 'checking'
+  end
+
   factory :supplier_user, parent: :user do
     supplier
   end

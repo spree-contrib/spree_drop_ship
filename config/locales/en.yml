@@ -17,6 +17,7 @@ en:
   drop_ship_settings: Drop Ship Settings
   must_be_logged_in: 'Must Be Logged In'
   resend_order_to_supplier: Resend Order To Supplier
+  save: Save
   send_order_to_supplier: Send Order To Supplier
   show_only_incomplete_orders: Show Only Incomplete Orders
   signup: Sign Up
@@ -42,8 +43,14 @@ en:
           approve_drop_ship_orders: Approve Drop Ship Orders
           resend_drop_ship_orders: Resend Drop Ship Orders
           drop_ship_order_approval_confirmation: This will send an email notification to each supplier. Continue?
+      supplier_bank_accounts:
+        edit:
+          verify_bank_account: "Verify Bank Account '%{number}'"
+        new:
+          new_bank_account: New Bank Account
       suppliers:
         edit:
+          add_bank_account: Add Bank Account
           back_to_suppliers: Back To Suppliers
         new:
           new_supplier: New Supplier
@@ -91,3 +98,8 @@ en:
   supplier_info: Supplier Info
   supplier_signup: Supplier Sign Up
   suppliers: Suppliers
+  unverified: Unverified
+  verified: Verified
+  verified_bank_account: 'Thank You! Your bank account has been verified.'
+  verify: Verify
+  verify_bank_account: 'Two small deposits will be made within 2 business days. Please verify your bank account once you know the amounts.'

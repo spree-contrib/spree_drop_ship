@@ -1,3 +1,13 @@
 /*
  *= require admin/spree_backend
 */
+
+.center {
+  text-align: center;
+}
+
+.supplier-banks ol li {
+  margin-left: 20px;
+  margin-bottom: 5px;
+  text-align: left;
+}

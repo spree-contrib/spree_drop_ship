@@ -8,7 +8,8 @@ class Spree::Supplier < ActiveRecord::Base
   belongs_to :address, class_name: 'Spree::Address'
   accepts_nested_attributes_for :address
 
-  has_many   :orders, class_name: "Spree::DropShipOrder", dependent: :nullify
+  has_many   :bank_accounts, class_name: 'Spree::SupplierBankAccount'
+  has_many   :orders, class_name: 'Spree::DropShipOrder', dependent: :nullify
   has_many   :products
   has_many   :stock_locations
   has_many   :users, class_name: Spree.user_class.to_s

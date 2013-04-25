@@ -1,26 +1,29 @@
 SpreeDropShip [![Build Status](https://secure.travis-ci.org/jdutil/spree_drop_ship.png)](http://travis-ci.org/jdutil/spree_drop_ship) [![Dependency Status](https://gemnasium.com/jdutil/spree_drop_ship.png?travis)](https://gemnasium.com/jdutil/spree_drop_ship)
 =============
 
-[travis]: http://travis-ci.org/jdutil/spree_contact_us
-[gemnasium]: https://gemnasium.com/jdutil/spree_contact_us
+[travis]: http://travis-ci.org/jdutil/spree_drop_ship
+[gemnasium]: https://gemnasium.com/jdutil/spree_drop_ship
 
 What is drop shipping?
 
 "Drop shipping is a supply chain management technique in which the retailer does not keep goods in stock, but instead transfers customer orders and shipment details to either the manufacturer or a wholesaler, who then ships the goods directly to the customer." [[wikipedia](http://en.wikipedia.org/wiki/Drop_shipping)]
 
-So the main goal with spree_drop_ship is to link products to suppliers and forward orders to appropriate suppliers.
+So the main goal with spree_drop_ship is to link products to suppliers and forward orders to the appropriate suppliers.
 
-In more detail, once an order is placed for a product that drop ships a drop ship order is created for the product's supplier. This drop ship order is sent to the supplier via Email. The supplier then follows a link to the order within the email where they are prompted to confirm the order.
+Once an order is placed for a product that belongs to a supplier a drop ship order is created for the product's supplier. This drop ship order is then sent to the supplier (via Email by default). The supplier then follows a link to the order within the email where they are prompted to confirm the order.
 
-After the supplier has confirmed an order and is ready to ship, they can log into the site and update the drop ship order with a shipping method, confirmation number and tracking number. Once they 'process & finalize' the order, the customer is notified with the shipment details.
+After the supplier has confirmed an order and is ready to ship, they can log into the site and update the drop ship order shipping method, and tracking number. Once they 'ship' the order the customer will receive their shipment notification, and the drop ship order will transition to a completed state.
 
-Requirements
-------------
+Drop Ship Order's make use of the State Machine similarly to the usual Order, Payment, and Shipment models within Spree.
+The following are the drop ship order states and what they represent:
 
-* Ruby >= 1.9.3
-* SpreeApi >= 2.0.0.beta
-* SpreeBackend >= 2.0.0.beta
-* SpreeCore >= 2.0.0.beta
+*Active:* Is the initial drop ship order state indicating that it has been created.
+*Delivered:* Represents that the drop ship order's supplier has been notified of the order i.e. supplier's notification has been delivered.  By default email notifications will be sent automatically, but you may want to customize things to use an API instead.
+*Confirmed:* Represents that the supplier has confirmed receiving the drop ship order notification & information.
+*Complete:* Represents that the drop ship order has been shipped, and the supplier's work is complete.
+
+Spree Drop Ship will also integrate with [Balanced Payments](https://www.balancedpayments.com/) in order to handle charging commission
+w/Escrow accounts for sales, as well as, handling payments to your suppliers via ACH direct deposits.  This is still currently a work in progress, and any input is welcome.  This may likely be refactored into it's own extension if other viable alternatives to Balanced Payments are desired.
 
 Installation
 ------------
@@ -75,6 +78,26 @@ rake db:migrate db:seed spree_sample:load db:sample:suppliers db:sample:drop_shi
 rails s
 ```
 
+Testing
+-------
+
+Be sure to bundle your dependencies and then create a dummy test app for the specs to run against.
+
+```shell
+bundle
+bundle exec rake test_app
+bundle exec rspec spec
+```
+
+Todo
+----
+
+- Return authorization ui
+- Finish I18n implementation (mailer views, and anywhere else plain text is found)
+- Integrate SupplierAbility w/Spree::API (actually making spree api respect cancan in missing places particular read actions)
+- Better documentation
+- Add new languages
+
 Contributing
 ------------
 
@@ -92,28 +115,10 @@ Here are some ways *you* can contribute:
 * by refactoring code
 * by resolving [issues](https://github.com/jdutil/spree_drop_ship/issues)
 * by reviewing patches
-* by donating bitcoin to 1L6akT6Aus9r6Ashw1wDtLg7D8zJCVVZac
 
-Testing
--------
+Donating
+--------
 
-Be sure to bundle your dependencies and then create a dummy test app for the specs to run against.
-
-```shell
-bundle
-bundle exec rake test_app
-bundle exec rspec spec
-```
-
-Todo
-----
-
-- Return authorization ui
-- Shipment ajax should update DOM rather than reload page. (fix in spree core)
-- Better documentation
-- Finish I18n implementation (mailer views, and anywhere else plain text is found)
-- Integrate SupplierAbility w/Spree::API (actually making spree api respect cancan in missing places particular read actions)
-- Add new languages
-- Implement strong_params and other Rails 4 compatibilities
+Bitcoin donations may be sent to: 1L6akT6Aus9r6Ashw1wDtLg7D8zJCVVZac
 
 Copyright (c) 2012-2013 Jeff Dutil, released under the [New BSD License](https://github.com/jdutil/spree_drop_ship/tree/master/LICENSE).

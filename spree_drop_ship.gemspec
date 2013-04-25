@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
+  s.add_dependency 'balanced'
   s.add_dependency 'spree_api',         '~> 2.0.0.beta'
   s.add_dependency 'spree_backend',     '~> 2.0.0.beta'
   s.add_dependency 'spree_core',        '~> 2.0.0.beta'
@@ -35,4 +36,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'spree_related_products'
   s.add_development_dependency 'spree_sample'
   s.add_development_dependency 'sqlite3'
+  s.add_development_dependency 'vcr'
 end
