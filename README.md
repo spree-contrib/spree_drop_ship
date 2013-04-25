@@ -17,10 +17,10 @@ After the supplier has confirmed an order and is ready to ship, they can log int
 Drop Ship Order's make use of the State Machine similarly to the usual Order, Payment, and Shipment models within Spree.
 The following are the drop ship order states and what they represent:
 
-*Active:* Is the initial drop ship order state indicating that it has been created.
-*Delivered:* Represents that the drop ship order's supplier has been notified of the order i.e. supplier's notification has been delivered.  By default email notifications will be sent automatically, but you may want to customize things to use an API instead.
-*Confirmed:* Represents that the supplier has confirmed receiving the drop ship order notification & information.
-*Complete:* Represents that the drop ship order has been shipped, and the supplier's work is complete.
+* **Active:** Is the initial drop ship order state indicating that it has been created.
+* **Delivered:** Represents that the drop ship order's supplier has been notified of the order i.e. supplier's notification has been delivered.  By default email notifications will be sent automatically, but you may want to customize things to use an API instead.
+* **Confirmed:** Represents that the supplier has confirmed receiving the drop ship order notification & information.
+* **Complete:** Represents that the drop ship order has been shipped, and the supplier's work is complete.
 
 Spree Drop Ship will also integrate with [Balanced Payments](https://www.balancedpayments.com/) in order to handle charging commission
 w/Escrow accounts for sales, as well as, handling payments to your suppliers via ACH direct deposits.  This is still currently a work in progress, and any input is welcome.  This may likely be refactored into it's own extension if other viable alternatives to Balanced Payments are desired.
