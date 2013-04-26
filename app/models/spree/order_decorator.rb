@@ -3,7 +3,7 @@ Spree::Order.class_eval do
   has_many :drop_ship_orders
 
   def finalize_with_drop_ship!
-    finalize_without_dropship!
+    finalize_without_drop_ship!
 
     self.line_items.group_by{ |li| li.product.supplier_id }.each do |supplier_id, supplier_items|
       if supplier_id.present?

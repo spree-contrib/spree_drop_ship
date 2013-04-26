@@ -1,7 +1,6 @@
 <!-- replace_contents '[data-hook=admin_order_tabs]' -->
 
 <% if @order.is_a?(Spree::Order) and can? :update, @order %>
-<li>test</li>
   <li<%== ' class="active"' if current == 'Order Details' %>>
     <%= link_to_with_icon 'icon-edit', t(:order_details), edit_admin_order_url(@order) %>
   </li>

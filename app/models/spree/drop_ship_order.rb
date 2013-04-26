@@ -73,9 +73,13 @@ class Spree::DropShipOrder < ActiveRecord::Base
 
   alias_method :number, :id
 
+  delegate :payment_state, to: :order
+
   delegate :payments, to: :order
 
   delegate :ship_address, to: :order
+
+  delegate :shipment_state, to: :order
 
   def shipments
     order.shipments.includes(:stock_location).where('spree_stock_locations.supplier_id = ?', self.supplier_id)

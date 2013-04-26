@@ -37,9 +37,19 @@ describe Spree::DropShipOrder do
     record.number.should eql(record.id)
   end
 
+  it '#payment_state' do
+    record = create(:drop_ship_order)
+    record.payment_state.should eql(record.order.payment_state)
+  end
+
   it '#ship_address' do
     record = create(:drop_ship_order)
     record.ship_address.should eql(record.order.ship_address)
+  end
+
+  it '#shipment_state' do
+    record = create(:drop_ship_order)
+    record.shipment_state.should eql(record.order.shipment_state)
   end
 
   it '#shipments' do
