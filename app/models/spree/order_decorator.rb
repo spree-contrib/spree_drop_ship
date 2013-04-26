@@ -2,7 +2,7 @@ Spree::Order.class_eval do
 
   has_many :drop_ship_orders
 
-  def finalize_with_dropship!
+  def finalize_with_drop_ship!
     finalize_without_dropship!
 
     self.line_items.group_by{ |li| li.product.supplier_id }.each do |supplier_id, supplier_items|
@@ -18,6 +18,6 @@ Spree::Order.class_eval do
       end
     end
   end
-  alias_method_chain :finalize!, :dropship
+  alias_method_chain :finalize!, :drop_ship
 
 end
