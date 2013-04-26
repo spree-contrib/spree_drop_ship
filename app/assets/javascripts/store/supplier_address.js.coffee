@@ -1,48 +1,55 @@
-$ ->
-  if ($ '#supplier-address').is('*')
-    ($ '#supplier-address').validate()
+Spree.ready ($) ->
+  if ($ '#new_supplier').is('*')
+    ($ '#new_supplier').validate()
 
-    country_from_region = (region) ->
-      ($ 'p#' + region + 'country' + ' span#' + region + 'country-selection :only-child').val()
+    getCountryId = (region) ->
+      $('p#' + region + 'country select').val()
 
-    get_states = (region) ->
-      state_mapper[country_from_region(region)]
-
-    get_states_required = (region) ->
-      states_required_mapper[country_from_region(region)]
-
-    update_state = (region) ->
-      states = get_states(region)
-      states_required  = get_states_required(region)
-
-      state_para = ($ 'p#' + region + 'state')
-      state_select = state_para.find('select')
-      state_input = state_para.find('input')
-      state_span_required = state_para.find('state-required')
-      if states
-        selected = parseInt state_select.val()
-        state_select.html ''
-        states_with_blank = [ [ '', '' ] ].concat(states)
-        $.each states_with_blank, (pos, id_nm) ->
-          opt = ($ document.createElement('option')).attr('value', id_nm[0]).html(id_nm[1])
-          opt.prop 'selected', true if selected is id_nm[0]
-          state_select.append opt
-
-        state_select.prop('disabled', false).show()
-        state_input.hide().prop 'disabled', true
-        state_span_required.show()
-      else
-        state_select.hide().prop 'disabled', true
-        state_input.show()
-        if states_required
-          state_span_required.show()
+    updateState = (region) ->
+      countryId = getCountryId(region)
+      if countryId?
+        unless Spree.Checkout[countryId]?
+          $.get Spree.routes.states_search + "/?country_id=#{countryId}", (data) ->
+            Spree.Checkout[countryId] =
+              states: data.states
+              states_required: data.states_required
+            fillStates(Spree.Checkout[countryId], region)
         else
-          state_input.val ''
-          state_span_required.hide()
-        state_para.toggle(!!states_required)
-        state_input.prop('disabled', !states_required)
+          fillStates(Spree.Checkout[countryId], region)
+
+    fillStates = (data, region) ->
+      statesRequired = data.states_required
+      states = data.states
+
+      statePara = ($ 'p#' + region + 'state')
+      stateSelect = statePara.find('select')
+      stateInput = statePara.find('input')
+      stateSpanRequired = statePara.find('state-required')
+      if states.length > 0
+        selected = parseInt stateSelect.val()
+        stateSelect.html ''
+        statesWithBlank = [{ name: '', id: ''}].concat(states)
+        $.each statesWithBlank, (idx, state) ->
+          opt = ($ document.createElement('option')).attr('value', state.id).html(state.name)
+          opt.prop 'selected', true if selected is state.id
+          stateSelect.append opt
+
+        stateSelect.prop('disabled', false).show()
+        stateInput.hide().prop 'disabled', true
+        statePara.show()
+        stateSpanRequired.show()
+      else
+        stateSelect.hide().prop 'disabled', true
+        stateInput.show()
+        if statesRequired
+          stateSpanRequired.show()
+        else
+          stateInput.val ''
+          stateSpanRequired.hide()
+        statePara.toggle(!!statesRequired)
+        stateInput.prop('disabled', !statesRequired)
 
     ($ 'p#ccountry select').change ->
-      update_state 'c'
+      updateState 'c'
 
-    update_state 'c'
+    updateState 'c'
