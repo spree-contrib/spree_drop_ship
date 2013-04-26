@@ -11,8 +11,8 @@ Gem::Specification.new do |s|
   s.email     = 'jdutil@burlingtonwebapps.com'
   s.homepage  = 'http://github.com/jdutil/spree_drop_ship'
 
-  s.files       = `git ls-files`.split("\n")
-  s.test_files  = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.files        = `git ls-files`.split("\n")
+  s.test_files   = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_path = 'lib'
   s.requirements << 'none'
 
