@@ -8,7 +8,6 @@ describe Spree::DropShipOrder do
   it { should have_many(:drop_ship_line_items).dependent(:destroy) }
   it { should have_many(:line_items).through(:drop_ship_line_items) }
   it { should have_many(:return_authorizations).through(:order) }
-  it { should have_many(:shipments).through(:order) }
   it { should have_many(:stock_locations).through(:supplier) }
   it { should have_many(:users).through(:supplier) }
 

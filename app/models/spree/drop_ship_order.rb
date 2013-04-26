@@ -11,7 +11,6 @@ class Spree::DropShipOrder < ActiveRecord::Base
   has_many :drop_ship_line_items, dependent: :destroy
   has_many :line_items, through: :drop_ship_line_items
   has_many :return_authorizations, through: :order
-  has_many :shipments, through: :order
   has_many :stock_locations, through: :supplier
   has_many :users, class_name: Spree.user_class.to_s, through: :supplier
 
@@ -44,11 +43,11 @@ class Spree::DropShipOrder < ActiveRecord::Base
     end
 
     event :confirm do
-      transition :delivered => :confirmed
+      transition [ :active, :delivered ] => :confirmed
     end
 
     event :complete do
-      transition :confirmed => :completed
+      transition [ :active, :delivered, :confirmed ] => :completed
     end
 
   end
@@ -79,7 +78,7 @@ class Spree::DropShipOrder < ActiveRecord::Base
   delegate :ship_address, to: :order
 
   def shipments
-    order.shipments.joins(:stock_location).where('spree_stock_locations.supplier_id = ?', self.supplier_id)
+    order.shipments.includes(:stock_location).where('spree_stock_locations.supplier_id = ?', self.supplier_id)
   end
 
   #==========================================
