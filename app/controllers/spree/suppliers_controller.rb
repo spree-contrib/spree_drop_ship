@@ -2,6 +2,7 @@ class Spree::SuppliersController < Spree::StoreController
 
   before_filter :check_authentication
   before_filter :check_if_supplier, only: [:create, :new]
+  ssl_required
 
   def create
     @supplier = Spree::Supplier.new(params[:supplier])

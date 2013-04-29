@@ -96,10 +96,10 @@ Todo
 - On dso complete credit supplier bank account
 - On order complete credit marketplace bank account w/commission
 - On order complete credit marketplace bank account w/tax?
-- Return authorization ui
+- Return Authorization UI
 - Integrate SupplierAbility w/Spree::API (actually making spree api respect cancan in missing places particular read actions)
 - Better documentation
-- Add new languages
+- De-couple Supplier payments from [Balanced Payments](https://www.balancedpayments.com/) so that Balanced is not required to use this extension but could be added w/say spree_drop_ship_balanced. Volunteers wanting to use this extension without balanced payments will need to step up though as I do not intend to do it anytime in the near future.
 
 Contributing
 ------------
