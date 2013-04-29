@@ -1,6 +1,15 @@
 class Spree::Supplier < ActiveRecord::Base
 
-  attr_accessible :address_attributes, :commission_flat_rate, :commission_percentage, :email, :name, :url, :user_ids
+  attr_accessible :address_attributes,
+                  :commission_flat_rate,
+                  :commission_percentage,
+                  :contacts_date_of_birth,
+                  :email,
+                  :merchant_type,
+                  :name,
+                  :tax_id,
+                  :url,
+                  :user_ids
 
   #==========================================
   # Associations
@@ -19,12 +28,14 @@ class Spree::Supplier < ActiveRecord::Base
   # Validations
 
   validates_associated :address
-  validates :address,               presence: true
-  validates :commission_flat_rate,  presence: true
-  validates :commission_percentage, presence: true
-  validates :email,                 presence: true, email: true
-  validates :name,                  presence: true, uniqueness: true
-  validates :url,                   format: { with: URI::regexp(%w(http https)), allow_blank: true }
+  validates :address,                presence: true
+  validates :commission_flat_rate,   presence: true
+  validates :commission_percentage,  presence: true
+  validates :contacts_date_of_birth, presence: true
+  validates :email,                  presence: true, email: true
+  validates :name,                   presence: true, uniqueness: true
+  validates :tax_id,                 presence: { if: :business? }
+  validates :url,                    format: { with: URI::regexp(%w(http https)), allow_blank: true }
 
   #==========================================
   # Callbacks
@@ -33,9 +44,14 @@ class Spree::Supplier < ActiveRecord::Base
   after_create :create_stock_location
   after_create :send_welcome, if: -> { Spree::DropShipConfig[:send_supplier_email] }
   before_create :set_commission
+  before_create :set_token
 
   #==========================================
   # Instance Methods
+
+  def business?
+    self.merchant_type == 'business'
+  end
 
   # Returns the supplier's email address and name in mail format
   def email_with_name
@@ -73,6 +89,40 @@ class Spree::Supplier < ActiveRecord::Base
       unless changes.has_key?(:commission_percentage)
         self.commission_percentage = Spree::DropShipConfig[:default_commission_percentage]
       end
+    end
+
+    def set_token
+      Balanced.configure(Spree::DropShipConfig[:balanced_api_key])
+      marketplace = Balanced::Marketplace.my_marketplace
+      account     = Balanced::Marketplace.my_marketplace.create_account
+      self.token  = account.uri
+      if self.merchant_type == 'individual'
+        merchant_data = {
+          :dob => self.contacts_date_of_birth.strftime('%Y-%m-%d'),
+          :name => self.address.full_name,
+          :phone_number => self.address.phone,
+          :postal_code => self.address.zipcode,
+          :street_address => self.address.address1,
+          :type => 'person'
+        }
+      elsif self.merchant_type == 'business'
+        merchant_data = {
+          :name => self.name,
+          :phone_number => self.address.phone,
+          :postal_code => self.address.zipcode,
+          :street_address => self.address.address1,
+          :tax_id => self.tax_id,
+          :type => 'business',
+          :person => {
+            :dob => self.contacts_date_of_birth.strftime('%Y-%m-%d'),
+            :phone_number => self.address.phone,
+            :postal_code => self.address.zipcode,
+            :name => self.address.full_name,
+            :street_address => self.address.address1,
+          },
+        }
+      end
+      account.promote_to_merchant(merchant_data)
     end
 
 end

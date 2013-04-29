@@ -11,24 +11,36 @@
   <fieldset class="no-border-bottom">
     <legend><%= t('.supplier_details') %></legend>
     <%= form.field_container :name do %>
-      <%= form.label :name, t('supplier.name') %>:<br />
+      <%= form.label :name, Spree::Supplier.human_attribute_name(:name) %>:<br />
       <%= form.text_field :name, :class => 'fullwidth title' %>
     <% end %>
     <%= form.field_container :email do %>
-      <%= form.label :email, t('supplier.email') %>:<br />
+      <%= form.label :email, Spree::Supplier.human_attribute_name(:email) %>:<br />
       <%= form.email_field :email, :class => 'fullwidth text' %>
     <% end %>
     <%= form.field_container :url do %>
-      <%= form.label :url, t('supplier.url') %>:<br />
+      <%= form.label :url, Spree::Supplier.human_attribute_name(:url) %>:<br />
       <%= form.text_field :url, :class => 'fullwidth text' %>
+    <% end %>
+    <%= form.field_container :contacts_date_of_birth do %>
+      <%= form.label :contacts_date_of_birth, Spree::Supplier.human_attribute_name(:contacts_date_of_birth) %>:<br />
+      <%= form.text_field :contacts_date_of_birth, :class => 'datepicker fullwidth' %>
+    <% end %>
+    <%= form.field_container :merchant_type do %>
+      <%= form.label :merchant_type, Spree::Supplier.human_attribute_name(:merchant_type) %>:<br />
+      <%= form.select :merchant_type, [[t(:individual), 'individual'], [t(:business), 'business']], {}, :class => 'select2' %>
+    <% end %>
+    <%= form.field_container :tax_id do %>
+      <%= form.label :tax_id, Spree::Supplier.human_attribute_name(:tax_id) %>:<br />
+      <%= form.text_field :tax_id, :class => 'fullwidth text' %>
     <% end %>
     <% if spree_current_user.admin? %>
       <%= form.field_container :commission_flat_rate do %>
-        <%= form.label :commission_flat_rate, t('supplier.commission_flat_rate') %>:<br />
+        <%= form.label :commission_flat_rate, Spree::Supplier.human_attribute_name(:commission_flat_rate) %>:<br />
         <%= form.text_field :commission_flat_rate, :class => 'fullwidth text' %>
       <% end %>
       <%= form.field_container :commission_percentage do %>
-        <%= form.label :commission_percentage, t('supplier.commission_percentage') %>:<br />
+        <%= form.label :commission_percentage, Spree::Supplier.human_attribute_name(:commission_percentage) %>:<br />
         <%= form.text_field :commission_percentage, :class => 'fullwidth text' %>
       <% end %>
       <%= form.field_container :users do %>

@@ -49,13 +49,37 @@ feature 'Supplier Signup', js: true do
         visit spree.account_path
       end
 
-      scenario 'should be able to create new supplier' do
+      scenario 'should be able to create new individual supplier' do
         within '#user-info' do
           click_link 'Sign Up To Become A Supplier'
         end
+        select 'Individual', from: 'supplier_merchant_type'
+        fill_in 'supplier[contacts_date_of_birth]', with: '1970/4/20'
         fill_in 'supplier[name]', with: 'Test Supplier'
         fill_in 'supplier[email]', with: @user.email
         fill_in 'supplier[url]', with: 'http://www.test.com'
+        fill_in 'supplier[address_attributes][firstname]', with: 'First'
+        fill_in 'supplier[address_attributes][lastname]', with: 'Last'
+        fill_in 'supplier[address_attributes][address1]', with: '1 Test Drive'
+        fill_in 'supplier[address_attributes][city]', with: 'Test City'
+        fill_in 'supplier[address_attributes][zipcode]', with: '55555'
+        select 'United States', from: 'supplier[address_attributes][country_id]'
+        select 'Vermont', from: 'supplier[address_attributes][state_id]'
+        fill_in 'supplier[address_attributes][phone]', with: '555-555-5555'
+        click_button 'Sign Up'
+        page.should have_content('Thank you for signing up!')
+      end
+
+      scenario 'should be able to create new business supplier' do
+        within '#user-info' do
+          click_link 'Sign Up To Become A Supplier'
+        end
+        select 'Business', from: 'supplier_merchant_type'
+        fill_in 'supplier[contacts_date_of_birth]', with: '1970/4/20'
+        fill_in 'supplier[name]', with: 'Test Supplier'
+        fill_in 'supplier[email]', with: @user.email
+        fill_in 'supplier[url]', with: 'http://www.test.com'
+        fill_in 'supplier[tax_id]', with: '211111111'
         fill_in 'supplier[address_attributes][firstname]', with: 'First'
         fill_in 'supplier[address_attributes][lastname]', with: 'Last'
         fill_in 'supplier[address_attributes][address1]', with: '1 Test Drive'

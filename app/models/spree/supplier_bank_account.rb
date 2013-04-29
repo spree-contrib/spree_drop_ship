@@ -37,12 +37,14 @@ module Spree
     def balanced_api_call
       return if self.account_number.blank? or self.name.blank? or self.routing_number.blank? or self.type.blank?
       Balanced.configure(Spree::DropShipConfig[:balanced_api_key])
+      merchant_account = Balanced::Account.find(self.supplier.token)
       bank_account = Balanced::BankAccount.new(
         :routing_number => self.routing_number,
         :type           => self.type,
         :name           => self.name,
         :account_number => self.account_number
       ).save
+      merchant_account.add_bank_account(bank_account.uri)
       self.masked_number      = bank_account.account_number
       self.token              = bank_account.uri
       verification            = bank_account.verify

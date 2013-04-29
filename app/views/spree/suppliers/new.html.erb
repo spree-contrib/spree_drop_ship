@@ -38,6 +38,20 @@
         <%= form.label :url, t('supplier.url') %><br />
         <%= form.text_field :url, :class => 'text' %>
       </p>
+      <p>
+        <%= form.label :contacts_date_of_birth, t('supplier.contacts_date_of_birth') %>
+        <span class="required">*</span><br />
+        <%= form.text_field :contacts_date_of_birth, :class => 'datepicker' %>
+      </p>
+      <p>
+        <%= form.label :merchant_type, t('supplier.merchant_type') %>
+        <span class="required">*</span><br />
+        <%= form.select :merchant_type, [[t(:individual), 'individual'], [t(:business), 'business']], :class => 'select2' %>
+      </p>
+      <p id="supplier_tax_id_field">
+        <%= form.label :tax_id, t('supplier.tax_id') %><br />
+        <%= form.text_field :tax_id, :class => 'text' %>
+      </p>
     </fieldset>
     <p class="form-buttons">
       <%= form.submit t(:signup) %> <%= t('or') %> <%= link_to t('cancel'), spree.account_path %>

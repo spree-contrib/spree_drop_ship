@@ -12,12 +12,15 @@ describe Spree::Supplier do
   it { should have_many(:variants).through(:products) }
 
   it { should validate_presence_of(:address) }
+  it { should validate_presence_of(:contacts_date_of_birth) }
   it { should validate_presence_of(:email) }
   it { should validate_presence_of(:name) }
 
-  # TODO
-  # validates :email, email: true
-  # validates :url, format: { with: URI::regexp(%w(http https)), allow_blank: true }
+  it '#business?' do
+    subject.business?.should be_false
+    subject.merchant_type = 'business'
+    subject.business?.should be_true
+  end
 
   it '#email_with_name' do
     subject.name = 'Test'
@@ -110,6 +113,17 @@ describe Spree::Supplier do
     supplier = create :supplier, commission_flat_rate: 123, commission_percentage: 25
     supplier.commission_flat_rate.should eql(123.0)
     supplier.commission_percentage.should eql(25.0)
+  end
+
+  it '#set_token' do
+    supplier = build :supplier, merchant_type: 'individual'
+    supplier.token.should be_nil
+    supplier.save
+    supplier.token.should be_present
+    supplier = build :supplier, tax_id: '211111111', merchant_type: 'business'
+    supplier.token.should be_nil
+    supplier.save
+    supplier.token.should be_present
   end
 
 end

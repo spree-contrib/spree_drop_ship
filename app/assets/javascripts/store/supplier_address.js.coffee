@@ -1,4 +1,5 @@
 Spree.ready ($) ->
+
   if ($ '#new_supplier').is('*')
     ($ '#new_supplier').validate()
 

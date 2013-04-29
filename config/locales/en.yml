@@ -1,5 +1,14 @@
 en:
   activerecord:
+    attributes:
+      spree/supplier:
+        commission_flat_rate: Commission Flat Rate
+        commission_percentage: Commission Percentage
+        contacts_date_of_birth: Contacts Date of Birth
+        merchant_type: Type
+        name: Name
+        tax_id: Tax ID
+        url: URL
     errors:
       models:
         spree/supplier:
@@ -84,17 +93,6 @@ en:
       already_signed_up: "You've already signed up to become a supplier."
       create:
         success: Thank you for signing up!
-  supplier:
-    address1: Address
-    address2: Address (continued)
-    city: City
-    commission: Commission
-    country: Country
-    email: Email
-    name: Name
-    state: State
-    url: URL
-    zipcode: Zipcode
   supplier_info: Supplier Info
   supplier_signup: Supplier Sign Up
   suppliers: Suppliers

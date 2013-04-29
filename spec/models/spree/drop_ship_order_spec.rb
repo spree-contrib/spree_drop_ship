@@ -48,8 +48,25 @@ describe Spree::DropShipOrder do
   end
 
   it '#shipment_state' do
-    record = create(:drop_ship_order)
-    record.shipment_state.should eql(record.order.shipment_state)
+    dso = stub_model(Spree::DropShipOrder)
+    dso.stub_chain(:shipments, :size).and_return(0)
+    dso.shipment_state.should eql('pending')
+
+    dso.stub_chain(:shipments, :size).and_return(1)
+    dso.stub_chain(:shipments, :pending, :size).and_return(1)
+    dso.shipment_state.should eql('pending')
+
+    dso.stub_chain(:shipments, :pending, :size).and_return(0)
+    dso.stub_chain(:shipments, :ready, :size).and_return(1)
+    dso.shipment_state.should eql('ready')
+
+    dso.stub_chain(:shipments, :ready, :size).and_return(0)
+    dso.stub_chain(:shipments, :shipped, :size).and_return(1)
+    dso.shipment_state.should eql('shipped')
+
+    dso.stub_chain(:shipments, :size).and_return(2)
+    dso.stub_chain(:shipments, :ready, :size).and_return(1)
+    dso.shipment_state.should eql('partial')
   end
 
   it '#shipments' do

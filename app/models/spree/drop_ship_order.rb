@@ -55,7 +55,7 @@ class Spree::DropShipOrder < ActiveRecord::Base
   #==========================================
   # Instance Methods
 
-  # TODO should scope to shipments
+  # TODO scope to just shipments?
   delegate :adjustments, to: :order
 
   delegate :currency, to: :order
@@ -79,7 +79,13 @@ class Spree::DropShipOrder < ActiveRecord::Base
 
   delegate :ship_address, to: :order
 
-  delegate :shipment_state, to: :order
+  def shipment_state
+    shipment_count = shipments.size
+    return 'pending' if shipment_count == 0 or shipment_count == shipments.pending.size
+    return 'ready'   if shipment_count == shipments.ready.size
+    return 'shipped' if shipment_count == shipments.shipped.size
+    return 'partial'
+  end
 
   def shipments
     order.shipments.includes(:stock_location).where('spree_stock_locations.supplier_id = ?', self.supplier_id)
