@@ -93,8 +93,10 @@ bundle exec rspec spec
 Todo
 ----
 
+- On dso complete credit supplier bank account
+- On order complete credit marketplace bank account w/commission
+- On order complete credit marketplace bank account w/tax?
 - Return authorization ui
-- Finish I18n implementation (mailer views, and anywhere else plain text is found)
 - Integrate SupplierAbility w/Spree::API (actually making spree api respect cancan in missing places particular read actions)
 - Better documentation
 - Add new languages
