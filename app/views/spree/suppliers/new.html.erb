@@ -18,7 +18,7 @@
       <p>
         <%= form.label :email, Spree::Supplier.human_attribute_name(:email) %>
         <span class="required">*</span><br />
-        <%= form.email_field :email, :value => current_user.email, :class => 'text' %>
+        <%= form.email_field :email, :value => current_user.email, :class => 'email required text' %>
       </p>
       <%= form.fields_for :address do |address_form| %>
         <legend align="center"><%= t(:contact_address) %></legend>
@@ -32,7 +32,7 @@
       <p>
         <%= form.label :name, Spree::Supplier.human_attribute_name(:name) %>
         <span class="required">*</span><br />
-        <%= form.text_field :name, :class => 'title' %>
+        <%= form.text_field :name, :class => 'required title' %>
       </p>
       <p>
         <%= form.label :url, Spree::Supplier.human_attribute_name(:url) %><br />
@@ -41,16 +41,17 @@
       <p>
         <%= form.label :contacts_date_of_birth, Spree::Supplier.human_attribute_name(:contacts_date_of_birth) %>
         <span class="required">*</span><br />
-        <%= form.text_field :contacts_date_of_birth, :class => 'datepicker' %>
+        <%= form.text_field :contacts_date_of_birth, :class => 'datepicker required' %>
       </p>
       <p>
         <%= form.label :merchant_type, Spree::Supplier.human_attribute_name(:merchant_type) %>
         <span class="required">*</span><br />
-        <%= form.select :merchant_type, [[t(:individual), 'individual'], [t(:business), 'business']], :class => 'select2' %>
+        <%= form.select :merchant_type, [[t(:individual), 'individual'], [t(:business), 'business']], :class => 'required select2' %>
       </p>
       <p id="supplier_tax_id_field">
-        <%= form.label :tax_id, Spree::Supplier.human_attribute_name(:tax_id) %><br />
-        <%= form.text_field :tax_id, :class => 'text' %>
+        <%= form.label :tax_id, Spree::Supplier.human_attribute_name(:tax_id) %>
+        <span class="required">*</span><br />
+        <%= form.text_field :tax_id, :class => 'required text' %>
       </p>
     </fieldset>
     <p class="form-buttons">
