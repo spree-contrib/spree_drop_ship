@@ -83,9 +83,8 @@ en:
     supplier_mailer:
       welcome:
         hello: "Hello %{name},"
-        check_your_status: You can check the status of your request by
         logging_into_your_account: logging into your account.
-        once_your_request_is_approved: Once your request has been approved you will be able to manage your inventory.
+        manage_your_account: You may now manage your profile and inventory by
         subject: 'Thank you for signing up.  Please verify your information.'
         thank_you_again: "Thank you again for your business, <b>%{name}</b>"
         thank_you_for_signing_up: Thank you for signing up to be a drop ship supplier.

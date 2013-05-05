@@ -32,6 +32,12 @@ describe Spree::DropShipOrder do
     record.display_total.should == Spree::Money.new(50.0)
   end
 
+  it '#item_total' do
+    line_items = [stub(:amount => 10), stub(:amount => 20)]
+    subject.stub :line_items => line_items
+    subject.item_total.should eql(30)
+  end
+
   it '#number' do
     record = create(:drop_ship_order)
     record.number.should eql(record.id)
@@ -42,9 +48,32 @@ describe Spree::DropShipOrder do
     record.payment_state.should eql(record.order.payment_state)
   end
 
+  it '#promo_total' do
+    dso = create(:drop_ship_order)
+    dso.order.adjustments = [create(:adjustment, adjustable: dso.order, amount: -5, originator_type: 'Spree::PromotionAction'), create(:adjustment, adjustable: dso.order, amount: 5, originator_type: 'Spree::ShippingMethod'), create(:adjustment, adjustable: dso.order, amount: 6, adjustable_type: 'Spree::Order', originator_type: 'Spree::TaxRate')]
+    dso.reload.promo_total.to_f.should eql(-5.0)
+  end
+
   it '#ship_address' do
     record = create(:drop_ship_order)
     record.ship_address.should eql(record.order.ship_address)
+  end
+
+  it '#ship_total' do
+    supplier = create(:supplier)
+    dso = create(:drop_ship_order, supplier: supplier)
+    stock_location = create(:stock_location, supplier: supplier)
+    order = create(:order)
+    shipment1 = create(:shipment, order: order, stock_location: stock_location)
+    shipment2 = create(:shipment, order: order)
+    order.adjustments = [
+      create(:adjustment, adjustable: order, amount: -5, originator_type: 'Spree::PromotionAction'),
+      create(:adjustment, adjustable: order, amount: 4, originator_type: 'Spree::ShippingMethod', source: shipment1),
+      create(:adjustment, adjustable: order, amount: 5, originator_type: 'Spree::ShippingMethod', source: shipment2),
+      create(:adjustment, adjustable: order, amount: 6, adjustable_type: 'Spree::Order', originator_type: 'Spree::TaxRate')
+    ]
+    dso.order = order.reload
+    dso.ship_total.to_f.should eql(4.0)
   end
 
   it '#shipment_state' do
@@ -70,7 +99,20 @@ describe Spree::DropShipOrder do
   end
 
   it '#shipments' do
-    pending 'TODO'
+    supplier = create(:supplier)
+    dso = create(:drop_ship_order, supplier: supplier)
+    stock_location = create(:stock_location, supplier: supplier)
+    order = create(:order)
+    shipment1 = create(:shipment, order: order, stock_location: stock_location)
+    shipment2 = create(:shipment, order: order)
+    dso.order = order.reload
+    dso.shipments.to_a.should eql([shipment1])
+  end
+
+  it '#tax_total' do
+    dso = create(:drop_ship_order)
+    dso.order.adjustments = [create(:adjustment, adjustable: dso.order, amount: -5, originator_type: 'Spree::PromotionAction'), create(:adjustment, adjustable: dso.order, amount: 5, originator_type: 'Spree::ShippingMethod'), create(:adjustment, adjustable: dso.order, amount: 6, adjustable_type: 'Spree::Order', originator_type: 'Spree::TaxRate')]
+    dso.tax_total.to_f.should eql(6.0)
   end
 
   it '#total' do

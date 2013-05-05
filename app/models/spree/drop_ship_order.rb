@@ -55,7 +55,6 @@ class Spree::DropShipOrder < ActiveRecord::Base
   #==========================================
   # Instance Methods
 
-  # TODO scope to just shipments?
   delegate :adjustments, to: :order
 
   delegate :currency, to: :order
@@ -71,13 +70,25 @@ class Spree::DropShipOrder < ActiveRecord::Base
 
   delegate :find_line_item_by_variant, to: :order
 
+  def item_total
+    line_items.map(&:amount).sum
+  end
+
   alias_method :number, :id
 
   delegate :payment_state, to: :order
 
   delegate :payments, to: :order
 
+  def promo_total
+    adjustments.eligible.promotion.sum(:amount)
+  end
+
   delegate :ship_address, to: :order
+
+  def ship_total
+    adjustments.shipping.where('source_id in (?)', shipments.map(&:id)).sum(:amount)
+  end
 
   def shipment_state
     shipment_count = shipments.size
@@ -89,6 +100,10 @@ class Spree::DropShipOrder < ActiveRecord::Base
 
   def shipments
     order.shipments.includes(:stock_location).where('spree_stock_locations.supplier_id = ?', self.supplier_id)
+  end
+
+  def tax_total
+    adjustments.tax.sum(:amount)
   end
 
   #==========================================
@@ -106,7 +121,7 @@ class Spree::DropShipOrder < ActiveRecord::Base
 
     def perform_delivery # :nodoc:
       self.update_attribute(:sent_at, Time.now)
-      Spree::DropShipOrderMailer.supplier_order(self).deliver! if Spree::DropShipConfig[:send_supplier_email]
+      Spree::DropShipOrderMailer.supplier_order(self.id).deliver! if Spree::DropShipConfig[:send_supplier_email]
     end
 
     def update_commission

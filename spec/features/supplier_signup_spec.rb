@@ -54,7 +54,9 @@ feature 'Supplier Signup', js: true do
           click_link 'Sign Up To Become A Supplier'
         end
         select 'Individual', from: 'supplier_merchant_type'
-        fill_in 'supplier[contacts_date_of_birth]', with: '1970/4/20'
+        select '1970', from: 'supplier_contacts_date_of_birth_1i'
+        select 'April', from: 'supplier_contacts_date_of_birth_2i'
+        select '20', from: 'supplier_contacts_date_of_birth_3i'
         fill_in 'supplier[name]', with: 'Test Supplier'
         fill_in 'supplier[email]', with: @user.email
         fill_in 'supplier[url]', with: 'http://www.test.com'
@@ -75,7 +77,9 @@ feature 'Supplier Signup', js: true do
           click_link 'Sign Up To Become A Supplier'
         end
         select 'Business', from: 'supplier_merchant_type'
-        fill_in 'supplier[contacts_date_of_birth]', with: '1970/4/20'
+        select '1970', from: 'supplier_contacts_date_of_birth_1i'
+        select 'April', from: 'supplier_contacts_date_of_birth_2i'
+        select '20', from: 'supplier_contacts_date_of_birth_3i'
         fill_in 'supplier[name]', with: 'Test Supplier'
         fill_in 'supplier[email]', with: @user.email
         fill_in 'supplier[url]', with: 'http://www.test.com'

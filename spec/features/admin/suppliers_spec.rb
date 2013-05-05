@@ -21,7 +21,9 @@ feature 'Admin - Suppliers', js: true do
 
     scenario 'should be able to create new supplier' do
       click_link 'New Supplier'
-      fill_in 'supplier[contacts_date_of_birth]', with: '1970/4/20'
+      select '1970', from: 'supplier_contacts_date_of_birth_1i'
+      select 'April', from: 'supplier_contacts_date_of_birth_2i'
+      select '20', from: 'supplier_contacts_date_of_birth_3i'
       fill_in 'supplier[name]', with: 'Test Supplier'
       fill_in 'supplier[email]', with: 'spree@example.com'
       fill_in 'supplier[url]', with: 'http://www.test.com'
@@ -49,7 +51,9 @@ feature 'Admin - Suppliers', js: true do
 
     scenario 'should be able to edit supplier' do
       click_icon 'edit'
-      fill_in 'supplier[contacts_date_of_birth]', with: '1970/4/20'
+      select '1970', from: 'supplier_contacts_date_of_birth_1i'
+      select 'April', from: 'supplier_contacts_date_of_birth_2i'
+      select '20', from: 'supplier_contacts_date_of_birth_3i'
       fill_in 'supplier[name]', with: 'Test Supplier'
       fill_in 'supplier[email]', with: 'spree@example.com'
       fill_in 'supplier[url]', with: 'http://www.test.com'
@@ -97,7 +101,9 @@ feature 'Admin - Suppliers', js: true do
     end
 
     scenario 'should be able to update supplier' do
-      fill_in 'supplier[contacts_date_of_birth]', with: '1970/4/20'
+      select '1970', from: 'supplier_contacts_date_of_birth_1i'
+      select 'April', from: 'supplier_contacts_date_of_birth_2i'
+      select '20', from: 'supplier_contacts_date_of_birth_3i'
       fill_in 'supplier[name]', with: 'Test Supplier'
       fill_in 'supplier[email]', with: @user.email
       fill_in 'supplier[url]', with: 'http://www.test.com'
@@ -118,7 +124,9 @@ feature 'Admin - Suppliers', js: true do
     end
 
     scenario 'should display errors with invalid supplier update' do
-      fill_in 'supplier[contacts_date_of_birth]', with: '1970/4/20'
+      select '1970', from: 'supplier_contacts_date_of_birth_1i'
+      select 'April', from: 'supplier_contacts_date_of_birth_2i'
+      select '20', from: 'supplier_contacts_date_of_birth_3i'
       fill_in 'supplier[name]', with: 'Test Supplier'
       fill_in 'supplier[email]', with: @user.email
       fill_in 'supplier[url]', with: 'http://www.test.com'

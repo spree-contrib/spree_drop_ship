@@ -41,7 +41,7 @@
       <p>
         <%= form.label :contacts_date_of_birth, Spree::Supplier.human_attribute_name(:contacts_date_of_birth) %>
         <span class="required">*</span><br />
-        <%= form.text_field :contacts_date_of_birth, :class => 'datepicker required' %>
+        <%= form.date_select :contacts_date_of_birth, end_year: Time.now.year - 18, start_year: Time.now.year - 100 %>
       </p>
       <p>
         <%= form.label :merchant_type, Spree::Supplier.human_attribute_name(:merchant_type) %>

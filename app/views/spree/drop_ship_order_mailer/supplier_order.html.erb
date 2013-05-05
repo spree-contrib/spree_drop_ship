@@ -19,7 +19,7 @@
             </tr>
             <tr>
               <td>
-                <h2 style="font-size:18px;font-weight:normal;">Drop Ship Order #<%= @drop_ship_order.id %> <small>(placed on <%= @drop_ship_order.order.completed_at.strftime('%A %b %e, %Y at %l:%M%p %Z') %>)</small></h2>
+                <h2 style="font-size:18px;font-weight:normal;">Drop Ship Order #<%= @drop_ship_order.id %> <small>(placed on <%= @order.completed_at.strftime('%A %b %e, %Y at %l:%M%p %Z') %>)</small></h2>
                 <h4style="font-size:14px;font-weight:normal;">Reference Number: <%= @order.number %></h4>
               </td>
             </tr>

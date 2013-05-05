@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'spree_api',         '~> 2.0.0.beta'
   s.add_dependency 'spree_backend',     '~> 2.0.0.beta'
   s.add_dependency 'spree_core',        '~> 2.0.0.beta'
+  s.add_dependency 'spree_gateway'
 
   s.add_development_dependency 'capybara',           '~> 2.1'
   s.add_development_dependency 'coffee-rails'
