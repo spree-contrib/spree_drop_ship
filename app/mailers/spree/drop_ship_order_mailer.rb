@@ -1,5 +1,5 @@
 module Spree
-  class DropShipOrderMailer < ActionMailer::Base
+  class DropShipOrderMailer < Spree::BaseMailer
 
     default from: Spree::Config[:mails_from]
 
@@ -9,5 +9,6 @@ module Spree
       @supplier = @drop_ship_order.supplier
       mail to: @supplier.email_with_name, subject: I18n.t('spree.drop_ship_order_mailer.supplier_order.subject', name: Spree::Config[:site_name], number: @drop_ship_order.id)
     end
+
   end
 end
