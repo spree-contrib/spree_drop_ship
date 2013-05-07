@@ -37,8 +37,16 @@ namespace :spree_sample do
     puts "Creating Suppliers..."
     5.times{|i|
       name = "Supplier #{count + i + 1}"
-      supplier = Spree::Supplier.new(:name => name, :email => "#{name.parameterize}@example.com", :url => "http://example.com")
-      supplier.build_address(:firstname => name, :lastname => name, :address1 => "100 State St", :city => "Santa Barbara", :zipcode => "93101", :state_id => @ca.id, :country_id => @usa.id)
+      supplier = Spree::Supplier.new(:name => name, 
+                                   :email => "#{name.parameterize}@example.com",
+                                   :url => "http://example.com",
+                                   :contacts_date_of_birth => '1966/01/01',
+                                   :merchant_type => 'individual')
+      supplier.build_address(:firstname => name, :lastname => name,
+                             :address1 => "100 State St",
+                             :city => "Santa Barbara", :zipcode => "93101",
+                             :state_id => @ca.id, :country_id => @usa.id,
+                             :phone => '1234567890')
       print "*" if supplier.save
     }
     puts
