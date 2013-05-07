@@ -6,8 +6,8 @@ module IntegrationHelpers
 
     visit spree.root_path
     click_link 'Login'
-    fill_in 'user[email]', with: user.email
-    fill_in 'user[password]', with: options[:password]
+    fill_in 'spree_user[email]', with: user.email
+    fill_in 'spree_user[password]', with: options[:password]
     click_button 'Login'
     page.should_not have_content 'Login'
   end

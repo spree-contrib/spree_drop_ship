@@ -11,11 +11,6 @@ feature 'Supplier Signup', js: true do
     page.should have_content("You've already signed up to become a supplier.")
   end
 
-  scenario 'guests get redirected to login' do
-    visit spree.new_supplier_path
-    page.should have_content('Must Be Logged In')
-  end
-
   context 'logged in' do
 
     before do

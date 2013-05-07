@@ -18,7 +18,7 @@
       <p>
         <%= form.label :email, Spree::Supplier.human_attribute_name(:email) %>
         <span class="required">*</span><br />
-        <%= form.email_field :email, :value => current_user.email, :class => 'email required text' %>
+        <%= form.email_field :email, :value => spree_current_user.email, :class => 'email required text' %>
       </p>
       <%= form.fields_for :address do |address_form| %>
         <legend align="center"><%= t(:contact_address) %></legend>

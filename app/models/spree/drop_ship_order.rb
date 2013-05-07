@@ -56,12 +56,16 @@ class Spree::DropShipOrder < ActiveRecord::Base
   # Instance Methods
 
   delegate :adjustments, to: :order
-
+  delegate :checkout_steps, to: :order
   delegate :currency, to: :order
 
   # Don't allow drop ship orders to be destroyed
   def destroy
     false
+  end
+
+  def display_item_total
+    Spree::Money.new(self.item_total, { currency: currency })
   end
 
   def display_total
