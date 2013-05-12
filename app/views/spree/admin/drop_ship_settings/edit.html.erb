@@ -1,7 +1,7 @@
 <%= render :partial => 'spree/admin/shared/configuration_menu' %>
 
 <% content_for :page_title do %>
-  <%= t("spree_drop_ship.drop_ship_settings") %>
+  <%= I18n.t("spree_drop_ship.drop_ship_settings") %>
 <% end %>
 
 <%= form_tag(spree.admin_drop_ship_settings_path, :method => :put) do %>
@@ -15,9 +15,9 @@
       </div>
     <% end %>
     <div class="form-buttons filter-actions actions" data-hook="buttons">
-      <%= button t(:update), 'icon-refresh' %>
-      <span class="or"><%= t(:or) %></span>
-      <%= link_to_with_icon 'icon-remove', t(:cancel), spree.edit_admin_drop_ship_settings_url, :class => 'button' %>
+      <%= button Spree.t(:update), 'icon-refresh' %>
+      <span class="or"><%= Spree.t(:or) %></span>
+      <%= link_to_with_icon 'icon-remove', Spree.t(:cancel), spree.edit_admin_drop_ship_settings_url, :class => 'button' %>
     </div>
   </fieldset>
 <% end %>
