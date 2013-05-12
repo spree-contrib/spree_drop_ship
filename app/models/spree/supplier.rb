@@ -23,6 +23,10 @@ class Spree::Supplier < ActiveRecord::Base
   has_many   :stock_locations
   has_many   :users, class_name: Spree.user_class.to_s
   has_many   :variants, through: :products
+  if defined?(Ckeditor::Picture) && defined?(Ckeditor::AttachmentFile)
+    has_many :ckeditor_pictures
+    has_many :ckeditor_attachment_files
+  end
 
   #==========================================
   # Validations
