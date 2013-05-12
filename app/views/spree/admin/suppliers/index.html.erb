@@ -1,13 +1,13 @@
 <% content_for :page_actions do %>  
-  <li><%= button_link_to t('.new_supplier'), new_object_url, :icon => 'icon-plus' %></li>
+  <li><%= button_link_to I18n.t('.new_supplier'), new_object_url, :icon => 'icon-plus' %></li>
 <% end %>
 
 <% content_for :page_title do %>
-   <i class="icon-arrow-right"></i> <%= t('.listing_suppliers') %>
+   <i class="icon-arrow-right"></i> <%= I18n.t(:listing_suppliers) %>
 <% end %>
 
 <% content_for :table_filter_title do %>
-  <%= t(:search) %>
+  <%= I18n.t(:search) %>
 <% end %>
 
 <% content_for :table_filter do %>
@@ -21,7 +21,7 @@
       </div>
       <div class="clear"></div>
       <div class="form-buttons actions filter-actions" data-hook="admin_suppliers_index_search_buttons">
-        <%= button t(:search), 'icon-search' %>
+        <%= button I18n.t(:search), 'icon-search' %>
       </div>
     <% end %>
   </div>
@@ -37,8 +37,8 @@
     </colgroup>
     <thead>
       <tr data-hook='admin_suppliers_index_headers'>
-        <th><%= sort_link @search, :name,  t('supplier.name') %></th>
-        <th><%= sort_link @search, :email, t('supplier.email') %></th>
+        <th><%= sort_link @search, :name,  Spree::Supplier.human_attribute_name(:name) %></th>
+        <th><%= sort_link @search, :email, Spree::Supplier.human_attribute_name(:email) %></th>
         <th data-hook="admin_suppliers_index_header_actions" class="actions"></th>
       </tr>
     </thead>
@@ -60,7 +60,7 @@
   </table>
 <% else %>
   <div class="no-objects-found">
-    <%= t(:no_results) %>
+    <%= I18n.t(:no_results) %>
   </div>
 <% end %>
 

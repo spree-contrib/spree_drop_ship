@@ -3,7 +3,7 @@
 <% end %>
 
 <% content_for :page_title do %>
-   <%= t '.verify_bank_account', number: @object.masked_number %>
+   <%= I18n.t '.verify_bank_account_number', number: @object.masked_number %>
 <% end %>
 
 <%= render 'spree/shared/error_messages', :target => @object %>
@@ -17,5 +17,5 @@
     <%= f.label :amount_2 %>:<br />
     <%= f.text_field :amount_2, :class => 'fullwidth' %>
   <% end %>
-  <%= f.submit t(:verify) %>
+  <%= f.submit I18n.t(:verify) %>
 <% end %>

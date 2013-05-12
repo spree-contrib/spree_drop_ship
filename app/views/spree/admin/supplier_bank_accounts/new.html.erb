@@ -1,9 +1,9 @@
 <% content_for :page_actions do %>
-  <li><%= button_link_to t(:cancel), spree.edit_admin_supplier_path(@supplier), :icon => 'icon-arrow-left' %></li>
+  <li><%= button_link_to Spree.t(:cancel), spree.edit_admin_supplier_path(@supplier), :icon => 'icon-arrow-left' %></li>
 <% end %>
 
 <% content_for :page_title do %>
-   <%= t '.new_bank_account' %>
+   <%= I18n.t '.new_bank_account' %>
 <% end %>
 
 <%= render 'spree/shared/error_messages', :target => @bank_account %>
@@ -23,7 +23,7 @@
   <% end %>
   <%= f.field_container :type do %>
     <%= f.label :type %>:<br />
-    <%= f.select :type, [[t(:checking), 'checking'], [t(:savings), 'savings']], {}, class: 'fullwidth select2' %>
+    <%= f.select :type, [[I18n.t(:checking), 'checking'], [I18n.t(:savings), 'savings']], {}, class: 'fullwidth select2' %>
   <% end %>
-  <%= f.submit t('save') %>
+  <%= f.submit I18n.t('save') %>
 <% end %>

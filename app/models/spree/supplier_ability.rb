@@ -9,6 +9,9 @@ module Spree
         can [:admin, :confirm, :deliver, :index, :read, :update], Spree::DropShipOrder, supplier_id: user.supplier_id
         can [:admin, :manage], Spree::Image, viewable: { product: { supplier_id: user.supplier_id } }
         can :create, Spree::Image
+        if defined?(Spree::GroupPrice)
+          can [:admin, :manage], Spree::GroupPrice, variant: { product: { supplier_id: user.supplier_id } }
+        end
         if defined?(Spree::Relation)
           can [:admin, :manage], Spree::Relation, relatable: { supplier_id: user.supplier_id }
         end

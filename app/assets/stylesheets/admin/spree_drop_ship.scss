@@ -6,14 +6,9 @@
   text-align: center;
 }
 
-.state.delivered,
-.state.confirmed {
+.state.delivered:before,
+.state.confirmed:before {
   background-color: #ff9300;
-  color: white;
-
-  a {
-    color: white;
-  }
 }
 
 .supplier-banks ol li {

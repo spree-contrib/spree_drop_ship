@@ -26,6 +26,17 @@ The following are the drop ship order states and what they represent:
 Spree Drop Ship will also integrate with [Balanced Payments](https://www.balancedpayments.com/) in order to handle charging commission
 w/Escrow accounts for sales, as well as, handling payments to your suppliers via ACH direct deposits.  This is still currently a work in progress, and any input is welcome.  This may likely be refactored into it's own extension if other viable alternatives to Balanced Payments are desired.
 
+Integrations
+------------
+
+Spree Drop Ship will support several other Spree extensions being used by scoping information by supplier.
+
+Some extensions that can be used in conjunction with Spree Drop Ship:
+spree_editor
+spree_related_products
+
+Please Note: If you intend to use any of these extensions you should install them before installing spree_drop_ship so that spree_drop_ship's migrations are run last.
+
 Installation
 ------------
 

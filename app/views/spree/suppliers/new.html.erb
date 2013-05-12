@@ -4,10 +4,10 @@
 
 <% if defined?(SpreeFancy) %>
   <% content_for :subheader do %>
-    <h1><%= t(:supplier_signup) %></h1>
+    <h1><%= I18n.t(:supplier_signup) %></h1>
   <% end %>
 <% else %>
-  <h1><%= t(:supplier_signup) %></h1>
+  <h1><%= I18n.t(:supplier_signup) %></h1>
 <% end %>
 
 <%= render 'spree/shared/error_messages', :target => @supplier %>
@@ -21,14 +21,14 @@
         <%= form.email_field :email, :value => spree_current_user.try(:email), :class => 'email required text' %>
       </p>
       <%= form.fields_for :address do |address_form| %>
-        <legend align="center"><%= t(:contact_address) %></legend>
+        <legend align="center"><%= I18n.t(:contact_address) %></legend>
         <%= render :partial => 'spree/address/form', :locals => {:form => address_form, :address_type => 'contact', :address => @supplier.address} %>
       <% end %>
     </fieldset>
   </div>
   <div class="columns alpha six" data-hook="supplier_fieldset_wrapper">
     <fieldset id="supplier-address" data-hook>
-      <legend align="center"><%= t(:company_info) %></legend>
+      <legend align="center"><%= I18n.t(:company_info) %></legend>
       <p>
         <%= form.label :name, Spree::Supplier.human_attribute_name(:name) %>
         <span class="required">*</span><br />
@@ -46,7 +46,7 @@
       <p>
         <%= form.label :merchant_type, Spree::Supplier.human_attribute_name(:merchant_type) %>
         <span class="required">*</span><br />
-        <%= form.select :merchant_type, [[t(:individual), 'individual'], [t(:business), 'business']], :class => 'required select2' %>
+        <%= form.select :merchant_type, [[I18n.t(:individual), 'individual'], [I18n.t(:business), 'business']], :class => 'required select2' %>
       </p>
       <p id="supplier_tax_id_field">
         <%= form.label :tax_id, Spree::Supplier.human_attribute_name(:tax_id) %>
@@ -55,7 +55,7 @@
       </p>
     </fieldset>
     <p class="form-buttons">
-      <%= form.submit t(:signup) %> <%= t('or') %> <%= link_to t('cancel'), spree.account_path %>
+      <%= form.submit I18n.t(:signup) %> <%= I18n.t('or') %> <%= link_to I18n.t('cancel'), spree.account_path %>
     </p>
   </div>
 <% end %>

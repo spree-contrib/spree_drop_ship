@@ -1,24 +1,24 @@
 <% content_for :page_actions do %>
   <% if spree_current_user.admin? and !@order.confirmed? %>
-    <%= button_link_to t((@order.delivered? ? :resend_order_to_supplier : :send_order_to_supplier)), spree.deliver_admin_drop_ship_order_path(@order), method: 'put' %>
+    <%= button_link_to I18n.t((@order.delivered? ? :resend_order_to_supplier : :send_order_to_supplier)), spree.deliver_admin_drop_ship_order_path(@order), method: 'put' %>
   <% end %>
   <% if spree_current_user.supplier? and @order.delivered? %>
-    <%= button_link_to t(:confirm_order), spree.confirm_admin_drop_ship_order_path(@order), method: 'put' %>
+    <%= button_link_to I18n.t(:confirm_order), spree.confirm_admin_drop_ship_order_path(@order), method: 'put' %>
   <% end %>
-  <li><%= button_link_to t(:back_to_orders_list), spree.admin_drop_ship_orders_path, :icon => 'icon-arrow-left' %></li>
+  <li><%= button_link_to I18n.t(:back_to_orders_list), spree.admin_drop_ship_orders_path, :icon => 'icon-arrow-left' %></li>
 <% end %>
 
 <% if spree_current_user.admin? %>
   <div data-hook="admin_drop_ship_order_supplier" class="row">
     <fieldset class="alpha twelve columns no-border-bottom">
-      <legend align="center"><%= t(:supplier_information) %></legend>
+      <legend align="center"><%= I18n.t(:supplier_information) %></legend>
       <div>
-        <b><%= t('supplier.name') %>:</b> <%= @order.supplier.name %><br/>
-        <b><%= t('supplier.email') %>:</b> <%= @order.supplier.email %><br/>
-        <b><%= t('supplier.url') %>:</b> <%= link_to @order.supplier.url, @order.supplier.url if @order.supplier.url.present? %><br/>
+        <b><%= Spree::Supplier.human_attribute_name(:name) %>:</b> <%= @order.supplier.name %><br/>
+        <b><%= Spree::Supplier.human_attribute_name(:email) %>:</b> <%= @order.supplier.email %><br/>
+        <b><%= Spree::Supplier.human_attribute_name(:url) %>:</b> <%= link_to @order.supplier.url, @order.supplier.url if @order.supplier.url.present? %><br/>
       </div>
       <div>
-        <b><%= t('contact_information') %>:</b>
+        <b><%= I18n.t('contact_information') %>:</b>
       </div>
       <%= render :partial => 'spree/shared/address', :locals => { :address => @order.supplier.address } %>
     </fieldset>
@@ -30,7 +30,7 @@
 <div data-hook="admin_drop_ship_order_addresses" class="row">
   <% if @order.ship_address %>
     <fieldset class="alpha twelve columns no-border-bottom">
-      <legend align="center"><%= t(:ship_address) %></legend>
+      <legend align="center"><%= Spree.t(:ship_address) %></legend>
       <%= render :partial => 'spree/shared/address', :locals => { :address => @order.ship_address } %>
     </fieldset>
   <% end %>

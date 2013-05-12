@@ -68,6 +68,10 @@ class Spree::DropShipOrder < ActiveRecord::Base
     Spree::Money.new(self.item_total, { currency: currency })
   end
 
+  def display_ship_total
+    Spree::Money.new self.ship_total, currency: currency
+  end
+
   def display_total
     Spree::Money.new(self.total, { currency: currency })
   end

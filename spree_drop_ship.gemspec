@@ -33,6 +33,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'selenium-webdriver'
   s.add_development_dependency 'shoulda-matchers'
   s.add_development_dependency 'spree_auth_devise'
+  s.add_development_dependency 'spree_editor'
+  s.add_development_dependency 'spree_group_pricing'
   s.add_development_dependency 'spree_related_products'
   s.add_development_dependency 'spree_sample'
   s.add_development_dependency 'sqlite3'
