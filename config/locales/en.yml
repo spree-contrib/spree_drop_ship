@@ -21,6 +21,7 @@ en:
   back_to_suppliers: Back To Suppliers
   bank_accounts: Bank Accounts
   business: Business
+  cancel: Cancel
   checking: Checking
   confirm_order: Confirm Order
   contact_address: Contact Address
@@ -32,8 +33,10 @@ en:
   listing_suppliers: Listing Suppliers
   manage: Manage
   must_be_logged_in: 'Must Be Logged In'
+  name: Name
   new_bank_account: New Bank Account
   new_supplier: New Supplier
+  or: or
   resend_order_to_supplier: Resend Order To Supplier
   save: Save
   savings: Savings
@@ -96,6 +99,7 @@ en:
       already_signed_up: "You've already signed up to become a supplier."
       create:
         success: Thank you for signing up!
+  supplier: Supplier
   supplier_details: Supplier Details
   supplier_info: Supplier Info
   supplier_signup: Supplier Sign Up

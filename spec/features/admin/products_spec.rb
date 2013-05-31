@@ -12,7 +12,7 @@ describe 'Admin - Products', js: true do
       login_user create(:admin_user)
       visit spree.admin_product_path(product)
 
-      select s2.name, from: 'product[supplier_id]'
+      select2 s2.name, from: 'Supplier'
       click_button 'Update'
 
       page.should have_content("Product \"#{product.name}\" has been successfully updated!")

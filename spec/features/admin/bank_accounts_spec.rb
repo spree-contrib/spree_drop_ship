@@ -24,7 +24,7 @@ feature 'Admin - Supplier Bank Accounts', js: true do
       fill_in 'supplier_bank_account[name]', with: 'Test Supplier'
       fill_in 'supplier_bank_account[account_number]', with: '9900000002'
       fill_in 'supplier_bank_account[routing_number]', with: '021000021'
-      select 'Checking', from: 'supplier_bank_account[type]'
+      select2 'Checking', from: 'Type'
       click_button 'Save'
       page.should have_content('xxxxxx0002 - Unverified')
       page.should have_content('Two small deposits will be made within 2 business days.  Please verify your bank account once you know the amounts.')

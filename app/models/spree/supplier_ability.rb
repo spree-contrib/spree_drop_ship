@@ -7,7 +7,9 @@ module Spree
 
       if user.supplier
         can [:admin, :confirm, :deliver, :index, :read, :update], Spree::DropShipOrder, supplier_id: user.supplier_id
-        can [:admin, :manage], Spree::Image, viewable: { product: { supplier_id: user.supplier_id } }
+        can [:admin, :manage], Spree::Image do |image|
+          image.viewable.product.supplier_id == user.supplier_id
+        end
         can :create, Spree::Image
         if defined?(Spree::GroupPrice)
           can [:admin, :manage], Spree::GroupPrice, variant: { product: { supplier_id: user.supplier_id } }

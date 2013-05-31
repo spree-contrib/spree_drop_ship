@@ -112,8 +112,8 @@ feature 'Admin - Suppliers', js: true do
       fill_in 'supplier[address_attributes][address1]', with: '1 Test Drive'
       fill_in 'supplier[address_attributes][city]', with: 'Test City'
       fill_in 'supplier[address_attributes][zipcode]', with: '55555'
-      select 'United States', from: 'supplier[address_attributes][country_id]'
-      select 'Vermont', from: 'supplier[address_attributes][state_id]'
+      select2 'United States', from: 'Country'
+      select2 'Vermont', from: 'State'
       fill_in 'supplier[address_attributes][phone]', with: '555-555-5555'
       page.should_not have_css('#s2id_supplier_user_ids') # cannot edit assigned users
       page.should_not have_css('#supplier_commission_flat_rate') # cannot edit flat rate commission
@@ -135,8 +135,8 @@ feature 'Admin - Suppliers', js: true do
       fill_in 'supplier[address_attributes][address1]', with: '1 Test Drive'
       fill_in 'supplier[address_attributes][city]', with: 'Test City'
       fill_in 'supplier[address_attributes][zipcode]', with: '55555'
-      select 'United States', from: 'supplier[address_attributes][country_id]'
-      select 'Vermont', from: 'supplier[address_attributes][state_id]'
+      select2 'United States', from: 'Country'
+      select2 'Vermont', from: 'State'
       fill_in 'supplier[address_attributes][phone]', with: '555-555-5555'
       click_button 'Update'
       page.should have_content('Address is invalid')
