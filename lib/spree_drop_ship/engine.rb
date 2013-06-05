@@ -12,7 +12,7 @@ module SpreeDropShip
     end
 
     initializer "spree.spree_drop_ship.preferences", :after => "spree.environment" do |app|
-      Spree::DropShipConfig = Spree::DropShipConfiguration.new
+      SpreeDropShip::Config = Spree::DropShipConfiguration.new
     end
 
     def self.activate
