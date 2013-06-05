@@ -25,7 +25,7 @@ module Spree
 
     def attempt_verification
       return if self.amount_1.blank? or self.amount_2.blank?
-      Balanced.configure(Spree::DropShipConfig[:balanced_api_key])
+      Balanced.configure(SpreeDropShip::Config[:balanced_api_key])
       bank_account = Balanced::BankAccount.find(self.token)
       verification = Balanced::Verification.find(self.verification_token)
       verification.amount_1 = self.amount_1
@@ -36,7 +36,7 @@ module Spree
 
     def balanced_api_call
       return if self.account_number.blank? or self.name.blank? or self.routing_number.blank? or self.type.blank?
-      Balanced.configure(Spree::DropShipConfig[:balanced_api_key])
+      Balanced.configure(SpreeDropShip::Config[:balanced_api_key])
       merchant_account = Balanced::Account.find(self.supplier.token)
       bank_account = Balanced::BankAccount.new(
         :routing_number => self.routing_number,

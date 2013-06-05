@@ -46,7 +46,7 @@ class Spree::Supplier < ActiveRecord::Base
 
   after_create :assign_user
   after_create :create_stock_location
-  after_create :send_welcome, if: -> { Spree::DropShipConfig[:send_supplier_email] }
+  after_create :send_welcome, if: -> { SpreeDropShip::Config[:send_supplier_email] }
   before_create :set_commission
   before_create :set_token
 
@@ -88,15 +88,15 @@ class Spree::Supplier < ActiveRecord::Base
 
     def set_commission
       unless changes.has_key?(:commission_flat_rate)
-        self.commission_flat_rate = Spree::DropShipConfig[:default_commission_flat_rate]
+        self.commission_flat_rate = SpreeDropShip::Config[:default_commission_flat_rate]
       end
       unless changes.has_key?(:commission_percentage)
-        self.commission_percentage = Spree::DropShipConfig[:default_commission_percentage]
+        self.commission_percentage = SpreeDropShip::Config[:default_commission_percentage]
       end
     end
 
     def set_token
-      Balanced.configure(Spree::DropShipConfig[:balanced_api_key])
+      Balanced.configure(SpreeDropShip::Config[:balanced_api_key])
       marketplace = Balanced::Marketplace.my_marketplace
       account     = Balanced::Marketplace.my_marketplace.create_account
       self.token  = account.uri

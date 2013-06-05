@@ -36,11 +36,11 @@ feature 'Supplier Signup', js: true do
     context 'w/ DropShipConfig[:allow_signup] == true' do
 
       after do
-        Spree::DropShipConfig.set(allow_signup: false)
+        SpreeDropShip::Config.set(allow_signup: false)
       end
 
       before do
-        Spree::DropShipConfig.set(allow_signup: true)
+        SpreeDropShip::Config.set(allow_signup: true)
         visit spree.account_path
       end
 

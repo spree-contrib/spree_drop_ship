@@ -8,7 +8,7 @@ Spree::Order.class_eval do
   def finalize_with_drop_ship!
     finalize_without_drop_ship!
     create_drop_ship_orders
-    if Spree::DropShipConfig[:automatically_deliver_orders_to_supplier]
+    if SpreeDropShip::Config[:automatically_deliver_orders_to_supplier]
       drop_ship_orders.each &:deliver!
     end
   end

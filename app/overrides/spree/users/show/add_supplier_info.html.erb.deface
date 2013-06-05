@@ -1,6 +1,6 @@
 <!-- insert_bottom '#user-info' -->
 
-<% if Spree::DropShipConfig[:allow_signup] or @user.supplier? %>
+<% if SpreeDropShip::Config[:allow_signup] or @user.supplier? %>
   <br/>
   <dt class='supplier-info'><%= I18n.t(:supplier_info) %></dt>
   <dd class='supplier-info'>

@@ -7,10 +7,10 @@
 <%= form_tag(spree.admin_drop_ship_settings_path, :method => :put) do %>
   <fieldset class="general no-border-top">
     <% %w(allow_signup automatically_deliver_orders_to_supplier balanced_api_key default_commission_flat_rate default_commission_percentage send_supplier_email).each do |key|
-      type = Spree::DropShipConfig.preference_type(key) %>
+      type = SpreeDropShip::Config.preference_type(key) %>
       <div class="field">
         <%= label_tag(key, t(key) + ': ') + tag(:br) if type != :boolean %>
-        <%= preference_field_tag(key, Spree::DropShipConfig[key], :type => type) %>
+        <%= preference_field_tag(key, SpreeDropShip::Config[key], :type => type) %>
         <%= label_tag(key, t(key)) + tag(:br) if type == :boolean %>
       </div>
     <% end %>

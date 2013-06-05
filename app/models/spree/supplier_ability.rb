@@ -32,7 +32,7 @@ module Spree
         can [:admin, :manage], Spree::Variant, product: { supplier_id: user.supplier_id }
       end
 
-      if Spree::DropShipConfig[:allow_signup]
+      if SpreeDropShip::Config[:allow_signup]
         can :create, Spree::Supplier
       end
 

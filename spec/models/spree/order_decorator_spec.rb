@@ -7,7 +7,7 @@ describe Spree::Order do
   context '#finalize_with_drop_ship!' do
 
     after do
-      Spree::DropShipConfig[:automatically_deliver_orders_to_supplier] = true
+      SpreeDropShip::Config[:automatically_deliver_orders_to_supplier] = true
     end
 
     it 'should deliver drop ship orders when Spree::DropShipConfig[:automatically_deliver_orders_to_supplier] == true' do
@@ -30,7 +30,7 @@ describe Spree::Order do
     end
 
     it 'should NOT deliver drop ship orders when Spree::DropShipConfig[:automatically_deliver_orders_to_supplier] == false' do
-      Spree::DropShipConfig[:automatically_deliver_orders_to_supplier] = false
+      SpreeDropShip::Config[:automatically_deliver_orders_to_supplier] = false
       order = create(:order_with_totals, ship_address: create(:address))
       order.line_items = [create(:line_item, variant: create(:variant_with_supplier)), create(:line_item, variant: create(:variant_with_supplier))]
 

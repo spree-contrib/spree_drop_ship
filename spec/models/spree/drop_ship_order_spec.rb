@@ -155,11 +155,11 @@ describe Spree::DropShipOrder do
 
       context 'with DropShopConfig[:send_supplier_email] == false' do
         after do
-          Spree::DropShipConfig.set send_supplier_email: true
+          SpreeDropShip::Config.set send_supplier_email: true
           ActionMailer::Base.deliveries = []
         end
         before do
-          Spree::DropShipConfig.set send_supplier_email: false
+          SpreeDropShip::Config.set send_supplier_email: false
           ActionMailer::Base.deliveries = []
           @drop_ship_order.deliver!
         end
