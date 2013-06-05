@@ -11,7 +11,7 @@ module SpreeDropShip
       g.test_framework :rspec
     end
 
-    initializer "spree.spree_drop_ship.preferences", :after => "spree.environment" do |app|
+    initializer "spree_drop_ship.preferences", before: :load_config_initializers  do |app|
       SpreeDropShip::Config = Spree::DropShipConfiguration.new
     end
 
