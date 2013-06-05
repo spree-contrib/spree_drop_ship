@@ -53,6 +53,8 @@ class Spree::Supplier < ActiveRecord::Base
   #==========================================
   # Instance Methods
 
+  scope :active, -> { where(active: true) }
+
   def business?
     self.merchant_type == 'business'
   end
