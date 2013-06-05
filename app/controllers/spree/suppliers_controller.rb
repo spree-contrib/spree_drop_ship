@@ -4,8 +4,8 @@ class Spree::SuppliersController < Spree::StoreController
   ssl_required
 
   def create
+    authorize! :create, Spree::Supplier
     @supplier = Spree::Supplier.new(params[:supplier])
-    authorize! :create, @supplier
     if @supplier.save
       flash[:success] = I18n.t('spree.suppliers.create.success')
       redirect_to spree.root_path
@@ -16,8 +16,8 @@ class Spree::SuppliersController < Spree::StoreController
   end
 
   def new
+    authorize! :create, Spree::Supplier
     @supplier = Spree::Supplier.new(address_attributes: {country_id: Spree::Address.default.country_id})
-    authorize! :new, @supplier
   end
 
   private
