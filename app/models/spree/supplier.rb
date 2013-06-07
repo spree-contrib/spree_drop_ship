@@ -1,6 +1,10 @@
 class Spree::Supplier < ActiveRecord::Base
 
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   attr_accessible :address_attributes,
+                  :active,
                   :commission_flat_rate,
                   :commission_percentage,
                   :contacts_date_of_birth,

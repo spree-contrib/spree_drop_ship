@@ -21,6 +21,8 @@ feature 'Admin - Suppliers', js: true do
 
     scenario 'should be able to create new supplier' do
       click_link 'New Supplier'
+      check 'supplier_active'
+      check 'supplier_featured'
       select '1970', from: 'supplier_contacts_date_of_birth_1i'
       select 'April', from: 'supplier_contacts_date_of_birth_2i'
       select '20', from: 'supplier_contacts_date_of_birth_3i'
@@ -51,6 +53,8 @@ feature 'Admin - Suppliers', js: true do
 
     scenario 'should be able to edit supplier' do
       click_icon 'edit'
+      check 'supplier_active'
+      check 'supplier_featured'
       select '1970', from: 'supplier_contacts_date_of_birth_1i'
       select 'April', from: 'supplier_contacts_date_of_birth_2i'
       select '20', from: 'supplier_contacts_date_of_birth_3i'
@@ -115,12 +119,14 @@ feature 'Admin - Suppliers', js: true do
       select2 'United States', from: 'Country'
       select2 'Vermont', from: 'State'
       fill_in 'supplier[address_attributes][phone]', with: '555-555-5555'
+      page.should_not have_css('#supplier_active') # cannot edit active
+      page.should_not have_css('#supplier_featured') # cannot edit featured
       page.should_not have_css('#s2id_supplier_user_ids') # cannot edit assigned users
       page.should_not have_css('#supplier_commission_flat_rate') # cannot edit flat rate commission
       page.should_not have_css('#supplier_commission_percentage') # cannot edit comission percentage
       click_button 'Update'
       page.should have_content('Supplier "Test Supplier" has been successfully updated!')
-      page.current_path.should eql(spree.edit_admin_supplier_path(@user.supplier))
+      page.current_path.should eql(spree.edit_admin_supplier_path(@user.supplier.slug))
     end
 
     scenario 'should display errors with invalid supplier update' do
