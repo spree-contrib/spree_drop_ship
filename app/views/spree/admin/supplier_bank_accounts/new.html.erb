@@ -6,9 +6,9 @@
    <%= I18n.t '.new_bank_account' %>
 <% end %>
 
-<%= render 'spree/shared/error_messages', :target => @bank_account %>
+<%= render 'spree/shared/error_messages', :target => @object %>
 
-<%= form_for @bank_account, url: spree.admin_supplier_bank_accounts_path(@supplier) do |f| %>
+<%= form_for @object, url: spree.admin_supplier_bank_accounts_path(@supplier) do |f| %>
   <%= f.field_container :name do %>
     <%= f.label :name %>:<br />
     <%= f.text_field :name, :class => 'fullwidth' %>
