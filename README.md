@@ -104,6 +104,7 @@ bundle exec rspec spec
 Todo
 ----
 
+- Must allow suppliers to edit their stock location addresses & require it.
 - On dso complete credit supplier bank account
 - On order complete credit marketplace bank account w/commission
 - On order complete credit marketplace bank account w/tax?
