@@ -21,7 +21,7 @@ class Spree::Admin::SupplierBankAccountsController < Spree::Admin::ResourceContr
   end
 
   def new
-    @bank_account = @supplier.bank_accounts.build
+    @object = @supplier.bank_accounts.build
   end
 
   # Overridding the flash[:success]
