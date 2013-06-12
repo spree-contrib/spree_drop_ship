@@ -27,6 +27,12 @@ describe Spree::DropShipOrder do
     instance.destroy.should eql(false)
   end
 
+  it '#display_tax_total' do
+    dso = build(:drop_ship_order)
+    dso.stub tax_total: 6.0
+    dso.display_tax_total.should == Spree::Money.new(6.0)
+  end
+
   it '#display_total' do
     record = create(:order_for_drop_ship).drop_ship_orders.first
     record.display_total.should == Spree::Money.new(50.0)
