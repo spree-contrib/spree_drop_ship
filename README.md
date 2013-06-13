@@ -24,7 +24,7 @@ The following are the drop ship order states and what they represent:
 * **Complete:** Represents that the drop ship order has been shipped, and the supplier's work is complete.
 
 Spree Drop Ship will also integrate with [Balanced Payments](https://www.balancedpayments.com/) in order to handle charging commission
-w/Escrow accounts for sales, as well as, handling payments to your suppliers via ACH direct deposits.  This is still currently a work in progress, and any input is welcome.  This may likely be refactored into it's own extension if other viable alternatives to Balanced Payments are desired.
+w/Escrow accounts for sales, as well as, handling payments to your suppliers via ACH direct deposits.  This is still currently a work in progress, and any input is welcome.  This will be refactored into it's own extension [Spree Marketplace](https://github.com/jdutil/spree_marketplace) in order to keep Spree Drop Ship lite for people who do not wish to integrate with a payment provider.
 
 Integrations
 ------------
@@ -109,6 +109,7 @@ Todo
 - On order complete credit marketplace bank account w/commission
 - On order complete credit marketplace bank account w/tax?
 - Return Authorization UI
+- Move Balanced Payments support into [Spree Marketplace](https://github.com/jdutil/spree_marketplace)
 - Better documentation
 - De-couple Supplier payments from [Balanced Payments](https://www.balancedpayments.com/) so that Balanced is not required to use this extension but could be added w/say spree_drop_ship_balanced. Volunteers wanting to use this extension without balanced payments will need to step up though as I do not intend to do it anytime in the near future.
 
