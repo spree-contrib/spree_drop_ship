@@ -38,7 +38,7 @@ describe 'Admin - Shipments', js: true do
         select2 "Newer", :from => "Shipping Method"
         click_icon :ok
 
-        page.should have_content("Newer:")
+        page.should have_content("Newer $0.00")
       end
 
       it 'can ship' do

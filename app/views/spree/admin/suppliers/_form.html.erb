@@ -43,13 +43,13 @@
         <%= form.label :commission_percentage, Spree::Supplier.human_attribute_name(:commission_percentage) %>:<br />
         <%= form.text_field :commission_percentage, :class => 'fullwidth text' %>
       <% end %>
-      <%= form.field_container :active do %>
-        <%= form.label :active, Spree::Supplier.human_attribute_name(:active) %>:<br />
-        <%= form.check_box :active %>
-      <% end %>
       <%= form.field_container :users do %>
         <%= form.label :users %><br/>
         <%= form.hidden_field :user_ids, class: 'fullwidth user_picker', value: "#{form.object.new_record? ? '' : form.object.users.pluck(:id).join(',')}" %>
+      <% end %>
+      <%= form.field_container :active do %>
+        <%= form.label :active, Spree::Supplier.human_attribute_name(:active) %>:<br />
+        <%= form.check_box :active %>
       <% end %>
     <% end %>
     <div class='center'>
