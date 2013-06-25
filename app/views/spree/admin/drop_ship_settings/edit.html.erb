@@ -1,7 +1,7 @@
 <%= render :partial => 'spree/admin/shared/configuration_menu' %>
 
 <% content_for :page_title do %>
-  <%= I18n.t("spree_drop_ship.drop_ship_settings") %>
+  <%= Spree.t("spree_drop_ship.drop_ship_settings") %>
 <% end %>
 
 <%= form_tag(spree.admin_drop_ship_settings_path, :method => :put) do %>
@@ -9,9 +9,9 @@
     <% %w(allow_signup automatically_deliver_orders_to_supplier balanced_api_key default_commission_flat_rate default_commission_percentage send_supplier_email).each do |key|
       type = SpreeDropShip::Config.preference_type(key) %>
       <div class="field">
-        <%= label_tag(key, t(key) + ': ') + tag(:br) if type != :boolean %>
+        <%= label_tag(key, Spree.t(key) + ': ') + tag(:br) if type != :boolean %>
         <%= preference_field_tag(key, SpreeDropShip::Config[key], :type => type) %>
-        <%= label_tag(key, t(key)) + tag(:br) if type == :boolean %>
+        <%= label_tag(key, Spree.t(key)) + tag(:br) if type == :boolean %>
       </div>
     <% end %>
     <div class="form-buttons filter-actions actions" data-hook="buttons">

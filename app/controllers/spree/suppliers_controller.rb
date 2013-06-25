@@ -7,7 +7,7 @@ class Spree::SuppliersController < Spree::StoreController
     authorize! :create, Spree::Supplier
     @supplier = Spree::Supplier.new(params[:supplier])
     if @supplier.save
-      flash[:success] = I18n.t('spree.suppliers.create.success')
+      flash[:success] = Spree.t('spree.suppliers.create.success')
       redirect_to spree.root_path
     else
       @supplier.build_address country_id: Spree::Address.default.country_id if @supplier.address.nil?
@@ -24,7 +24,7 @@ class Spree::SuppliersController < Spree::StoreController
 
   def check_if_supplier
     if spree_current_user and spree_current_user.supplier?
-      flash[:error] = I18n.t('spree.suppliers.already_signed_up')
+      flash[:error] = Spree.t('spree.suppliers.already_signed_up')
       redirect_to spree.account_path and return
     end
   end

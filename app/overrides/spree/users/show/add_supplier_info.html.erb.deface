@@ -2,16 +2,16 @@
 
 <% if SpreeDropShip::Config[:allow_signup] or @user.supplier? %>
   <br/>
-  <dt class='supplier-info'><%= I18n.t(:supplier_info) %></dt>
+  <dt class='supplier-info'><%= Spree.t(:supplier_info) %></dt>
   <dd class='supplier-info'>
     <% if @user.supplier? %>
       <%= @user.supplier.name %>
       (<%= link_to Spree.t(:edit), spree.edit_admin_supplier_path(@user.supplier) %>)
       <%= link_to @user.supplier.url, @user.supplier.url, target: '_blank' %>
       <br/>
-      Orders: <b><%= @user.supplier.orders.size %></b> (<%= link_to I18n.t(:manage), spree.admin_drop_ship_orders_path %>)
+      Orders: <b><%= @user.supplier.orders.size %></b> (<%= link_to Spree.t(:manage), spree.admin_drop_ship_orders_path %>)
     <% else %>
-      <%= link_to t(:signup_to_become_a_supplier), spree.new_supplier_path %>
+      <%= link_to Spree.t(:signup_to_become_a_supplier), spree.new_supplier_path %>
     <% end %>
   </dd>
 <% end %>

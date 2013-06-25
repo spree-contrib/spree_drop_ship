@@ -1,9 +1,9 @@
 <% content_for :page_actions do %>
-  <li><%= button_link_to t(:cancel), spree.edit_admin_supplier_path(@supplier), :icon => 'icon-arrow-left' %></li>
+  <li><%= button_link_to Spree.t(:cancel), spree.edit_admin_supplier_path(@supplier), :icon => 'icon-arrow-left' %></li>
 <% end %>
 
 <% content_for :page_title do %>
-   <%= I18n.t '.verify_bank_account_number', number: @object.masked_number %>
+   <%= Spree.t '.verify_bank_account_number', number: @object.masked_number %>
 <% end %>
 
 <%= render 'spree/shared/error_messages', :target => @object %>
@@ -17,5 +17,5 @@
     <%= f.label :amount_2 %>:<br />
     <%= f.text_field :amount_2, :class => 'fullwidth' %>
   <% end %>
-  <%= f.submit I18n.t(:verify) %>
+  <%= f.submit Spree.t(:verify) %>
 <% end %>

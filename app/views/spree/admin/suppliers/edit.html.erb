@@ -1,11 +1,11 @@
 <% if can? :index, Spree::Supplier %>
   <% content_for :page_actions do %>
-    <li><%= button_link_to t('.back_to_suppliers'), spree.admin_suppliers_path, :icon => 'icon-arrow-left' %></li>
+    <li><%= button_link_to Spree.t('.back_to_suppliers'), spree.admin_suppliers_path, :icon => 'icon-arrow-left' %></li>
   <% end %>
 <% end %>
 
 <% content_for :page_title do %>
-  <%== I18n.t(:editing_supplier) + " &ldquo;#{@supplier.name}&rdquo;".html_safe %>
+  <%== Spree.t(:editing_supplier) + " &ldquo;#{@supplier.name}&rdquo;".html_safe %>
 <% end %>
 
 <%= render 'spree/shared/error_messages', :target => @supplier %>
@@ -16,17 +16,17 @@
 
 <div data-hook="supplier_bank_wrapper" class="alpha center four columns">
   <fieldset class="no-border-bottom supplier-banks">
-    <legend><%= I18n.t('.bank_accounts') %></legend>
+    <legend><%= Spree.t('.bank_accounts') %></legend>
     <ol>
       <% @supplier.bank_accounts.each do |bank_account| %>
         <li>
           <%= bank_account.masked_number %> - <%= bank_account.verification_status %>
           <% unless bank_account.verified? %>
-            <%= link_to '(' + I18n.t(:verify) + ')', spree.edit_admin_supplier_bank_account_path(@supplier, bank_account) %>
+            <%= link_to '(' + Spree.t(:verify) + ')', spree.edit_admin_supplier_bank_account_path(@supplier, bank_account) %>
           <% end %>
         </li>
       <% end %>
     </ol>
-    <%= button_link_to t('.add_bank_account'), spree.new_admin_supplier_bank_account_path(@supplier) %>
+    <%= button_link_to Spree.t('.add_bank_account'), spree.new_admin_supplier_bank_account_path(@supplier) %>
   </fieldset>
 </div>
