@@ -3,7 +3,7 @@
 <% end %>
 
 <% content_for :page_title do %>
-   <%= I18n.t '.new_bank_account' %>
+   <%= Spree.t '.new_bank_account' %>
 <% end %>
 
 <%= render 'spree/shared/error_messages', :target => @object %>
@@ -23,7 +23,7 @@
   <% end %>
   <%= f.field_container :type do %>
     <%= f.label :type %>:<br />
-    <%= f.select :type, [[I18n.t(:checking), 'checking'], [I18n.t(:savings), 'savings']], {}, class: 'fullwidth select2' %>
+    <%= f.select :type, [[Spree.t(:checking), 'checking'], [Spree.t(:savings), 'savings']], {}, class: 'fullwidth select2' %>
   <% end %>
-  <%= f.submit I18n.t('save') %>
+  <%= f.submit Spree.t('save') %>
 <% end %>
