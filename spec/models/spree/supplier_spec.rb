@@ -4,7 +4,6 @@ describe Spree::Supplier do
 
   it { should belong_to(:address) }
 
-  it { should have_many(:bank_accounts) }
   it { should have_many(:orders).dependent(:nullify) }
   it { should have_many(:products) }
   it { should have_many(:stock_locations) }
@@ -113,17 +112,6 @@ describe Spree::Supplier do
     supplier = create :supplier, commission_flat_rate: 123, commission_percentage: 25
     supplier.commission_flat_rate.should eql(123.0)
     supplier.commission_percentage.should eql(25.0)
-  end
-
-  it '#set_token' do
-    supplier = build :supplier, merchant_type: 'individual'
-    supplier.token.should be_nil
-    supplier.save
-    supplier.token.should be_present
-    supplier = build :supplier, tax_id: '211111111', merchant_type: 'business'
-    supplier.token.should be_nil
-    supplier.save
-    supplier.token.should be_present
   end
 
 end

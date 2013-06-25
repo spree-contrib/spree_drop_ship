@@ -23,8 +23,7 @@ The following are the drop ship order states and what they represent:
 * **Confirmed:** Represents that the supplier has confirmed receiving the drop ship order notification & information.
 * **Complete:** Represents that the drop ship order has been shipped, and the supplier's work is complete.
 
-Spree Drop Ship will also integrate with [Balanced Payments](https://www.balancedpayments.com/) in order to handle charging commission
-w/Escrow accounts for sales, as well as, handling payments to your suppliers via ACH direct deposits.  This is still currently a work in progress, and any input is welcome.  This will be refactored into it's own extension [Spree Marketplace](https://github.com/jdutil/spree_marketplace) in order to keep Spree Drop Ship lite for people who do not wish to integrate with a payment provider.
+Spree Drop Ship used with [Spree Marketplace](https://github.com/jdutil/spree_marketplace) allows handling payments to your suppliers via ACH direct deposits.  This is still currently a work in progress, and any input is welcome.
 
 Integrations
 ------------
@@ -32,8 +31,11 @@ Integrations
 Spree Drop Ship will support several other Spree extensions being used by scoping information by supplier.
 
 Some extensions that can be used in conjunction with Spree Drop Ship:
-spree_editor
-spree_related_products
+
+* spree_editor
+* spree_group_pricing
+* spree_marketplace
+* spree_related_products
 
 Please Note: If you intend to use any of these extensions you should install them before installing spree_drop_ship so that spree_drop_ship's migrations are run last.
 
@@ -109,9 +111,7 @@ Todo
 - On order complete credit marketplace bank account w/commission
 - On order complete credit marketplace bank account w/tax?
 - Return Authorization UI
-- Move Balanced Payments support into [Spree Marketplace](https://github.com/jdutil/spree_marketplace)
 - Better documentation
-- De-couple Supplier payments from [Balanced Payments](https://www.balancedpayments.com/) so that Balanced is not required to use this extension but could be added w/say spree_drop_ship_balanced. Volunteers wanting to use this extension without balanced payments will need to step up though as I do not intend to do it anytime in the near future.
 
 Contributing
 ------------

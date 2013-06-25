@@ -14,19 +14,4 @@
   <%= render "form", :form => f %>
 <% end %>
 
-<div data-hook="supplier_bank_wrapper" class="alpha center four columns">
-  <fieldset class="no-border-bottom supplier-banks">
-    <legend><%= I18n.t('.bank_accounts') %></legend>
-    <ol>
-      <% @supplier.bank_accounts.each do |bank_account| %>
-        <li>
-          <%= bank_account.masked_number %> - <%= bank_account.verification_status %>
-          <% unless bank_account.verified? %>
-            <%= link_to '(' + I18n.t(:verify) + ')', spree.edit_admin_supplier_bank_account_path(@supplier, bank_account) %>
-          <% end %>
-        </li>
-      <% end %>
-    </ol>
-    <%= button_link_to t('.add_bank_account'), spree.new_admin_supplier_bank_account_path(@supplier) %>
-  </fieldset>
-</div>
+<div data-hook="supplier_right_column_wrapper" class="alpha center four columns"></div>

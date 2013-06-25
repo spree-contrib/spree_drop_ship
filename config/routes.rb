@@ -8,9 +8,7 @@ Spree::Core::Engine.routes.draw do
       end
     end
     resource :drop_ship_settings
-    resources :suppliers do
-      resources :bank_accounts, controller: 'supplier_bank_accounts'
-    end
+    resources :suppliers
   end
 
   namespace :api, :defaults => { :format => 'json' } do

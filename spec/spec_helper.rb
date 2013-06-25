@@ -26,13 +26,6 @@ require 'spree/testing_support/url_helpers'
 
 require 'spree_drop_ship/factories'
 
-require 'vcr'
-VCR.configure do |c|
-  c.allow_http_connections_when_no_cassette = true
-  c.cassette_library_dir = 'tmp/vcr_cassettes'
-  c.ignore_localhost = true
-end
-
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include IntegrationHelpers
@@ -63,23 +56,11 @@ RSpec.configure do |config|
     DatabaseCleaner.start
     # Set some configuration defaults.
     ActionMailer::Base.default_url_options[:host] = 'localhost'
-    SpreeDropShip::Config[:balanced_api_key] = '12e8a77cad5411e290f6026ba7cac9da'
   end
 
   # After each spec clean the database.
   config.after :each do
     DatabaseCleaner.clean
-  end
-
-  # Add VCR to all tests.
-  config.around :each do |example|
-    vcr_options = example.metadata[:vcr] || { :re_record_interval => 7.days }
-    if vcr_options[:record] == :skip
-      VCR.turned_off(&example)
-    else
-      test_name = example.metadata[:full_description].split(/\s+/, 2).join("/").underscore.gsub(/[^\w\/]+/, "_")
-      VCR.use_cassette(test_name, vcr_options, &example)
-    end
   end
 
   # If true, the base class of anonymous controllers will be inferred

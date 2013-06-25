@@ -21,16 +21,15 @@ class Spree::Supplier < ActiveRecord::Base
   belongs_to :address, class_name: 'Spree::Address'
   accepts_nested_attributes_for :address
 
-  has_many   :bank_accounts, class_name: 'Spree::SupplierBankAccount'
+  if defined?(Ckeditor::Picture) && defined?(Ckeditor::AttachmentFile)
+    has_many :ckeditor_pictures
+    has_many :ckeditor_attachment_files
+  end
   has_many   :orders, class_name: 'Spree::DropShipOrder', dependent: :nullify
   has_many   :products
   has_many   :stock_locations
   has_many   :users, class_name: Spree.user_class.to_s
   has_many   :variants, through: :products
-  if defined?(Ckeditor::Picture) && defined?(Ckeditor::AttachmentFile)
-    has_many :ckeditor_pictures
-    has_many :ckeditor_attachment_files
-  end
 
   #==========================================
   # Validations
@@ -52,7 +51,6 @@ class Spree::Supplier < ActiveRecord::Base
   after_create :create_stock_location
   after_create :send_welcome, if: -> { SpreeDropShip::Config[:send_supplier_email] }
   before_create :set_commission
-  before_create :set_token
 
   #==========================================
   # Instance Methods
@@ -99,40 +97,6 @@ class Spree::Supplier < ActiveRecord::Base
       unless changes.has_key?(:commission_percentage)
         self.commission_percentage = SpreeDropShip::Config[:default_commission_percentage]
       end
-    end
-
-    def set_token
-      Balanced.configure(SpreeDropShip::Config[:balanced_api_key])
-      marketplace = Balanced::Marketplace.my_marketplace
-      account     = Balanced::Marketplace.my_marketplace.create_account
-      self.token  = account.uri
-      if self.merchant_type == 'individual'
-        merchant_data = {
-          :dob => self.contacts_date_of_birth.strftime('%Y-%m-%d'),
-          :name => self.address.full_name,
-          :phone_number => self.address.phone,
-          :postal_code => self.address.zipcode,
-          :street_address => self.address.address1,
-          :type => 'person'
-        }
-      elsif self.merchant_type == 'business'
-        merchant_data = {
-          :name => self.name,
-          :phone_number => self.address.phone,
-          :postal_code => self.address.zipcode,
-          :street_address => self.address.address1,
-          :tax_id => self.tax_id,
-          :type => 'business',
-          :person => {
-            :dob => self.contacts_date_of_birth.strftime('%Y-%m-%d'),
-            :phone_number => self.address.phone,
-            :postal_code => self.address.zipcode,
-            :name => self.address.full_name,
-            :street_address => self.address.address1,
-          },
-        }
-      end
-      account.promote_to_merchant(merchant_data)
     end
 
 end
