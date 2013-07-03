@@ -42,32 +42,32 @@ en:
   signup_to_become_a_supplier: 'Sign Up To Become A Supplier'
   spree:
     admin:
-      drop_ship_orders:
-        confirm:
-          success: "Drop ship order %{number} was successfully confirmed!"
-        deliver:
-          success: "Drop ship order %{number} was successfully delivered!"
       drop_ship_settings:
         update:
           success: Drop ship settings successfully updated.
-      orders:
-        edit:
-          approve_drop_ship_orders: Approve Drop Ship Orders
-          resend_drop_ship_orders: Resend Drop Ship Orders
-          drop_ship_order_approval_confirmation: This will send an email notification to each supplier. Continue?
-        show:
-          approve_drop_ship_orders: Approve Drop Ship Orders
-          resend_drop_ship_orders: Resend Drop Ship Orders
-          drop_ship_order_approval_confirmation: This will send an email notification to each supplier. Continue?
-      suppliers:
-        form:
-          supplier_details: Supplier Details
-          supplier_address: Supplier Address
-      drop_ship_orders:
-        deliver:
-          success: "Drop ship order %{number} was successfully sent!"
-        orders_sent: All drop ship orders have successfully been sent
-        orders_not_sent: Some or all of the drop ship orders could not be sent. Please contact the suppliers directly.
+    drop_ship_orders:
+      confirm:
+        success: "Drop ship order %{number} was successfully confirmed!"
+      deliver:
+        success: "Drop ship order %{number} was successfully delivered!"
+    orders:
+      edit:
+        approve_drop_ship_orders: Approve Drop Ship Orders
+        resend_drop_ship_orders: Resend Drop Ship Orders
+        drop_ship_order_approval_confirmation: This will send an email notification to each supplier. Continue?
+      show:
+        approve_drop_ship_orders: Approve Drop Ship Orders
+        resend_drop_ship_orders: Resend Drop Ship Orders
+        drop_ship_order_approval_confirmation: This will send an email notification to each supplier. Continue?
+    suppliers:
+      form:
+        supplier_details: Supplier Details
+        supplier_address: Supplier Address
+    drop_ship_orders:
+      deliver:
+        success: "Drop ship order %{number} was successfully sent!"
+      orders_sent: All drop ship orders have successfully been sent
+      orders_not_sent: Some or all of the drop ship orders could not be sent. Please contact the suppliers directly.
     drop_ship_order_mailer:
       supplier_order:
         hello: "Hello %{name},"
@@ -80,7 +80,7 @@ en:
       delivered: Delivered
     shared:
       unauthorized:
-        explained: Your not authorized to access this page.
+        explained: You are not authorized to access this page.
         unauthorized: Unauthorized
     show_only_incomplete_orders: Show Only Incomplete Orders
     supplier_mailer:

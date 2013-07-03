@@ -122,6 +122,7 @@ feature 'Admin - Suppliers', js: true do
       page.should_not have_css('#s2id_supplier_user_ids') # cannot edit assigned users
       page.should_not have_css('#supplier_commission_flat_rate') # cannot edit flat rate commission
       page.should_not have_css('#supplier_commission_percentage') # cannot edit comission percentage
+      page.title.should have_content('Test Supplier')
       click_button 'Update'
       page.should have_content('Supplier "Test Supplier" has been successfully updated!')
       page.current_path.should eql(spree.edit_admin_supplier_path(@user.reload.supplier))

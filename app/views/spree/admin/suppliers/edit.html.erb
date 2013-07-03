@@ -5,7 +5,7 @@
 <% end %>
 
 <% content_for :page_title do %>
-  <%== I18n.t(:editing_supplier) + " &ldquo;#{@supplier.name}&rdquo;".html_safe %>
+  <%= I18n.t(:editing_supplier) + " #{@supplier.name}".html_safe %>
 <% end %>
 
 <%= render 'spree/shared/error_messages', :target => @supplier %>

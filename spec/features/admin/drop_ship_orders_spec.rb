@@ -30,7 +30,7 @@ describe 'Admin - Drop Ship Orders', js: true do
 
       it 'deliver button should properly fire for resend' do
         click_button 'Resend Order To Supplier'
-        page.should have_content(I18n.t('spree.admin.drop_ship_orders.deliver.success', number: @order1.id))
+        page.should have_content(I18n.t('spree.drop_ship_orders.deliver.success', number: @order1.id))
       end
     end
 
@@ -84,7 +84,7 @@ describe 'Admin - Drop Ship Orders', js: true do
 
       it 'should properly display and allow confirmation' do
         click_button 'Confirm Order'
-        page.should have_content(I18n.t('spree.admin.drop_ship_orders.confirm.success', number: @order1.id))
+        page.should have_content(I18n.t('spree.drop_ship_orders.confirm.success', number: @order1.id))
       end
 
       it 'should render unauthorized when trying to access another suppliers orders' do
