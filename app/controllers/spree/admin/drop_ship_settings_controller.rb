@@ -12,7 +12,7 @@ class Spree::Admin::DropShipSettingsController < Spree::Admin::BaseController
       config[name] = value
     end
 
-    flash[:success] = I18n.t('spree.admin.drop_ship_settings.update.success')
+    flash[:success] = Spree.t('admin.drop_ship_settings.update.success')
     redirect_to spree.edit_admin_drop_ship_settings_path
   end
 

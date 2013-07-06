@@ -2,7 +2,7 @@
 
 <% if spree_current_user.admin? %>
   <%= f.field_container :supplier do %>
-    <%= f.label :supplier_id, t(:supplier) %>
+    <%= f.label :supplier_id, Spree.t(:supplier) %>
     <%= f.collection_select(:supplier_id, @suppliers, :id, :name, { :include_blank => 'None' }, { :class => 'select2' }) %>
     <%= f.error_message_on :supplier %>
   <% end %>

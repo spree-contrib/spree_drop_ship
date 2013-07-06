@@ -16,30 +16,6 @@ en:
             url:
               invalid: is invalid. Please be sure to include include 'http://'
               not_responding: 'is invalid, not responding or redirecting to another location'
-  back_to_orders_list: Back To Orders List
-  back_to_suppliers: Back To Suppliers
-  business: Business
-  cancel: Cancel
-  company_info: Company Info
-  confirm_order: Confirm Order
-  contact_address: Contact Address
-  drop_ship_order_number: "Drop Ship Order #%{number}"
-  drop_ship_orders: Drop Ship Orders
-  drop_ship_settings: Drop Ship Settings
-  editing_supplier: Editing Supplier
-  individual: Individual
-  listing_suppliers: Listing Suppliers
-  manage: Manage
-  must_be_logged_in: 'Must Be Logged In'
-  name: Name
-  new_supplier: New Supplier
-  or: or
-  resend_order_to_supplier: Resend Order To Supplier
-  save: Save
-  search: Search
-  send_order_to_supplier: Send Order To Supplier
-  signup: Sign Up
-  signup_to_become_a_supplier: 'Sign Up To Become A Supplier'
   spree:
     admin:
       drop_ship_orders:
@@ -59,30 +35,49 @@ en:
           approve_drop_ship_orders: Approve Drop Ship Orders
           resend_drop_ship_orders: Resend Drop Ship Orders
           drop_ship_order_approval_confirmation: This will send an email notification to each supplier. Continue?
-      suppliers:
-        form:
-          supplier_details: Supplier Details
-          supplier_address: Supplier Address
-      drop_ship_orders:
-        deliver:
-          success: "Drop ship order %{number} was successfully sent!"
-        orders_sent: All drop ship orders have successfully been sent
-        orders_not_sent: Some or all of the drop ship orders could not be sent. Please contact the suppliers directly.
+    back_to_orders_list: Back To Orders List
+    back_to_suppliers: Back To Suppliers
+    business: Business
+    cancel: Cancel
+    company_info: Company Info
+    confirm_order: Confirm Order
+    contact_address: Contact Address
     drop_ship_order_mailer:
       supplier_order:
         hello: "Hello %{name},"
         subject: "%{name} Drop Ship Order #%{number}"
         thank_you_again: "Thank you again for your business, <b>%{name}</b>"
+    drop_ship_order_number: "Drop Ship Order #%{number}"
+    drop_ship_orders: Drop Ship Orders
+    drop_ship_settings: Drop Ship Settings
+    editing_supplier: Editing Supplier
+    individual: Individual
+    listing_suppliers: Listing Suppliers
+    manage: Manage
+    must_be_logged_in: 'Must Be Logged In'
+    name: Name
+    new_supplier: New Supplier
+    or: or
     order_state:
       active: Active
       completed: Completed
       confirmed: Confirmed
       delivered: Delivered
+    resend_order_to_supplier: Resend Order To Supplier
+    save: Save
+    search: Search
+    send_order_to_supplier: Send Order To Supplier
     shared:
       unauthorized:
-        explained: Your not authorized to access this page.
+        explained: You are not authorized to access this page.
         unauthorized: Unauthorized
     show_only_incomplete_orders: Show Only Incomplete Orders
+    signup: Sign Up
+    signup_to_become_a_supplier: 'Sign Up To Become A Supplier'
+    supplier: Supplier
+    supplier_details: Supplier Details
+    supplier_info: Supplier Info
+    supplier_information: Supplier Information
     supplier_mailer:
       welcome:
         hello: "Hello %{name},"
@@ -91,13 +86,9 @@ en:
         subject: 'Thank you for signing up.  Please verify your information.'
         thank_you_again: "Thank you again for your business, <b>%{name}</b>"
         thank_you_for_signing_up: Thank you for signing up to be a drop ship supplier.
-    suppliers:
+    supplier_registration:
       already_signed_up: "You've already signed up to become a supplier."
       create:
         success: Thank you for signing up!
-  supplier: Supplier
-  supplier_details: Supplier Details
-  supplier_info: Supplier Info
-  supplier_information: Supplier Information
-  supplier_signup: Supplier Sign Up
-  suppliers: Suppliers
+    supplier_signup: Supplier Sign Up
+    suppliers: Suppliers

@@ -5,7 +5,7 @@ module Spree
 
     def welcome(supplier)
       @supplier = supplier
-      mail to: @supplier.email_with_name, subject: I18n.t('spree.supplier_mailer.welcome.subject')
+      mail to: @supplier.email_with_name, subject: Spree.t('supplier_mailer.welcome.subject')
     end
 
   end

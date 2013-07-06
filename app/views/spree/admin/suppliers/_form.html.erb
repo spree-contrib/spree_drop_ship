@@ -1,15 +1,15 @@
 <div data-hook="supplier_address_wrapper" class="alpha six columns">
   <fieldset class="no-border-bottom">
-    <legend align="center"><%= I18n.t('contact_address') %></legend>
+    <legend align="center"><%= Spree.t('contact_address') %></legend>
     <%= form.fields_for :address do |contact_form| %>
-      <%= render :partial => 'spree/admin/shared/address_form', :locals => { :f => contact_form, :name => t(:contact_address), :use_billing => false } %>
+      <%= render :partial => 'spree/admin/shared/address_form', :locals => { :f => contact_form, :name => Spree.t(:contact_address), :use_billing => false } %>
     <% end %>
   </fieldset>
 </div>
 
 <div data-hook="supplier_details_wrapper" class="alpha six columns">
   <fieldset class="no-border-bottom">
-    <legend><%= I18n.t('supplier_details') %></legend>
+    <legend><%= Spree.t('supplier_details') %></legend>
     <%= form.field_container :name do %>
       <%= form.label :name, Spree::Supplier.human_attribute_name(:name) %>:<br />
       <%= form.text_field :name, :class => 'fullwidth title' %>
@@ -28,7 +28,7 @@
     <% end %>
     <%= form.field_container :merchant_type do %>
       <%= form.label :merchant_type, Spree::Supplier.human_attribute_name(:merchant_type) %>:<br />
-      <%= form.select :merchant_type, [[I18n.t(:individual), 'individual'], [I18n.t(:business), 'business']], {}, :class => 'select2' %>
+      <%= form.select :merchant_type, [[Spree.t(:individual), 'individual'], [Spree.t(:business), 'business']], {}, :class => 'select2' %>
     <% end %>
     <%= form.field_container :tax_id do %>
       <%= form.label :tax_id, Spree::Supplier.human_attribute_name(:tax_id) %>:<br />
