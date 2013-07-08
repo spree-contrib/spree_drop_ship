@@ -28,7 +28,7 @@ module Spree
                          :currency => currency })
       else
         Rails.logger.debug 'GatewayMarket'
-        # todo have this run after all shipment payments and just collect balances due?
+        # todo have this run after all shipment payments and just collect balance due?
         options.merge!({ :shipping => order.ship_total * 100,
                          :tax      => order.tax_total * 100,
                          :subtotal => order.item_total * 100,
