@@ -1,9 +1,9 @@
 <% content_for :page_actions do %>
-  <li><%= button_link_to I18n.t('.back_to_suppliers'), spree.admin_suppliers_path, :icon => 'icon-arrow-left' %></li>
+  <li><%= button_link_to Spree.t('back_to_suppliers'), spree.admin_suppliers_path, :icon => 'icon-arrow-left' %></li>
 <% end %>
 
 <% content_for :page_title do %>
-   <%= I18n.t '.new_supplier' %>
+   <%= Spree.t('new_supplier') %>
 <% end %>
 
 <%= render 'spree/shared/error_messages', :target => @supplier %>

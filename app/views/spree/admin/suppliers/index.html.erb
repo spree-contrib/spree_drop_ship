@@ -1,13 +1,13 @@
 <% content_for :page_actions do %>  
-  <li><%= button_link_to I18n.t('.new_supplier'), new_object_url, :icon => 'icon-plus' %></li>
+  <li><%= button_link_to Spree.t('new_supplier'), new_object_url, :icon => 'icon-plus' %></li>
 <% end %>
 
 <% content_for :page_title do %>
-   <i class="icon-arrow-right"></i> <%= I18n.t(:listing_suppliers) %>
+  <%= Spree.t(:listing_suppliers) %>
 <% end %>
 
 <% content_for :table_filter_title do %>
-  <%= I18n.t(:search) %>
+  <%= Spree.t(:search) %>
 <% end %>
 
 <% content_for :table_filter do %>
@@ -15,13 +15,13 @@
     <%= search_form_for [:admin, @search] do |f| %>
       <div class="alpha nine columns">
         <div class="field">
-          <%= f.label :name_cont, t(:name) %>
+          <%= f.label :name_cont, Spree.t(:name) %>
           <%= f.text_field :name_cont, :size => 15 %>
         </div>
       </div>
       <div class="clear"></div>
       <div class="form-buttons actions filter-actions" data-hook="admin_suppliers_index_search_buttons">
-        <%= button I18n.t(:search), 'icon-search' %>
+        <%= button Spree.t(:search), 'icon-search' %>
       </div>
     <% end %>
   </div>
@@ -62,7 +62,7 @@
   </table>
 <% else %>
   <div class="no-objects-found">
-    <%= I18n.t(:no_results) %>
+    <%= Spree.t(:no_results) %>
   </div>
 <% end %>
 
