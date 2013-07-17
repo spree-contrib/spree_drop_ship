@@ -73,7 +73,7 @@ describe Spree::Supplier do
 
     before do
       @instance = build(:supplier)
-      @mail_message = mock('Mail::Message')
+      @mail_message = double('Mail::Message')
     end
 
     context 'with Spree::DropShipConfig[:send_supplier_email] == false' do
