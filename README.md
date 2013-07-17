@@ -106,10 +106,8 @@ bundle exec rspec spec
 Todo
 ----
 
+- Stock Items should automatically be set to backorderable false if the variant doesnt belong to the stock locations supplier.
 - Must allow suppliers to edit their stock location addresses & require it.
-- On dso complete credit supplier bank account
-- On order complete credit marketplace bank account w/commission
-- On order complete credit marketplace bank account w/tax?
 - Return Authorization UI
 - Better documentation
 

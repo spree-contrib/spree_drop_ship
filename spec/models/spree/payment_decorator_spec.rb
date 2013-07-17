@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Spree::Payment do
 
-  it { should belong_to(:shipment) }
+  it { should belong_to(:drop_ship_order) }
 
   context '#gateway_options' do
     it 'should return drop ship totals when belonging to drop ship order' do

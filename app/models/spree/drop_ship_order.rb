@@ -93,7 +93,9 @@ class Spree::DropShipOrder < ActiveRecord::Base
   delegate :payments, to: :order
 
   def promo_total
-    adjustments.eligible.promotion.sum(:amount)
+    # TODO until line item adjustments lets just say 0
+    # adjustments.eligible.promotion.sum(:amount)
+    0
   end
 
   delegate :ship_address, to: :order
@@ -115,7 +117,12 @@ class Spree::DropShipOrder < ActiveRecord::Base
   end
 
   def tax_total
-    adjustments.tax.sum(:amount)
+    # TODO until line item taxes should rely on Tax extensions for proper tax.
+    if defined?(SpreeTaxCloud)
+      line_items.map(&:tax_cloud_cart_item).compact.inject(0) { |sum, item| sum += item.amount }
+    else
+      adjustments.tax.sum(:amount)
+    end
   end
 
   #==========================================
