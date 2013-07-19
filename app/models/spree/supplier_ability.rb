@@ -25,6 +25,7 @@ module Spree
         can [:admin, :manage, :read, :ready, :ship], Spree::Shipment, stock_location: { supplier_id: user.supplier_id }
         can [:admin, :manage], Spree::StockItem, variant: { product: { supplier_id: user.supplier_id } } 
         can [:admin, :manage], Spree::StockLocation, supplier_id: user.supplier_id
+        can :create, Spree::StockLocation
         can [:admin, :manage], Spree::StockMovement, stock_item: { variant: { product: { supplier_id: user.supplier_id } } }
         can [:admin, :update], Spree::Supplier, id: user.supplier_id
         can [:admin, :manage], Spree::Variant, product: { supplier_id: user.supplier_id }
