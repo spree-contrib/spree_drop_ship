@@ -186,7 +186,7 @@ describe Spree::SupplierAbility do
   context 'for StockLocation' do
     context 'requsted by another suppliers user' do
       let(:resource) { Spree::StockLocation.new({supplier: create(:supplier)}, without_protection: true) }
-      it_should_behave_like 'access denied'
+      it_should_behave_like 'create only'
     end
 
     context 'requested by suppliers user' do

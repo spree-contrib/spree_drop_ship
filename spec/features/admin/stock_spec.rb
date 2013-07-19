@@ -42,7 +42,6 @@ feature 'Admin - Product Stock Management', js: true do
 
     scenario "can create a new stock location" do
       visit spree.new_admin_stock_location_path
-      
       fill_in "Name", with: "London"
       check "Active"
       click_button "Create"
