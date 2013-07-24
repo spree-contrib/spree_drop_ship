@@ -57,7 +57,7 @@ namespace :spree_sample do
 
     puts "Randomly linking Products & Suppliers..."
 
-    @supplier_ids = Spree::Supplier.all.pluck(:id).shuffle
+    @supplier_ids = Spree::Supplier.pluck(:id).shuffle
     @products     = Spree::Product.all
     count         = 0
 
