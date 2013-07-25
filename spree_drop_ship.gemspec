@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
+  s.add_dependency 'durable_decorator'
   s.add_dependency 'friendly_id',  '~> 4.0.9'
   s.add_dependency 'spree_api'
   s.add_dependency 'spree_backend'

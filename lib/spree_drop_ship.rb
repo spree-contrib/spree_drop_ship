@@ -1,3 +1,4 @@
+require 'durable_decorator'
 require 'friendly_id'
 require 'spree_api'
 require 'spree_backend'

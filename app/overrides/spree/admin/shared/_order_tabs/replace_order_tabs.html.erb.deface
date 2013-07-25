@@ -22,7 +22,7 @@
 <% end %>
 <% if @order.is_a?(Spree::Order) %>
   <li<%== ' class="active"' if current == "Drop Ship Orders" %>>
-    <%= link_to Spree.t(:drop_ship_orders), spree.admin_drop_ship_orders_path(q: { order_id_eq: @order.id }) %>
+    <%= link_to_with_icon 'icon-truck', Spree.t(:drop_ship_orders), spree.admin_drop_ship_orders_path(q: { order_id_eq: @order.id }) %>
   </li>
 <% end %>
 <% if can? :index, @order.return_authorizations %>

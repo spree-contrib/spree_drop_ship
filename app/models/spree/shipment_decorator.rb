@@ -1,12 +1,11 @@
 Spree::Shipment.class_eval do
 
-  def after_ship_with_drop_ship
-    after_ship_without_drop_ship
+  durably_decorate :after_ship, mode: 'strict', sha: 'c7dd7da83420baf63a8c4dfbc0c4b3ca8d882c52' do
+    after_ship_original
     if drop_ship_order and drop_ship_order.shipments.size == drop_ship_order.shipments.shipped.size
       drop_ship_order.complete!
     end
   end
-  alias_method_chain :after_ship, :drop_ship
 
   def drop_ship_order
     order.drop_ship_orders.find_by_supplier_id(stock_location.supplier_id)
