@@ -110,6 +110,7 @@ Todo
 - Must allow suppliers to edit their stock location addresses & require it.
 - Return Authorization UI
 - Better documentation
+- Determine how best to handle single product having multiple suppliers.  Needs to move supplier association to variant level.
 
 Contributing
 ------------
