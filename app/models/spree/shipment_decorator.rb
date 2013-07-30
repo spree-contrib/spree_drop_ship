@@ -1,6 +1,7 @@
 Spree::Shipment.class_eval do
-
-  durably_decorate :after_ship, mode: 'strict', sha: 'c7dd7da83420baf63a8c4dfbc0c4b3ca8d882c52' do
+  # puts DurableDecorator::Base.determine_sha('Spree::Shipment#after_ship')
+  # TODO Using soft here since a strict is causing issues in one app but not another for some reason even when sha is coming out correct...
+  durably_decorate :after_ship, mode: 'soft', sha: 'c7dd7da83420baf63a8c4dfbc0c4b3ca8d882c52' do
     after_ship_original
     if drop_ship_order and drop_ship_order.shipments.size == drop_ship_order.shipments.shipped.size
       drop_ship_order.complete!
