@@ -21,7 +21,7 @@ class Spree::Supplier < ActiveRecord::Base
   belongs_to :address, class_name: 'Spree::Address'
   accepts_nested_attributes_for :address
 
-  if defined?(Ckeditor::Picture) && defined?(Ckeditor::AttachmentFile)
+  if defined?(Ckeditor::Asset)
     has_many :ckeditor_pictures
     has_many :ckeditor_attachment_files
   end

@@ -37,7 +37,7 @@ Some extensions that can be used in conjunction with Spree Drop Ship:
 * spree_marketplace
 * spree_related_products
 
-Please Note: If you intend to use any of these extensions you should install them before installing spree_drop_ship so that spree_drop_ship's migrations are run last.
+Please Note: If you intend to use any of these extensions you should install them before installing spree_drop_ship so that spree_drop_ship's migrations are run last.  You should also place spree_drop_ship AFTER all other extensions in your Gemfile.
 
 Installation
 ------------

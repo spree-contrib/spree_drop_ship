@@ -10,14 +10,15 @@ class Spree::SuppliersController < Spree::StoreController
       flash[:success] = Spree.t('supplier_registration.create.success')
       redirect_to spree.root_path
     else
-      @supplier.build_address country_id: Spree::Address.default.country_id if @supplier.address.nil?
+      @supplier.address = Spree::Address.default if @supplier.address.nil?
       render :new
     end
   end
 
   def new
     authorize! :create, Spree::Supplier
-    @supplier = Spree::Supplier.new(address_attributes: {country_id: Spree::Address.default.country_id})
+    @supplier = Spree::Supplier.new
+    @supplier.address = Spree::Address.default
   end
 
   private

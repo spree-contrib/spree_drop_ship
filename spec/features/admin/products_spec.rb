@@ -109,9 +109,10 @@ describe 'Admin - Products', js: true do
         create(:prototype, :name => "Size", :option_types => [ size ])
       end
 
-      before(:each) do
+      before do
         @option_type_prototype = prototype
         @property_prototype = create(:prototype, :name => "Random")
+        @shipping_category = create(:shipping_category)
         visit spree.admin_products_path
         click_link "admin_new_product"
         within('#new_product') do
@@ -126,6 +127,7 @@ describe 'Admin - Products', js: true do
         fill_in "product_available_on", :with => "2012/01/24"
         select "Size", :from => "Prototype"
         check "Large"
+        select @shipping_category.name, from: "product_shipping_category_id"
         click_button "Create"
         page.should have_content("successfully created!")
         Spree::Product.last.variants.length.should == 1
@@ -137,6 +139,10 @@ describe 'Admin - Products', js: true do
 
     context "creating a new product" do
 
+      before do
+        @shipping_category = create(:shipping_category)
+      end
+
       it "should allow an supplier to create a new product" do
         visit spree.admin_products_path
         click_link "admin_new_product"
@@ -147,6 +153,7 @@ describe 'Admin - Products', js: true do
         fill_in "product_sku", :with => "B100"
         fill_in "product_price", :with => "100"
         fill_in "product_available_on", :with => "2012/01/24"
+        select @shipping_category.name, from: "product_shipping_category_id"
         click_button "Create"
         page.should have_content("successfully created!")
         click_button "Update"
