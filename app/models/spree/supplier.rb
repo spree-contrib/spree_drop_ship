@@ -76,9 +76,17 @@ class Spree::Supplier < ActiveRecord::Base
   protected
 
     def assign_user
-      if self.users.empty? and user = Spree.user_class.find_by_email(self.email)
-        self.users << user
-        self.save
+      if self.users.empty?
+        if user = Spree.user_class.find_by_email(self.email)
+          self.users << user
+          self.save
+        else
+          token = Devise.friendly_token[0,31]
+          new_user = Spree.user_class.new(email: self.email, password: token, password_confirmation: token)
+          new_user.supplier = self
+          new_user.save!
+          new_user.send_reset_password_instructions
+        end
       end
     end
 

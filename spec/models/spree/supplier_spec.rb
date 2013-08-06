@@ -55,6 +55,13 @@ describe Spree::Supplier do
       @instance.reload.users.first.should eql(user)
     end
 
+    it 'without existing user' do
+      @instance.email = 'test@example.com'
+      @instance.save
+      @instance.reload.users.first.email.should eql('test@example.com')
+      @instance.reload.users.first.reset_password_sent_at.should_not be_nil
+    end
+
   end
 
   it '#create_stock_location' do
