@@ -42,7 +42,7 @@ Please Note: If you intend to use any of these extensions you should install the
 Installation
 ------------
 
-Here's how to install spree_drop_ship into your existing spree site:
+Here's how to install spree_drop_ship into your existing spree site AFTER you've installed Spree:
 
 Add the following to your Gemfile:
 
