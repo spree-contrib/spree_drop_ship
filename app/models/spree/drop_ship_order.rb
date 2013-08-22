@@ -80,6 +80,8 @@ class Spree::DropShipOrder < ActiveRecord::Base
     Spree::Money.new(self.total, { currency: currency })
   end
 
+  delegate :email, to: :order
+
   delegate :find_line_item_by_variant, to: :order
 
   def item_total
