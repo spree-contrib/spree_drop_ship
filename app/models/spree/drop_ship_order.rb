@@ -56,6 +56,7 @@ class Spree::DropShipOrder < ActiveRecord::Base
   # Instance Methods
 
   delegate :adjustments, to: :order
+  delegate :bill_address, to: :order
   delegate :checkout_steps, to: :order
   delegate :currency, to: :order
 
