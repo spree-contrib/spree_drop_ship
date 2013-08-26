@@ -6,7 +6,7 @@ group :development, :test do
   gem 'spree_editor',           github: 'spree/spree_editor'
   gem 'spree_gateway',          github: 'spree/spree_gateway'
   gem 'spree_group_pricing',    github: 'jdutil/spree_group_pricing'
-  gem 'spree_related_products', github: 'spree/spree_related_products'
+  gem 'spree_related_products', github: 'spree/spree_related_products', branch: '2-0-stable'
 end
 
 gemspec

@@ -34,11 +34,8 @@ class Spree::Supplier < ActiveRecord::Base
   #==========================================
   # Validations
 
-  validates_associated :address
-  validates :address,                presence: true
   validates :commission_flat_rate,   presence: true
   validates :commission_percentage,  presence: true
-  validates :contacts_date_of_birth, presence: true
   validates :email,                  presence: true, email: true
   validates :name,                   presence: true, uniqueness: true
   validates :tax_id,                 presence: { if: :business? }
@@ -91,11 +88,11 @@ class Spree::Supplier < ActiveRecord::Base
     end
 
     def create_stock_location
-      self.stock_locations.create(active: true, country_id: self.address.country_id, name: self.name)
+      self.stock_locations.create(active: true, country_id: self.address.country_id, state_id: self.address.state_id, name: self.name)
     end
 
     def send_welcome
-      Spree::SupplierMailer.welcome(self).deliver!
+      Spree::SupplierMailer.welcome(self.id).deliver!
     end
 
     def set_commission

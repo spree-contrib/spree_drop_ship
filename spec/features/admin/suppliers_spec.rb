@@ -35,8 +35,8 @@ feature 'Admin - Suppliers', js: true do
       fill_in 'supplier[address_attributes][address1]', with: '1 Test Drive'
       fill_in 'supplier[address_attributes][city]', with: 'Test City'
       fill_in 'supplier[address_attributes][zipcode]', with: '55555'
-      select2 'United States', from: 'Country:'
-      select2 'Vermont', from: 'State:'
+      select2 'United States', from: 'Country'
+      select2 'Vermont', from: 'State'
       fill_in 'supplier[address_attributes][phone]', with: '555-555-5555'
       click_button 'Create'
       page.should have_content('Supplier "Test Supplier" has been successfully created!')
@@ -66,8 +66,8 @@ feature 'Admin - Suppliers', js: true do
       fill_in 'supplier[address_attributes][address1]', with: '1 Test Drive'
       fill_in 'supplier[address_attributes][city]', with: 'Test City'
       fill_in 'supplier[address_attributes][zipcode]', with: '55555'
-      select2 'United States', from: 'Country:'
-      select2 'Vermont', from: 'State:'
+      select2 'United States', from: 'Country'
+      select2 'Vermont', from: 'State'
       fill_in 'supplier[address_attributes][phone]', with: '555-555-5555'
       page.should have_css('#s2id_supplier_user_ids') # can edit assigned users
       click_button 'Update'
@@ -125,26 +125,6 @@ feature 'Admin - Suppliers', js: true do
       click_button 'Update'
       page.should have_content('Supplier "Test Supplier" has been successfully updated!')
       page.current_path.should eql(spree.edit_admin_supplier_path(@user.reload.supplier))
-    end
-
-    scenario 'should display errors with invalid supplier update' do
-      select '1970', from: 'supplier_contacts_date_of_birth_1i'
-      select 'April', from: 'supplier_contacts_date_of_birth_2i'
-      select '20', from: 'supplier_contacts_date_of_birth_3i'
-      fill_in 'supplier[name]', with: 'Test Supplier'
-      fill_in 'supplier[email]', with: @user.email
-      fill_in 'supplier[url]', with: 'http://www.test.com'
-      fill_in 'supplier[address_attributes][firstname]', with: ''
-      fill_in 'supplier[address_attributes][lastname]', with: 'Last'
-      fill_in 'supplier[address_attributes][address1]', with: '1 Test Drive'
-      fill_in 'supplier[address_attributes][city]', with: 'Test City'
-      fill_in 'supplier[address_attributes][zipcode]', with: '55555'
-      select2 'United States', from: 'Country'
-      select2 'Vermont', from: 'State'
-      fill_in 'supplier[address_attributes][phone]', with: '555-555-5555'
-      click_button 'Update'
-      page.should have_content('Address is invalid')
-      page.current_path.should eql(spree.admin_supplier_path(@user.reload.supplier))
     end
 
   end
