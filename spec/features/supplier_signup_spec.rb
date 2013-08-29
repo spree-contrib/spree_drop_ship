@@ -83,7 +83,6 @@ feature 'Supplier Signup', js: true do
         end
         select 'Individual', from: 'supplier_merchant_type'
         fill_in 'supplier[name]', with: 'Test Supplier'
-        fill_in 'supplier[email]', with: @user.email
         click_button 'Sign Up'
         page.should have_content('Thank you for signing up!')
       end
@@ -94,7 +93,6 @@ feature 'Supplier Signup', js: true do
         end
         select 'Business', from: 'supplier_merchant_type'
         fill_in 'supplier[name]', with: 'Test Supplier'
-        fill_in 'supplier[email]', with: @user.email
         fill_in 'supplier[tax_id]', with: '211111111'
         click_button 'Sign Up'
         page.should have_content('Thank you for signing up!')
@@ -104,7 +102,6 @@ feature 'Supplier Signup', js: true do
         within '#user-info' do
           click_link 'Sign Up To Become A Supplier'
         end
-        fill_in 'supplier[email]', with: @user.email
         click_button 'Sign Up'
         page.should have_content('This field is required.')
       end

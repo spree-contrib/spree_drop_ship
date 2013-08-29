@@ -21,12 +21,12 @@
         <span class="required">*</span><br />
         <%= form.text_field :name, :class => 'required title' %>
       </p>
-      <p>
-        <%= form.label :email, Spree::Supplier.human_attribute_name(:email) %>
-        <span class="required">*</span><br />
-        <%= form.email_field :email, :value => spree_current_user.try(:email), :class => 'email required text' %>
-      </p>
       <% unless spree_current_user %>
+        <p>
+          <%= form.label :email, Spree::Supplier.human_attribute_name(:email) %>
+          <span class="required">*</span><br />
+          <%= form.email_field :email, :value => spree_current_user.try(:email), :class => 'email required text' %>
+        </p>
         <p>
           <%= form.label :password, Spree.user_class.human_attribute_name(:password) %>
           <span class="required">*</span><br />
