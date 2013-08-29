@@ -4,10 +4,9 @@ en:
       spree/supplier:
         commission_flat_rate: Commission Flat Rate
         commission_percentage: Commission Percentage
-        contacts_date_of_birth: Contacts Date of Birth
         merchant_type: Type
         name: Name
-        tax_id: Tax ID
+        tax_id: EIN
         url: URL
     errors:
       models:

@@ -26,7 +26,6 @@ FactoryGirl.define do
     sequence(:name) { |i| "Big Store #{i}" }
     email { Faker::Internet.email }
     merchant_type 'individual'
-    contacts_date_of_birth '1970-4-20'
     url "http://example.com"
     address
   end

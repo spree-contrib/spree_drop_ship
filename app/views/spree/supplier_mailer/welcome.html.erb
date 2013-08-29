@@ -32,13 +32,6 @@
                       <td valign="top" style="font-size:12px;padding:7px 9px 9px 9px;border-left:1px solid #eaeaea;border-bottom:1px solid #eaeaea;border-right:1px solid #eaeaea">
                         <b><%= Spree.t(:name) %>:</b> <%= @supplier.name %><br/>
                         <b><%= Spree.t(:email) %>:</b> <%= mail_to @supplier.email %><br/>
-                        <b><%= Spree.t('supplier_mailer.welcome.contact_information')%>:</b><br/>
-                        <%= @supplier.address.firstname %> <%= @supplier.address.lastname %><br/>
-                        <%= @supplier.address.address1 %><br/>
-                        <% unless @supplier.address.address2.blank? %><%= @supplier.address.address2 %><br/><% end %>
-                        <%= @supplier.address.city %>, <%= @supplier.address.state.name %> <%= @supplier.address.zipcode %><br/>
-                        <%= @supplier.address.country.name %><br/>
-                        T: <a href="tel:<%= @supplier.address.phone %>" value="<%= @supplier.address.phone %>" target="_blank"><%= @supplier.address.phone %></a>
                       </td>
                     </tr>
                   </tbody>

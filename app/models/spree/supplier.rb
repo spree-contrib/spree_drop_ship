@@ -3,11 +3,12 @@ class Spree::Supplier < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
 
+  attr_accessor :merchant_type
+
   attr_accessible :address_attributes,
                   :active,
                   :commission_flat_rate,
                   :commission_percentage,
-                  :contacts_date_of_birth,
                   :email,
                   :merchant_type,
                   :name,
@@ -38,7 +39,7 @@ class Spree::Supplier < ActiveRecord::Base
   validates :commission_percentage,  presence: true
   validates :email,                  presence: true, email: true
   validates :name,                   presence: true, uniqueness: true
-  validates :tax_id,                 presence: { if: :business? }
+  validates :tax_id,                 presence: { if: -> { self.merchant_type == 'business' } }
   validates :url,                    format: { with: URI::regexp(%w(http https)), allow_blank: true }
 
   #==========================================
@@ -53,10 +54,6 @@ class Spree::Supplier < ActiveRecord::Base
   # Instance Methods
 
   scope :active, -> { where(active: true) }
-
-  def business?
-    self.merchant_type == 'business'
-  end
 
   # Returns the supplier's email address and name in mail format
   def email_with_name
@@ -77,18 +74,12 @@ class Spree::Supplier < ActiveRecord::Base
         if user = Spree.user_class.find_by_email(self.email)
           self.users << user
           self.save
-        else
-          token = Devise.friendly_token[0,31]
-          new_user = Spree.user_class.new(email: self.email, password: token, password_confirmation: token)
-          new_user.supplier = self
-          new_user.save!
-          new_user.send_reset_password_instructions
         end
       end
     end
 
     def create_stock_location
-      self.stock_locations.create(active: true, country_id: self.address.country_id, state_id: self.address.state_id, name: self.name)
+      self.stock_locations.create(active: true, country_id: self.address.try(:country_id), state_id: self.address.try(:state_id), name: self.name)
     end
 
     def send_welcome

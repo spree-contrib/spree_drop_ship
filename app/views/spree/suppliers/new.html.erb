@@ -13,19 +13,6 @@
 <%= render 'spree/shared/error_messages', :target => @supplier %>
 
 <%= form_for @supplier do |form| %>
-  <div class="columns alpha six" data-hook="address_fieldset_wrapper">
-    <fieldset id="supplier-address" data-hook>
-      <p>
-        <%= form.label :email, Spree::Supplier.human_attribute_name(:email) %>
-        <span class="required">*</span><br />
-        <%= form.email_field :email, :value => spree_current_user.try(:email), :class => 'email required text' %>
-      </p>
-      <%= form.fields_for :address do |address_form| %>
-        <legend align="center"><%= Spree.t(:contact_address) %></legend>
-        <%= render :partial => 'spree/address/form', :locals => {:form => address_form, :address_type => 'contact', :address => @supplier.address} %>
-      <% end %>
-    </fieldset>
-  </div>
   <div class="columns alpha six" data-hook="supplier_fieldset_wrapper">
     <fieldset id="supplier-address" data-hook>
       <legend align="center"><%= Spree.t(:company_info) %></legend>
@@ -35,14 +22,22 @@
         <%= form.text_field :name, :class => 'required title' %>
       </p>
       <p>
-        <%= form.label :url, Spree::Supplier.human_attribute_name(:url) %><br />
-        <%= form.text_field :url, :class => 'text' %>
-      </p>
-      <p>
-        <%= form.label :contacts_date_of_birth, Spree::Supplier.human_attribute_name(:contacts_date_of_birth) %>
+        <%= form.label :email, Spree::Supplier.human_attribute_name(:email) %>
         <span class="required">*</span><br />
-        <%= form.date_select :contacts_date_of_birth, end_year: Time.now.year - 18, start_year: Time.now.year - 100 %>
+        <%= form.email_field :email, :value => spree_current_user.try(:email), :class => 'email required text' %>
       </p>
+      <% unless spree_current_user %>
+        <p>
+          <%= form.label :password, Spree.user_class.human_attribute_name(:password) %>
+          <span class="required">*</span><br />
+          <%= form.password_field :password, :class => 'required title' %>
+        </p>
+        <p>
+          <%= form.label :password_confirmation, Spree::Supplier.human_attribute_name(:password_confirmation) %>
+          <span class="required">*</span><br />
+          <%= form.password_field :password_confirmation, :class => 'required title' %>
+        </p>
+      <% end %>
       <p>
         <%= form.label :merchant_type, Spree::Supplier.human_attribute_name(:merchant_type) %>
         <span class="required">*</span><br />

@@ -13,12 +13,6 @@ describe Spree::Supplier do
   it { should validate_presence_of(:email) }
   it { should validate_presence_of(:name) }
 
-  it '#business?' do
-    subject.business?.should be_false
-    subject.merchant_type = 'business'
-    subject.business?.should be_true
-  end
-
   it '#email_with_name' do
     subject.name = 'Test'
     subject.email = 'test@test.com'
@@ -51,13 +45,6 @@ describe Spree::Supplier do
       @instance.email = user.email
       @instance.save
       @instance.reload.users.first.should eql(user)
-    end
-
-    it 'without existing user' do
-      @instance.email = 'test@example.com'
-      @instance.save
-      @instance.reload.users.first.email.should eql('test@example.com')
-      @instance.reload.users.first.reset_password_sent_at.should_not be_nil
     end
 
   end

@@ -22,10 +22,6 @@
       <%= form.label :url, Spree::Supplier.human_attribute_name(:url) %>:<br />
       <%= form.text_field :url, :class => 'fullwidth text' %>
     <% end %>
-    <%= form.field_container :contacts_date_of_birth do %>
-      <%= form.label :contacts_date_of_birth, Spree::Supplier.human_attribute_name(:contacts_date_of_birth) %>:<br />
-      <%= form.date_select :contacts_date_of_birth, end_year: Time.now.year - 18, start_year: Time.now.year - 100 %>
-    <% end %>
     <%= form.field_container :merchant_type do %>
       <%= form.label :merchant_type, Spree::Supplier.human_attribute_name(:merchant_type) %>:<br />
       <%= form.select :merchant_type, [[Spree.t(:individual), 'individual'], [Spree.t(:business), 'business']], {}, :class => 'select2' %>
