@@ -39,7 +39,7 @@ class Spree::Supplier < ActiveRecord::Base
   validates :commission_percentage,  presence: true
   validates :email,                  presence: true, email: true
   validates :name,                   presence: true, uniqueness: true
-  validates :tax_id,                 presence: { if: -> { self.merchant_type == 'business' } }
+  validates :tax_id,                 presence: { if: -> { self.merchant_type == 'business' } }, length: { within: 4..10, allow_blank: true }
   validates :url,                    format: { with: URI::regexp(%w(http https)), allow_blank: true }
 
   #==========================================
