@@ -26,7 +26,6 @@ class Spree::SuppliersController < Spree::StoreController
       flash[:success] = Spree.t('supplier_registration.create.success')
       redirect_to spree.account_path
     else
-      clean_up_passwords(@user) if @user
       render :new
     end
   end
