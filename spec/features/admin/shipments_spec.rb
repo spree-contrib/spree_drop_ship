@@ -6,13 +6,12 @@ describe 'Admin - Shipments', js: true do
 
     before do
       new_method = create(:shipping_method, :name => "Newer")
-      @order = create(:order_ready_for_drop_ship).drop_ship_orders.first
+      @order = create(:order_ready_for_drop_ship, state: 'complete').drop_ship_orders.first
       @supplier = @order.supplier
       @order.shipments.each do |ship|
-        ship.add_shipping_method new_method, false
-        ship.refresh_rates
+        ship.add_shipping_method new_method, true
+        ship.save!
       end
-      @order.order.reload.refresh_shipment_rates
       login_user create(:user, supplier: @supplier)
       visit spree.edit_admin_drop_ship_order_path(@order)
     end
@@ -38,16 +37,17 @@ describe 'Admin - Shipments', js: true do
         end
         select2 "Newer", :from => "Shipping Method"
         click_icon :ok
+        wait_for_ajax
 
         page.should have_content("Newer $0.00")
       end
 
-      it 'can ship' do
-        click_icon 'arrow-right'
+      it "can ship a completed order" do
+        click_link "ship"
         wait_for_ajax
-        within '.shipment-state' do
-          page.should have_content('SHIPPED')
-        end
+
+        page.should have_content("SHIPPED PACKAGE")
+        @order.reload.shipment_state.should == "shipped"
       end
     end
 
