@@ -10,14 +10,16 @@ describe 'Admin - Shipments', js: true do
       @supplier = @order.supplier
       @order.shipments.each do |ship|
         ship.add_shipping_method new_method, false
+        ship.refresh_rates
       end
+      @order.order.reload.refresh_shipment_rates
       login_user create(:user, supplier: @supplier)
+      visit spree.edit_admin_drop_ship_order_path(@order)
     end
 
     context 'edit page' do
 
       it "can add tracking information" do
-        visit spree.edit_admin_drop_ship_order_path(@order)
         within 'table.index tr.show-tracking' do
           click_icon :edit
         end
@@ -31,7 +33,6 @@ describe 'Admin - Shipments', js: true do
       end
 
       it "can change the shipping method" do
-        visit spree.edit_admin_drop_ship_order_path(@order)
         within("table.index tr.show-method") do
           click_icon :edit
         end
@@ -42,9 +43,8 @@ describe 'Admin - Shipments', js: true do
       end
 
       it 'can ship' do
-        visit spree.edit_admin_drop_ship_order_path(@order)
         click_icon 'arrow-right'
-        sleep 1
+        wait_for_ajax
         within '.shipment-state' do
           page.should have_content('SHIPPED')
         end

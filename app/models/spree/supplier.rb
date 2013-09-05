@@ -3,7 +3,7 @@ class Spree::Supplier < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  attr_accessor :merchant_type
+  attr_accessor :merchant_type, :password, :password_confirmation
 
   attr_accessible :address_attributes,
                   :active,
@@ -12,6 +12,8 @@ class Spree::Supplier < ActiveRecord::Base
                   :email,
                   :merchant_type,
                   :name,
+                  :password,
+                  :password_confirmation,
                   :tax_id,
                   :url,
                   :user_ids
