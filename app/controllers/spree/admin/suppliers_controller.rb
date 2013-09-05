@@ -1,16 +1,18 @@
 class Spree::Admin::SuppliersController < Spree::Admin::ResourceController
 
-  update.before :build_address
+  def edit
+    @object.address = Spree::Address.default unless @object.address.present?
+    respond_with(@object) do |format|
+      format.html { render :layout => !request.xhr? }
+      format.js   { render :layout => false }
+    end
+  end
 
   def new
     @supplier = Spree::Supplier.new(address_attributes: {country_id: Spree::Address.default.country_id})
   end
 
   private
-
-    def build_address
-      @supplier.address = Spree::Address.default unless @supplier.address.present?
-    end
 
     def collection
       params[:q] ||= {}
