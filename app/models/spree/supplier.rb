@@ -51,6 +51,7 @@ class Spree::Supplier < ActiveRecord::Base
   after_create :create_stock_location
   after_create :send_welcome, if: -> { SpreeDropShip::Config[:send_supplier_email] }
   before_create :set_commission
+  before_validation :check_url
 
   #==========================================
   # Instance Methods
@@ -77,6 +78,12 @@ class Spree::Supplier < ActiveRecord::Base
           self.users << user
           self.save
         end
+      end
+    end
+
+    def check_url
+      unless self.url.blank? or self.url =~ URI::regexp(%w(http https))
+        self.url = "http://#{self.url}"
       end
     end
 
