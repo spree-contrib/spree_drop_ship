@@ -30,12 +30,12 @@
         <p>
           <%= form.label :password, Spree.user_class.human_attribute_name(:password) %>
           <span class="required">*</span><br />
-          <%= form.password_field :password, :class => 'required title' %>
+          <%= form.password_field :password, :class => 'required title', :minlength => 6 %>
         </p>
         <p>
           <%= form.label :password_confirmation, Spree::Supplier.human_attribute_name(:password_confirmation) %>
           <span class="required">*</span><br />
-          <%= form.password_field :password_confirmation, :class => 'required title' %>
+          <%= form.password_field :password_confirmation, :class => 'required title', :minlength => 6 %>
         </p>
       <% end %>
       <p>
