@@ -16,7 +16,8 @@ class Spree::Supplier < ActiveRecord::Base
                   :password_confirmation,
                   :tax_id,
                   :url,
-                  :user_ids
+                  :user_ids,
+                  :user_ids_string
 
   #==========================================
   # Associations
@@ -69,6 +70,14 @@ class Spree::Supplier < ActiveRecord::Base
 
   def merchant_type
     tax_id.present? ? 'business' : 'individual'
+  end
+
+  def user_ids_string
+    user_ids.join(',')
+  end
+
+  def user_ids_string=(s)
+    self.user_ids = s.to_s.split(',').map(&:strip)
   end
 
   #==========================================

@@ -40,8 +40,8 @@
         <%= form.text_field :commission_percentage, :class => 'fullwidth text' %>
       <% end %>
       <%= form.field_container :users do %>
-        <%= form.label :users %><br/>
-        <%= form.hidden_field :user_ids, class: 'fullwidth user_picker', value: "#{form.object.new_record? ? '' : form.object.users.pluck(:id).join(',')}" %>
+        <%= form.label :user_ids %><br/>
+        <%= hidden_field_tag 'supplier[user_ids_string]', form.object.user_ids.join(','), class: 'fullwidth user_picker' %>
       <% end %>
       <%= form.field_container :active do %>
         <%= form.label :active, Spree::Supplier.human_attribute_name(:active) %>:<br />
