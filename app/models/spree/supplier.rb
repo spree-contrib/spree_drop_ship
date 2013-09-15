@@ -67,6 +67,10 @@ class Spree::Supplier < ActiveRecord::Base
     deleted_at.present?
   end
 
+  def merchant_type
+    tax_id.present? ? 'business' : 'individual'
+  end
+
   #==========================================
   # Protected Methods
 
