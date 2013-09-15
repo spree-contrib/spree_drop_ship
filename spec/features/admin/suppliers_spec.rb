@@ -63,7 +63,6 @@ feature 'Admin - Suppliers', js: true do
       select2 'United States', from: 'Country'
       select2 'Vermont', from: 'State'
       fill_in 'supplier[address_attributes][phone]', with: '555-555-5555'
-      page.should have_css('#s2id_supplier_user_ids') # can edit assigned users
       click_button 'Update'
       page.should have_content('Supplier "Test Supplier" has been successfully updated!')
     end
