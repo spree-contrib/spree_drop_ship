@@ -106,6 +106,7 @@ class Spree::Supplier < ActiveRecord::Base
 
     def send_welcome
       Spree::SupplierMailer.welcome(self.id).deliver!
+      return true # always return true so that failed email doesn't crash app.
     end
 
     def set_commission
