@@ -105,8 +105,11 @@ class Spree::Supplier < ActiveRecord::Base
     end
 
     def send_welcome
-      Spree::SupplierMailer.welcome(self.id).deliver!
-      return true # always return true so that failed email doesn't crash app.
+      begin
+        Spree::SupplierMailer.welcome(self.id).deliver!
+      rescue Errno::ECONNREFUSED
+        return true # always return true so that failed email doesn't crash app.
+      end
     end
 
     def set_commission
