@@ -107,7 +107,9 @@ class Spree::Supplier < ActiveRecord::Base
     def send_welcome
       begin
         Spree::SupplierMailer.welcome(self.id).deliver!
-      rescue Errno::ECONNREFUSED
+      rescue Errno::ECONNREFUSED => ex
+        Rails.logger.error ex.message
+        Rails.logger.error ex.backtrace.join("\n")
         return true # always return true so that failed email doesn't crash app.
       end
     end
