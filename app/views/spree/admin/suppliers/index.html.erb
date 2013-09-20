@@ -39,7 +39,8 @@
       <tr data-hook='admin_suppliers_index_headers'>
         <th><%= sort_link @search, :name,  Spree::Supplier.human_attribute_name(:name) %></th>
         <th><%= sort_link @search, :email, Spree::Supplier.human_attribute_name(:email) %></th>
-        <th><%= sort_link @search, :email, Spree::Supplier.human_attribute_name(:active) %></th>
+        <th><%= Spree.t(:users) %></th>
+        <th><%= sort_link @search, :active, Spree::Supplier.human_attribute_name(:active) %></th>
         <th data-hook="admin_suppliers_index_header_actions" class="actions"></th>
       </tr>
     </thead>
@@ -48,6 +49,7 @@
         <tr <%= "style='color: red;'" if supplier.deleted? %> id="<%= dom_id supplier %>" data-hook="admin_suppliers_index_rows" class="<%= cycle('odd', 'even') %>">
           <td class='align-center'><%= link_to supplier.name, edit_object_url(supplier) %></td>
           <td class='align-center'><%= mail_to supplier.email %></td>
+          <td><%= supplier.users.pluck(:email).join(', ') %></td>
           <td class='align-center'><%= supplier.active %></td>
           <td class='actions' data-hook='admin_suppliers_index_row_actions'>
             <% unless supplier.deleted? %>
