@@ -43,7 +43,6 @@ namespace :spree_sample do
       supplier = Spree::Supplier.new(:name => name, 
                                    :email => "#{name.parameterize}@example.com",
                                    :url => "http://example.com",
-                                   :contacts_date_of_birth => '1966/01/01',
                                    :merchant_type => 'individual')
       supplier.build_address(:firstname => name, :lastname => name,
                              :address1 => "100 State St",
