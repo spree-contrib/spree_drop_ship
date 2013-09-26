@@ -35,7 +35,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'spree_auth_devise'
   s.add_development_dependency 'spree_digital'
   s.add_development_dependency 'spree_editor'
-  s.add_development_dependency 'spree_gateway'
   s.add_development_dependency 'spree_group_pricing'
   s.add_development_dependency 'spree_related_products'
   s.add_development_dependency 'spree_sample'
