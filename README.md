@@ -32,6 +32,7 @@ Spree Drop Ship will support several other Spree extensions being used by scopin
 
 Some extensions that can be used in conjunction with Spree Drop Ship:
 
+* spree_digital
 * spree_editor
 * spree_group_pricing
 * spree_marketplace
@@ -106,11 +107,13 @@ bundle exec rspec spec
 Todo
 ----
 
+- suppliers should be able to manage option types and values (unsure about whether to scope to supplier or not, but thats probably best solution for everyone)
 - Stock Items should automatically be set to backorderable false if the variant doesnt belong to the stock locations supplier.
 - Must allow suppliers to edit their stock location addresses & require it.
 - Return Authorization UI
 - Better documentation
 - Determine how best to handle single product having multiple suppliers.  Needs to move supplier association to variant level.
+- related products should only allow suppliers own products to be related
 
 Contributing
 ------------

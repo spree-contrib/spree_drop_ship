@@ -6,6 +6,9 @@ module Spree
       user ||= Spree.user_class.new
 
       if user.supplier
+        if defined?(Spree::Digital)
+          can [:admin, :manage], Spree::Digital, variant: { product: { supplier_id: user.supplier_id } }
+        end
         can [:admin, :confirm, :deliver, :index, :read, :update], Spree::DropShipOrder, supplier_id: user.supplier_id
         can [:admin, :manage], Spree::Image do |image|
           image.viewable.product.supplier_id == user.supplier_id

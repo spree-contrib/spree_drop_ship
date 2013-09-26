@@ -18,6 +18,23 @@ describe Spree::SupplierAbility do
     end
   end
 
+  context 'for Digital' do
+    let(:resource) { Spree::StockItem }
+
+    it_should_behave_like 'index allowed'
+    it_should_behave_like 'admin granted'
+
+    context 'requested by another suppliers user' do
+      let(:resource) { Spree::Digital.new({variant: create(:product, supplier: create(:supplier)).master}, without_protection: true) }
+      it_should_behave_like 'access denied'
+    end
+
+    context 'requested by suppliers user' do
+      let(:resource) { Spree::Digital.new({variant: create(:product, supplier: user.supplier).master}, without_protection: true) }
+      it_should_behave_like 'access granted'
+    end
+  end
+
   context 'for DropShipOrder' do
     let(:resource) { Spree::DropShipOrder }
 
