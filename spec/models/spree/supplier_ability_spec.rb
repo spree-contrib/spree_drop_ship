@@ -191,7 +191,7 @@ describe Spree::SupplierAbility do
 
     context 'requested by another suppliers user' do
       let(:resource) { Spree::StockItem.new({variant: create(:product, supplier: create(:supplier)).master}, without_protection: true) }
-      it_should_behave_like 'access denied'
+      it_should_behave_like 'create only'
     end
 
     context 'requested by suppliers user' do
