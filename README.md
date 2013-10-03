@@ -114,6 +114,7 @@ Todo
 - Better documentation
 - Determine how best to handle single product having multiple suppliers.  Needs to move supplier association to variant level.
 - related products should only allow suppliers own products to be related
+- depending on how we handle suppliers selling the same product we should consider not creating stock items at all for variants / stock locations supplier doesnt own.  that way we would no longer need the packer_decorator.  This would require we go the route of creating a variant for each different supplier. (supplier as option type?)
 
 Contributing
 ------------
