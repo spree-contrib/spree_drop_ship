@@ -59,7 +59,7 @@ module Spree
             let(:packer) { Packer.new(stock_location, order) }
 
             it "builds an empty package" do
-              pending
+              pending 'not sure how to properly test this yet'
               puts order.line_items.inspect
               order.line_items.each do |li|
                 puts li.product.inspect
