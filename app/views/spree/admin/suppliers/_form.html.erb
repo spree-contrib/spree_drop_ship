@@ -2,7 +2,7 @@
   <fieldset class="no-border-bottom">
     <legend align="center"><%= Spree.t('contact_address') %></legend>
     <%= form.fields_for :address do |contact_form| %>
-      <%= render :partial => 'spree/admin/shared/address_form', :locals => { :f => contact_form, :name => Spree.t(:contact_address), :use_billing => false } %>
+      <%= render :partial => 'spree/admin/shared/address_form', :locals => { :f => contact_form, :name => Spree.t(:contact_address), :type => "shipping" } %>
     <% end %>
   </fieldset>
 </div>
