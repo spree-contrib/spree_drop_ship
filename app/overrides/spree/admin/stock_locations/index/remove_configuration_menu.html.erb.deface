@@ -1,4 +1,4 @@
-<!-- surround 'code[loud]:contains("spree/admin/shared/configuration_menu")' -->
+<!-- surround 'erb[loud]:contains("spree/admin/shared/configuration_menu")' -->
 
 <% if !spree_current_user.supplier? %>
   <%= render_original %>

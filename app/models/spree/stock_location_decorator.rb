@@ -1,5 +1,7 @@
 Spree::StockLocation.class_eval do
 
+  attr_accessible :active, :country_id, :state_id, :name
+
   belongs_to :supplier
   attr_accessible :supplier_id
 
