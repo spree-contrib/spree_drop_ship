@@ -5,5 +5,3 @@
     <%= link_to_with_icon 'icon-truck', Spree.t(:drop_ship_orders), spree.admin_drop_ship_orders_path(q: { order_id_eq: @order.id }) %>
   </li>
 <% end %>
-
-<% end %>
