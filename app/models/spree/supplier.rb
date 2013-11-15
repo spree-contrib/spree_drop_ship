@@ -5,20 +5,6 @@ class Spree::Supplier < ActiveRecord::Base
 
   attr_accessor :merchant_type, :password, :password_confirmation
 
-  attr_accessible :address_attributes,
-                  :active,
-                  :commission_flat_rate,
-                  :commission_percentage,
-                  :email,
-                  :merchant_type,
-                  :name,
-                  :password,
-                  :password_confirmation,
-                  :tax_id,
-                  :url,
-                  :user_ids,
-                  :user_ids_string
-
   #==========================================
   # Associations
 
