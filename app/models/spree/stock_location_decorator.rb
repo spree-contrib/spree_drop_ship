@@ -1,7 +1,8 @@
 Spree::StockLocation.class_eval do
 
   belongs_to :supplier
-  attr_accessible :supplier_id
+  #attr_accessible :supplier_id
+  Spree::PermittedAttributes.stock_location_attributes << :supplier_id
 
   scope :with_supplier, ->(supplier) { where(supplier_id: supplier) }
 
