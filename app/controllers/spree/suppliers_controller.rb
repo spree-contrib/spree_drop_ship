@@ -45,4 +45,8 @@ class Spree::SuppliersController < Spree::StoreController
     end
   end
 
+  #def supplier_params
+   # params.require(:supplier).permit(permitted_supplier_attributes)
+  #end
+
 end

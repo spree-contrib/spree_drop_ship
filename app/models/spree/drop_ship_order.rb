@@ -1,7 +1,5 @@
 class Spree::DropShipOrder < ActiveRecord::Base
 
-  attr_accessible :notes
-
   #==========================================
   # Associations
 

@@ -1,14 +1,14 @@
 Spree::StockLocation.class_eval do
 
   belongs_to :supplier
-  #attr_accessible :supplier_id
-  Spree::PermittedAttributes.stock_location_attributes << :supplier_id
+
+#  Spree::PermittedAttributes.stock_location_attributes << :supplier_id
 
   scope :with_supplier, ->(supplier) { where(supplier_id: supplier) }
 
   # Wrapper for creating a new stock item respecting the backorderable config and supplier
   durably_decorate :propagate_variant, mode: 'soft', sha: 'f35b0d8a811311d4886d53024a9aa34e3aa5f8cb' do |variant|
-    if self.supplier_id.nil? or self.supplier_id == variant.product.supplier_id
+    if self.supplier_id.nil? or self.supplier_id == variant.product.try(:supplier_id)
       self.stock_items.create!(variant: variant, backorderable: self.backorderable_default)
     else
       # Never allow alternate suppliers locations to take backorders for a product.
