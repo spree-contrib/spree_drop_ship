@@ -48,8 +48,8 @@
     <tbody>
       <%- @collection.each do |supplier| %>
         <tr <%= "style='color: red;'" if supplier.deleted? %> id="<%= dom_id supplier %>" data-hook="admin_suppliers_index_rows" class="<%= cycle('odd', 'even') %>">
-            <!--todo: Fix this link!-->
-            <td class='align-center'><%= link_to supplier.name, edit_object_url(supplier) %></td>
+          <!--todo: Fix this link!-->
+          <td class='align-center'><%= link_to supplier.name, edit_object_url(supplier) %></td>
           <td class='align-center'><%= mail_to supplier.email %></td>
           <td><%= supplier.users.pluck(:email).join(', ') %></td>
           <td class='align-center'><%= supplier.active %></td>
@@ -71,3 +71,4 @@
 <% end %>
 
 <%= paginate @collection %>
+

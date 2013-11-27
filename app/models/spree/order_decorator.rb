@@ -22,9 +22,9 @@ Spree::Order.class_eval do
     self.line_items.group_by{ |li| li.product.supplier_id }.each do |supplier_id, supplier_items|
       if supplier_id.present?
         supplier = Spree::Supplier.find(supplier_id)
-        dso = supplier.orders.create({:order_id => self.id}, without_protection: true)
+        dso = supplier.orders.create({:order_id => self.id})
         supplier_items.each do |line_item|
-          dso.drop_ship_line_items.create({line_item_id: line_item.id}, without_protection: true)
+          dso.drop_ship_line_items.create({line_item_id: line_item.id})
         end
       end
     end
