@@ -43,10 +43,6 @@ class Spree::SuppliersController < Spree::StoreController
       flash[:error] = Spree.t('supplier_registration.already_signed_up')
       redirect_to spree.account_path and return
     end
-  end
-
-  #def supplier_params
-   # params.require(:supplier).permit(permitted_supplier_attributes)
-  #end
+  end  
 
 end

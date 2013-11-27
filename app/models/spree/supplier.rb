@@ -5,7 +5,6 @@ class Spree::Supplier < ActiveRecord::Base
 
   attr_accessor :merchant_type, :password, :password_confirmation
 
-
   #==========================================
   # Associations
 
