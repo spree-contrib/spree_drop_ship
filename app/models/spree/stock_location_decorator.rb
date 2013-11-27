@@ -2,8 +2,6 @@ Spree::StockLocation.class_eval do
 
   belongs_to :supplier
 
-#  Spree::PermittedAttributes.stock_location_attributes << :supplier_id
-
   scope :with_supplier, ->(supplier) { where(supplier_id: supplier) }
 
   # Wrapper for creating a new stock item respecting the backorderable config and supplier
