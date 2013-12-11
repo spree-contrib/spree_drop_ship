@@ -114,8 +114,9 @@ class Spree::DropShipOrder < ActiveRecord::Base
   end
 
   def shipments
-    order.shipments.includes(:stock_location).where('spree_stock_locations.supplier_id = ?', self.supplier_id)
+    order.shipments.includes(:stock_location).where('spree_stock_locations.supplier_id = ?', self.supplier_id).references(:spree_stock_locations)
   end
+
 
   def tax_total
     # TODO until line item taxes should rely on Tax extensions for proper tax.
