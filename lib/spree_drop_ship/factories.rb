@@ -25,7 +25,6 @@ FactoryGirl.define do
   factory :supplier, :class => Spree::Supplier do
     sequence(:name) { |i| "Big Store #{i}" }
     email { Faker::Internet.email }
-    merchant_type 'individual'
     url "http://example.com"
     address
   end

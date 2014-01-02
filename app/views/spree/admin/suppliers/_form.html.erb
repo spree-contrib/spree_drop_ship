@@ -22,10 +22,6 @@
       <%= form.label :url, Spree::Supplier.human_attribute_name(:url) %>:<br />
       <%= form.text_field :url, :class => 'fullwidth text' %>
     <% end %>
-    <%= form.field_container :merchant_type do %>
-      <%= form.label :merchant_type, Spree::Supplier.human_attribute_name(:merchant_type) %>:<br />
-      <%= form.select :merchant_type, [[Spree.t(:individual), 'individual'], [Spree.t(:business), 'business']], {}, :class => 'select2' %>
-    <% end %>
     <%= form.field_container :tax_id do %>
       <%= form.label :tax_id, Spree::Supplier.human_attribute_name(:tax_id) %>:<br />
       <%= form.text_field :tax_id, :class => 'fullwidth text' %>

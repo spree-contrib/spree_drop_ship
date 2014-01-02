@@ -3,7 +3,7 @@ class Spree::Supplier < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  attr_accessor :merchant_type, :password, :password_confirmation
+  attr_accessor :password, :password_confirmation
 
   #==========================================
   # Associations
@@ -28,7 +28,8 @@ class Spree::Supplier < ActiveRecord::Base
   validates :commission_percentage,  presence: true
   validates :email,                  presence: true, email: true
   validates :name,                   presence: true, uniqueness: true
-  validates :tax_id,                 presence: { if: -> { self.merchant_type == 'business' } }, length: { within: 4..10, allow_blank: true }
+  # TODO move to spree_marketplace? not really used anywhere in here
+  validates :tax_id,                 length: { is: 9, allow_blank: true }
   validates :url,                    format: { with: URI::regexp(%w(http https)), allow_blank: true }
 
   #==========================================
@@ -52,10 +53,6 @@ class Spree::Supplier < ActiveRecord::Base
 
   def deleted?
     deleted_at.present?
-  end
-
-  def merchant_type
-    tax_id.present? ? 'business' : 'individual'
   end
 
   def user_ids_string

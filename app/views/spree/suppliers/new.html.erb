@@ -38,11 +38,6 @@
           <%= form.password_field :password_confirmation, :class => 'required title', :minlength => 6 %>
         </p>
       <% end %>
-      <p>
-        <%= form.label :merchant_type, Spree::Supplier.human_attribute_name(:merchant_type) %>
-        <span class="required">*</span><br />
-        <%= form.select :merchant_type, [[Spree.t(:individual), 'individual'], [Spree.t(:business), 'business']], :class => 'required select2' %>
-      </p>
       <p id="supplier_tax_id_field">
         <%= form.label :tax_id, Spree::Supplier.human_attribute_name(:tax_id) %>
         <span class="required">*</span><br />
