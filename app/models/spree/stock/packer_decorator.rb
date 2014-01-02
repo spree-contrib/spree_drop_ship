@@ -1,6 +1,6 @@
 Spree::Stock::Packer.class_eval do
   durably_decorate :default_package, mode: 'soft', sha: '9c083e11e00a15a78b8b6df0478666e727f8fe3e' do
-    package = Package.new(stock_location, order)
+    package = Spree::Stock::Package.new(stock_location, order)
     order.line_items.each do |line_item|
 
       # Skip if product supplier does not own this stock location
