@@ -40,6 +40,7 @@ en:
     company_info: Company Info
     confirm_order: Confirm Order
     contact_address: Contact Address
+    drop_ship: Drop Ship
     drop_ship_order_mailer:
       supplier_order:
         hello: "Hello %{name},"

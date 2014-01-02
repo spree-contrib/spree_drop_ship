@@ -28,7 +28,7 @@ feature 'Supplier Signup', js: true do
       fill_in 'supplier[email]', with: 'spree@example.com'
       fill_in 'supplier[password]', with: 'password'
       fill_in 'supplier[password_confirmation]', with: 'password'
-      fill_in 'supplier[tax_id]', with: '1234567890'
+      fill_in 'supplier[tax_id]', with: '000000000'
       click_button 'Sign Up'
       page.should have_content('Thank you for signing up!')
       page.should_not have_content('LOGIN')
@@ -90,7 +90,7 @@ feature 'Supplier Signup', js: true do
           click_link 'Sign Up To Become A Supplier'
         end
         fill_in 'supplier[name]', with: 'Test Supplier'
-        fill_in 'supplier[tax_id]', with: '211111111'
+        fill_in 'supplier[tax_id]', with: '000000000'
         click_button 'Sign Up'
         page.should have_content('Thank you for signing up!')
       end
