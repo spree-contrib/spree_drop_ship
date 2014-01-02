@@ -28,7 +28,6 @@ feature 'Supplier Signup', js: true do
       fill_in 'supplier[email]', with: 'spree@example.com'
       fill_in 'supplier[password]', with: 'password'
       fill_in 'supplier[password_confirmation]', with: 'password'
-      select 'Business', from: 'supplier[merchant_type]'
       fill_in 'supplier[tax_id]', with: '1234567890'
       click_button 'Sign Up'
       page.should have_content('Thank you for signing up!')
@@ -81,7 +80,6 @@ feature 'Supplier Signup', js: true do
         within '#user-info' do
           click_link 'Sign Up To Become A Supplier'
         end
-        select 'Individual', from: 'supplier_merchant_type'
         fill_in 'supplier[name]', with: 'Test Supplier'
         click_button 'Sign Up'
         page.should have_content('Thank you for signing up!')
@@ -91,7 +89,6 @@ feature 'Supplier Signup', js: true do
         within '#user-info' do
           click_link 'Sign Up To Become A Supplier'
         end
-        select 'Business', from: 'supplier_merchant_type'
         fill_in 'supplier[name]', with: 'Test Supplier'
         fill_in 'supplier[tax_id]', with: '211111111'
         click_button 'Sign Up'
