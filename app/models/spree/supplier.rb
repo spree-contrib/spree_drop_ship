@@ -59,11 +59,6 @@ class Spree::Supplier < ActiveRecord::Base
 
   scope :active, -> { where(active: true) }
 
-  # Returns the supplier's email address and name in mail format
-  def email_with_name
-    "#{name} <#{email}>"
-  end
-
   def deleted?
     deleted_at.present?
   end
