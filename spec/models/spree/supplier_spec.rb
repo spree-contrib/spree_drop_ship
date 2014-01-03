@@ -13,12 +13,6 @@ describe Spree::Supplier do
   it { should validate_presence_of(:email) }
   it { should validate_presence_of(:name) }
 
-  it '#email_with_name' do
-    subject.name = 'Test'
-    subject.email = 'test@test.com'
-    subject.email_with_name.should eql('Test <test@test.com>')
-  end
-
   it '#deleted?' do
     subject.deleted_at = nil
     subject.deleted_at?.should eql(false)
