@@ -1,0 +1,13 @@
+<!-- insert_bottom "[data-hook=admin_stock_locations_form_fields]" -->
+
+<% if spree_current_user.admin? %>
+  <div class='row'>
+    <div class='alpha four columns'>
+      <%= f.field_container :supplier do %>
+        <%= f.label :supplier_id, Spree.t(:supplier) %>
+        <%= f.collection_select(:supplier_id, Spree::Supplier.all, :id, :name, { :include_blank => 'None' }, { :class => 'fullwidth select2' }) %>
+        <%= f.error_message_on :supplier %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
