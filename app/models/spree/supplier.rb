@@ -79,7 +79,8 @@ class Spree::Supplier < ActiveRecord::Base
     end
 
     def create_stock_location
-      self.stock_locations.create(active: true, country_id: self.address.try(:country_id), state_id: self.address.try(:state_id), name: self.name)
+      location = self.stock_locations.build(active: true, country_id: self.address.try(:country_id), state_id: self.address.try(:state_id), name: self.name)
+      location.save validate: false # It's important location is always created.  Some apps add validations that shouldn't break this.
     end
 
     def send_welcome
