@@ -85,7 +85,7 @@ class Spree::Supplier < ActiveRecord::Base
 
     def send_welcome
       begin
-        Spree::SupplierMailer.welcome(self.id).deliver!
+        Spree::Core::MailMethod.new.deliver!(Spree::SupplierMailer.welcome(self.id))
       rescue Errno::ECONNREFUSED => ex
         Rails.logger.error ex.message
         Rails.logger.error ex.backtrace.join("\n")
