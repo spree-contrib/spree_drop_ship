@@ -1,5 +1,12 @@
 class Spree::SuppliersController < Spree::StoreController
 
+  # hack for cancan 1.6 / rails 4 bug.
+  before_filter do
+    resource = controller_name.singularize.to_sym
+    method = "#{resource}_params"
+    params[resource] &&= send(method) if respond_to?(method, true)
+  end
+
   before_filter :check_if_supplier, only: [:create, :new]
   ssl_required
 
@@ -43,6 +50,10 @@ class Spree::SuppliersController < Spree::StoreController
       flash[:error] = Spree.t('supplier_registration.already_signed_up')
       redirect_to spree.account_path and return
     end
+  end
+
+  def supplier_params
+      params.require(:supplier).permit(:name, :tax_id)
   end
 
 end
