@@ -66,7 +66,7 @@ describe Spree::Supplier do
 
       it 'should not send' do
         SpreeDropShip::Config[:send_supplier_email] = false
-        expect{@instance.save}.to change { ActionMailer::Base.deliveries.size }.by(1) 
+        expect{@instance.save}.not_to change { ActionMailer::Base.deliveries.size }
       end
 
     end
@@ -74,8 +74,7 @@ describe Spree::Supplier do
     context 'with Spree::DropShipConfig[:send_supplier_email] == true' do
 
       it 'should send welcome email' do
-        Spree::SupplierMailer.should_receive(:welcome).and_return(@mail_message)
-        expect{@instance.save}.not_to change { ActionMailer::Base.deliveries.size }
+        expect{@instance.save}.to change { ActionMailer::Base.deliveries.size }.by(1) 
       end
 
     end
