@@ -21,7 +21,8 @@ module Spree
         if defined?(Spree::Relation)
           can [:admin, :manage], Spree::Relation, relatable: { supplier_id: user.supplier_id }
         end
-        can [:admin, :manage, :stock], Spree::Product, supplier_id: user.supplier_id
+        # Currently the Supplier doesnt get to see the Products page
+        #can [:admin, :manage, :stock], Spree::Product, supplier_id: user.supplier_id
         can :create, Spree::Product
         can [:admin, :manage], Spree::ProductProperty, product: { supplier_id: user.supplier_id }
         can [:admin, :index, :read], Spree::Property
