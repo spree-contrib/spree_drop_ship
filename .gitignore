@@ -1,6 +1,7 @@
 \#*
 *~
 .#*
+.bundle
 .DS_Store
 .idea
 .project

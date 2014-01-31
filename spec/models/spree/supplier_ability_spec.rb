@@ -86,17 +86,20 @@ describe Spree::SupplierAbility do
     end
   end
 
-  context 'for GroupPricing' do
-    let(:resource) { Spree::GroupPrice.new }
+  # GroupPrice extension was used in a 2.0.x application, and may not be updated for newer version but leaving code for now in case it is.
+  if defined?(Spree::GroupPrice)
+    context 'for GroupPricing' do
+      let(:resource) { Spree::GroupPrice.new }
 
-    context 'requested by another suppliers user' do
-      let(:resource) { Spree::GroupPrice.new({variant: create(:variant, product: create(:product, supplier: create(:supplier)))}, without_protection: true) }
-      it_should_behave_like 'access denied'
-    end
+      context 'requested by another suppliers user' do
+        let(:resource) { Spree::GroupPrice.new({variant: create(:variant, product: create(:product, supplier: create(:supplier)))}, without_protection: true) }
+        it_should_behave_like 'access denied'
+      end
 
-    context 'requested by suppliers user' do
-      let(:resource) { Spree::GroupPrice.new({variant: create(:variant, product: create(:product, supplier: user.supplier))}, without_protection: true) }
-      it_should_behave_like 'access granted'
+      context 'requested by suppliers user' do
+        let(:resource) { Spree::GroupPrice.new({variant: create(:variant, product: create(:product, supplier: user.supplier))}, without_protection: true) }
+        it_should_behave_like 'access granted'
+      end
     end
   end
 
