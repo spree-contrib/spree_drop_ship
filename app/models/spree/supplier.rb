@@ -1,5 +1,4 @@
 class Spree::Supplier < ActiveRecord::Base
-
   extend FriendlyId
   friendly_id :name, use: :slugged
 
@@ -43,7 +42,6 @@ class Spree::Supplier < ActiveRecord::Base
 
   #==========================================
   # Instance Methods
-
   scope :active, -> { where(active: true) }
 
   def deleted?
@@ -85,7 +83,7 @@ class Spree::Supplier < ActiveRecord::Base
 
     def send_welcome
       begin
-        Spree::SupplierMailer.welcome(self.id).deliver
+        Spree::SupplierMailer.welcome(self.id).deliver!
       rescue Errno::ECONNREFUSED => ex
         Rails.logger.error ex.message
         Rails.logger.error ex.backtrace.join("\n")

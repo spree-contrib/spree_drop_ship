@@ -1,12 +1,5 @@
 class Spree::SuppliersController < Spree::StoreController
 
-  # hack for cancan 1.6 / rails 4 bug.
-  before_filter do
-    resource = controller_name.singularize.to_sym
-    method = "#{resource}_params"
-    params[resource] &&= send(method) if respond_to?(method, true)
-  end
-
   before_filter :check_if_supplier, only: [:create, :new]
   ssl_required
 
@@ -26,7 +19,8 @@ class Spree::SuppliersController < Spree::StoreController
     end
 
     # Now create supplier.
-    @supplier = Spree::Supplier.new(params[:supplier])
+
+    @supplier = Spree::Supplier.new(supplier_params)
     @supplier.email = spree_current_user.email if spree_current_user
 
     if @supplier.save
