@@ -19,7 +19,8 @@ class Spree::SuppliersController < Spree::StoreController
     end
 
     # Now create supplier.
-    @supplier = Spree::Supplier.new(params[:supplier])
+
+    @supplier = Spree::Supplier.new(supplier_params)
     @supplier.email = spree_current_user.email if spree_current_user
 
     if @supplier.save
@@ -43,6 +44,10 @@ class Spree::SuppliersController < Spree::StoreController
       flash[:error] = Spree.t('supplier_registration.already_signed_up')
       redirect_to spree.account_path and return
     end
+  end
+
+  def supplier_params
+      params.require(:supplier).permit(:name, :tax_id)
   end
 
 end

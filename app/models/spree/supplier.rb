@@ -1,5 +1,4 @@
 class Spree::Supplier < ActiveRecord::Base
-
   extend FriendlyId
   friendly_id :name, use: :slugged
 
@@ -43,7 +42,6 @@ class Spree::Supplier < ActiveRecord::Base
 
   #==========================================
   # Instance Methods
-
   scope :active, -> { where(active: true) }
 
   def deleted?
