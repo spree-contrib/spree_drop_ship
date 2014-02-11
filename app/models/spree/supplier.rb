@@ -39,7 +39,7 @@ class Spree::Supplier < ActiveRecord::Base
 
   validates :commission_flat_rate,   presence: true
   validates :commission_percentage,  presence: true
-  validates :email,                  presence: true, email: true
+  validates :email,                  presence: true, email: true, uniqueness: true
   validates :name,                   presence: true, uniqueness: true
   # TODO move to spree_marketplace? not really used anywhere in here
   validates :tax_id,                 length: { is: 9, allow_blank: true }
