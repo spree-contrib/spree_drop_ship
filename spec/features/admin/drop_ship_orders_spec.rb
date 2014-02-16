@@ -69,11 +69,11 @@ describe 'Admin - Drop Ship Orders', js: true do
 
       it 'should not display admin only information / links' do
         # Order tabs in right column
-        page.should_not have_link('Order Details')
-        page.should_not have_link('Customer Details')
-        page.should_not have_link('Adjustments')
-        page.should_not have_link('Payments')
-        page.should_not have_link('Return Authorizations')
+        page.should_not have_link('ORDER DETAILS')
+        page.should_not have_link('CUSTOMER DETAILS')
+        page.should_not have_link('ADJUSTMENTS')
+        page.should_not have_link('PAYMENTS')
+        page.should_not have_link('RETURN AUTHORIZATIONS')
         # Page Actions
         page.should_not have_link('Send Order To Supplier')
         # Supplier Info

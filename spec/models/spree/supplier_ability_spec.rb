@@ -19,16 +19,16 @@ describe Spree::SupplierAbility do
   end
 
   context 'for Digital' do
-    let(:resource) { Spree::StockItem }
-
-    it_should_behave_like 'index allowed'
-    it_should_behave_like 'admin granted'
-
+    let(:resource) { Spree::Digital }
+  
+    # it_should_behave_like 'index allowed'
+    # it_should_behave_like 'admin granted'
+  
     context 'requested by another suppliers user' do
       let(:resource) { Spree::Digital.new({variant: create(:product, supplier: create(:supplier)).master}, without_protection: true) }
       it_should_behave_like 'create only'
     end
-
+  
     context 'requested by suppliers user' do
       let(:resource) { Spree::Digital.new({variant: create(:product, supplier: user.supplier).master}, without_protection: true) }
       it_should_behave_like 'access granted'
@@ -86,7 +86,6 @@ describe Spree::SupplierAbility do
     end
   end
 
-  # GroupPrice extension was used in a 2.0.x application, and may not be updated for newer version but leaving code for now in case it is.
   if defined?(Spree::GroupPrice)
     context 'for GroupPricing' do
       let(:resource) { Spree::GroupPrice.new }
@@ -154,8 +153,8 @@ describe Spree::SupplierAbility do
   context 'for Relation' do
     let(:resource) { Spree::Relation }
 
-    it_should_behave_like 'index allowed'
-    it_should_behave_like 'admin granted'
+    # it_should_behave_like 'index allowed'
+    # it_should_behave_like 'admin granted'
 
     context 'requested by another suppliers user' do
       let(:resource) { Spree::Relation.new({relatable: create(:product, supplier: create(:supplier))}, without_protection: true) }

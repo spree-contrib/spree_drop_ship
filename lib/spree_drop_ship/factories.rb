@@ -38,10 +38,3 @@ FactoryGirl.define do
   end
 
 end
-
-FactoryGirl.modify do
-  factory :user do
-    password 'secreted'
-    password_confirmation 'secreted'
-  end
-end

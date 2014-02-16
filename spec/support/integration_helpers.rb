@@ -2,8 +2,8 @@ module IntegrationHelpers
 
   def login_user(user = nil, options = {})
     options[:password] ||= 'secret'
-    user ||= create(:user)
-
+    user ||= create(:user, password: options[:password])
+  
     visit spree.root_path
     click_link 'Login'
     fill_in 'spree_user[email]', with: user.email

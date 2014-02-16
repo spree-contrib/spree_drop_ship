@@ -191,8 +191,9 @@ describe Spree::DropShipOrder do
         end
 
         it "should send order to supplier" do
-          assert_equal @drop_ship_order.supplier.email, ActionMailer::Base.deliveries.last.to.first
-          assert_equal "#{Spree::Config[:site_name]} Drop Ship Order ##{@drop_ship_order.id}", ActionMailer::Base.deliveries.last.subject
+          expect {
+            Spree::DropShipOrderMailer.should_receive(:supplier_order).with(@drop_ship_order.id)
+          }
         end
 
       end

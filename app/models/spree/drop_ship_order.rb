@@ -63,6 +63,8 @@ class Spree::DropShipOrder < ActiveRecord::Base
     false
   end
 
+  delegate :digital?, to: :order
+
   def display_item_total
     Spree::Money.new(self.item_total, { currency: currency })
   end
@@ -80,8 +82,8 @@ class Spree::DropShipOrder < ActiveRecord::Base
   end
 
   delegate :email, to: :order
-
   delegate :find_line_item_by_variant, to: :order
+  delegate :is_risky?, to: :order
 
   def item_total
     line_items.map(&:amount).sum
@@ -114,8 +116,10 @@ class Spree::DropShipOrder < ActiveRecord::Base
   end
 
   def shipments
-    order.shipments.includes(:stock_location).where('spree_stock_locations.supplier_id = ?', self.supplier_id)
+    order.shipments.includes(:stock_location).where('spree_stock_locations.supplier_id = ?', self.supplier_id).references(:stock_location)
   end
+
+  delegate :special_instructions, to: :order
 
   def tax_total
     # TODO until line item taxes should rely on Tax extensions for proper tax.
