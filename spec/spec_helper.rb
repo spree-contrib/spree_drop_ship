@@ -54,8 +54,6 @@ RSpec.configure do |config|
   config.before :each do
     DatabaseCleaner.strategy = example.metadata[:js] ? :truncation : :transaction
     DatabaseCleaner.start
-    # Set some configuration defaults.
-    ActionMailer::Base.default_url_options[:host] = 'localhost'
   end
 
   # After each spec clean the database.

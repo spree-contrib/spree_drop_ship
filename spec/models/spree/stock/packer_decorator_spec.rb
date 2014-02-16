@@ -38,6 +38,7 @@ module Spree
             let(:order) { Order.create }
             let!(:line_item) { order.contents.add(create(:variant), 30) }
 
+            after { Config.track_inventory_levels = true }
             before { Config.track_inventory_levels = false }
 
             it "doesn't bother stock items status in stock location" do

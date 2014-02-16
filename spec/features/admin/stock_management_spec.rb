@@ -5,12 +5,10 @@ describe "Stock Management" do
   before do
     @user = create(:supplier_user)
     login_user @user
+    visit spree.admin_drop_ship_orders_path
   end
 
   context "as supplier user" do
-    before(:each) do
-      visit spree.admin_drop_ship_orders_path
-    end
 
     context "given a product with a variant and a stock location" do
       before do
@@ -71,7 +69,6 @@ describe "Stock Management" do
         click_button "Add Stock"
 
         page.should have_content('successfully created')
-
         within(:css, '.stock_location_info table') do
           column_text(2).should eq '15'
         end
