@@ -7,11 +7,9 @@ script:
 rvm:
   - 1.9.3
   - 2.0.0
+  - 2.1.0
   - ruby-head
 language: ruby
 matrix:
   allow_failures:
     - rvm: ruby-head
-notifications:
-  recipients:
-    - JDutil@BurlingtonWebApps.com
