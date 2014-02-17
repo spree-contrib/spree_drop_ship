@@ -9,7 +9,7 @@
       (<%= link_to Spree.t(:edit), spree.edit_admin_supplier_path(@user.supplier) %>)
       <%= link_to @user.supplier.url, @user.supplier.url, target: '_blank' if @user.supplier.url.present? %>
       <br/>
-      Orders: <b><%= @user.supplier.orders.size %></b> (<%= link_to Spree.t(:manage), spree.admin_drop_ship_orders_path %>)
+      Shipments: <b><%= @user.supplier.shipments.size %></b> (<%= link_to Spree.t(:manage), spree.admin_shipments_path %>)
     <% else %>
       <%= link_to Spree.t(:signup_to_become_a_supplier), spree.new_supplier_path %>
     <% end %>

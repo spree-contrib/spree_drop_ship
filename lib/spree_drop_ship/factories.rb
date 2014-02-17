@@ -1,24 +1,58 @@
 FactoryGirl.define do
 
-  factory :drop_ship_order, :class => Spree::DropShipOrder do
-    supplier
-    order { create(:completed_order_with_totals) }
-    commission 0
-  end
+  factory :order_for_drop_ship, parent: :order do
+    bill_address
+    ship_address
 
-  factory :order_for_drop_ship, parent: :order_with_line_items do
-    after :create do |order|
-      supplier = create(:supplier)
-      order.shipments.update_all(stock_location_id: supplier.stock_locations.first.id)
-      create(:drop_ship_order, line_items: order.line_items, order: order, supplier: supplier)
+    ignore do
+      line_items_count 5
     end
-  end
 
-  factory :order_ready_for_drop_ship, parent: :order_ready_to_ship do
-    after :create do |order|
+    after(:create) do |order, evaluator|
       supplier = create(:supplier)
-      order.shipments.update_all(stock_location_id: supplier.stock_locations.first.id)
-      create(:drop_ship_order, line_items: order.line_items, order: order, supplier: supplier)
+      create_list(:line_item, evaluator.line_items_count,
+        order: order,
+        variant: create(:variant, product: create(:product, supplier: create(:supplier)))
+      )
+      order.line_items.reload
+
+      create(:shipment, order: order, stock_location: supplier.stock_locations.first)
+      order.shipments.reload
+
+      order.update!
+    end
+
+    factory :completed_order_for_drop_ship_with_totals do
+      state 'complete'
+
+      after(:create) do |order|
+        order.refresh_shipment_rates
+        order.update_column(:completed_at, Time.now)
+      end
+
+      factory :order_ready_for_drop_ship do
+        payment_state 'paid'
+        shipment_state 'ready'
+
+        after(:create) do |order|
+          create(:payment, amount: order.total, order: order, state: 'completed')
+          order.shipments.each do |shipment|
+            shipment.inventory_units.each { |u| u.update_column('state', 'on_hand') }
+            shipment.update_column('state', 'ready')
+          end
+          order.reload
+        end
+
+        factory :shipped_order_for_drop_ship do
+          after(:create) do |order|
+            order.shipments.each do |shipment|
+              shipment.inventory_units.each { |u| u.update_column('state', 'shipped') }
+              shipment.update_column('state', 'shipped')
+            end
+            order.reload
+          end
+        end
+      end
     end
   end
 
@@ -27,6 +61,16 @@ FactoryGirl.define do
     email { Faker::Internet.email }
     url "http://example.com"
     address
+    # Creating a stock location with a factory instead of letting the model handle it
+    # so that we can run tests with backorderable defaulting to true.
+    before :create do |supplier|
+      supplier.stock_locations << build(:stock_location, name: supplier.name, supplier: supplier)
+    end
+
+    factory :supplier_with_commission do
+      commission_flat_rate 0.5
+      commission_percentage 10
+    end
   end
 
   factory :supplier_user, parent: :user do

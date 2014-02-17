@@ -5,12 +5,12 @@
 <% end %>
 
 <% content_for :page_title do %>
-  <%== Spree.t(:editing_supplier) + " &ldquo;#{@supplier.name}&rdquo;".html_safe %>
+  <%== Spree.t(:editing_supplier) + " &ldquo;#{@object.name}&rdquo;".html_safe %>
 <% end %>
 
-<%= render 'spree/shared/error_messages', :target => @supplier %>
+<%= render 'spree/shared/error_messages', :target => @object %>
 
-<%= form_for [:admin, @supplier] do |f| %>
+<%= form_for [:admin, @object] do |f| %>
   <%= render "form", :form => f %>
 <% end %>
 

@@ -1,9 +1,0 @@
-<% if defined?(SpreeFancy) %>
-  <% content_for :subheader do %>
-    <h1><%= Spree.t('shared.unauthorized.unauthorized') %></h1>
-  <% end %>
-<% else %>
-  <h1><%= Spree.t('shared.unauthorized.unauthorized') %></h1>
-<% end %>
-
-<%= Spree.t('shared.unauthorized.explained') %>

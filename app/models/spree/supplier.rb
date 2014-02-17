@@ -14,8 +14,8 @@ class Spree::Supplier < ActiveRecord::Base
     has_many :ckeditor_pictures
     has_many :ckeditor_attachment_files
   end
-  has_many   :orders, class_name: 'Spree::DropShipOrder', dependent: :nullify
   has_many   :products
+  has_many   :shipments, through: :stock_locations
   has_many   :stock_locations
   has_many   :users, class_name: Spree.user_class.to_s
   has_many   :variants, through: :products
@@ -27,8 +27,6 @@ class Spree::Supplier < ActiveRecord::Base
   validates :commission_percentage,  presence: true
   validates :email,                  presence: true, email: true, uniqueness: true
   validates :name,                   presence: true, uniqueness: true
-  # TODO move to spree_marketplace? not really used anywhere in here
-  validates :tax_id,                 length: { is: 9, allow_blank: true }
   validates :url,                    format: { with: URI::regexp(%w(http https)), allow_blank: true }
 
   #==========================================
@@ -77,8 +75,16 @@ class Spree::Supplier < ActiveRecord::Base
     end
 
     def create_stock_location
-      location = self.stock_locations.build(active: true, country_id: self.address.try(:country_id), state_id: self.address.try(:state_id), name: self.name)
-      location.save validate: false # It's important location is always created.  Some apps add validations that shouldn't break this.
+      if self.stock_locations.empty?
+        location = self.stock_locations.build(
+          active: true,
+          country_id: self.address.try(:country_id),
+          name: self.name,
+          state_id: self.address.try(:state_id)
+        )
+        # It's important location is always created.  Some apps add validations that shouldn't break this.
+        location.save validate: false
+      end
     end
 
     def send_welcome

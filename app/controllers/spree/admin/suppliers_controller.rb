@@ -9,7 +9,7 @@ class Spree::Admin::SuppliersController < Spree::Admin::ResourceController
   end
 
   def new
-    @supplier = Spree::Supplier.new(address_attributes: {country_id: Spree::Address.default.country_id})
+    @object = Spree::Supplier.new(address_attributes: {country_id: Spree::Address.default.country_id})
   end
 
   private
@@ -21,8 +21,12 @@ class Spree::Admin::SuppliersController < Spree::Admin::ResourceController
       @collection = @search.result.page(params[:page]).per(Spree::Config[:orders_per_page])
     end
 
+    def find_resource
+      Spree::Supplier.friendly.find(params[:id])
+    end
+
     def location_after_save
-      spree.edit_admin_supplier_path(@supplier)
+      spree.edit_admin_supplier_path(@object)
     end
 
 end

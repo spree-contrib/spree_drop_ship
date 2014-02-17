@@ -88,10 +88,8 @@ feature 'Admin - Suppliers', js: true do
         page.should_not have_link('Configuration')
         page.should_not have_link('Promotions')
         page.should_not have_link('Suppliers')
-        # Since we remove the normal orders tab and add dso tab the first shopping cart icon should contain it.
-        within '.icon-truck' do
-          page.should have_content('DROP SHIP')
-        end
+        page.should have_link('Shipments')
+
       end
     end
 
@@ -125,7 +123,7 @@ feature 'Admin - Suppliers', js: true do
       supplier = create(:supplier)
       login_user create(:user)
       visit spree.edit_admin_supplier_path(supplier)
-      page.should have_content('Unauthorized')
+      page.should have_content('Authorization Failure')
     end
 
   end

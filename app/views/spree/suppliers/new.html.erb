@@ -2,13 +2,7 @@
   <meta name="title" content="<%= Spree.t(:supplier_signup) %>">
 <% end -%>
 
-<% if defined?(SpreeFancy) %>
-  <% content_for :subheader do %>
-    <h1><%= Spree.t(:supplier_signup) %></h1>
-  <% end %>
-<% else %>
-  <h1><%= Spree.t(:supplier_signup) %></h1>
-<% end %>
+<h1><%= Spree.t(:supplier_signup) %></h1>
 
 <%= render 'spree/shared/error_messages', :target => @supplier %>
 

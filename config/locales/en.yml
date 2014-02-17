@@ -16,11 +16,6 @@ en:
               not_responding: 'is invalid, not responding or redirecting to another location'
   spree:
     admin:
-      drop_ship_orders:
-        confirm:
-          success: "Drop ship order %{number} was successfully confirmed!"
-        deliver:
-          success: "Drop ship order %{number} was successfully delivered!"
       drop_ship_settings:
         update:
           success: Drop ship settings successfully updated.
@@ -44,7 +39,7 @@ en:
     drop_ship_order_mailer:
       supplier_order:
         hello: "Hello %{name},"
-        subject: "%{name} Drop Ship Order #%{number}"
+        subject: "%{name} Drop Shipment #%{number}"
         thank_you_again: "Thank you again for your business, <b>%{name}</b>"
     drop_ship_order_number: "Drop Ship Order #%{number}"
     drop_ship_orders: Drop Ship Orders

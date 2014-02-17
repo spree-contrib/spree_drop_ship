@@ -10,7 +10,6 @@ module Spree
           can [:admin, :manage], Spree::Digital, variant: { product: { supplier_id: user.supplier_id } }
           can :create, Spree::Digital
         end
-        can [:admin, :confirm, :deliver, :index, :read, :update], Spree::DropShipOrder, supplier_id: user.supplier_id
         can [:admin, :manage], Spree::Image do |image|
           image.viewable.product.supplier_id == user.supplier_id
         end
@@ -26,7 +25,7 @@ module Spree
         can [:admin, :manage], Spree::ProductProperty, product: { supplier_id: user.supplier_id }
         can [:admin, :index, :read], Spree::Property
         can [:admin, :read], Spree::Prototype
-        can [:admin, :manage, :read, :ready, :ship], Spree::Shipment, stock_location: { supplier_id: user.supplier_id }
+        can [:admin, :manage, :read, :ready, :ship], Spree::Shipment, order: { state: 'complete' }, stock_location: { supplier_id: user.supplier_id }
         can [:admin, :create, :update], :stock_items
         can [:admin, :manage], Spree::StockItem, variant: { product: { supplier_id: user.supplier_id } }
         can [:admin, :manage], Spree::StockLocation, supplier_id: user.supplier_id

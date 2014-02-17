@@ -4,7 +4,6 @@ describe Spree::Supplier do
 
   it { should belong_to(:address) }
 
-  it { should have_many(:orders).dependent(:nullify) }
   it { should have_many(:products) }
   it { should have_many(:stock_locations) }
   it { should have_many(:users) }
@@ -100,6 +99,25 @@ describe Spree::Supplier do
     supplier = create :supplier, commission_flat_rate: 123, commission_percentage: 25
     supplier.commission_flat_rate.should eql(123.0)
     supplier.commission_percentage.should eql(25.0)
+  end
+
+  describe '#shipments' do
+
+    let!(:supplier) { create(:supplier) }
+
+    it 'should return shipments for suppliers stock locations' do
+      stock_location_1 = supplier.stock_locations.first
+      stock_location_2 = create(:stock_location, supplier: supplier)
+      shipment_1 = create(:shipment)
+      shipment_2 = create(:shipment, stock_location: stock_location_1)
+      shipment_3 = create(:shipment)
+      shipment_4 = create(:shipment, stock_location: stock_location_2)
+      shipment_5 = create(:shipment)
+      shipment_6 = create(:shipment, stock_location: stock_location_1)
+
+      expect(supplier.shipments).to match_array([shipment_2, shipment_4, shipment_6])
+    end
+
   end
 
 end
