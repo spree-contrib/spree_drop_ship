@@ -41,7 +41,7 @@ module Spree
         can :create, Spree::Supplier
       end
 
-      if Object.const_defined?("Ckeditor")
+      if defined?(Ckeditor::AttachmentFile) && defined?(Ckeditor::Picture)
         can :access, :ckeditor
 
         can :create, Ckeditor::AttachmentFile
