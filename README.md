@@ -33,7 +33,7 @@ Spree Drop Ship will support several other Spree extensions being used by scopin
 Some extensions that can be used in conjunction with Spree Drop Ship:
 
 * spree_digital
-* spree_editor
+* spree_editor (assumes use of ckeditor & you should delete the generated models & initializer in your app to use spree_editors copies)
 * spree_group_pricing
 * spree_marketplace
 * spree_related_products

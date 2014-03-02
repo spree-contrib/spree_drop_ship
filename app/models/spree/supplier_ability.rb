@@ -41,7 +41,7 @@ module Spree
         can :create, Spree::Supplier
       end
 
-      if defined?(Ckeditor::AttachmentFile) && defined?(Ckeditor::Picture)
+      if defined?(Ckeditor)
         can :access, :ckeditor
 
         can :create, Ckeditor::AttachmentFile
