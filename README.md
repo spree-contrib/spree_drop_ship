@@ -43,10 +43,10 @@ Please Note: If you intend to use any of these extensions you should install the
 Upgrading
 ---------
 
-** Warning: Upgrading to Spree 2.2.x when using this extension is not backwards compatible.
+**Warning: Upgrading to Spree 2.2.x when using this extension is not backwards compatible.
             I have removed the notion of drop ship orders which payments & commission were previously tracked to.
             Now suppliers simply manage their shipments, and payments & commission are now linked to a payable object i.e. shipment in this case.
-            This means the previous method of determining a suppliers commission is no longer valid, and you will need to migrate your data accordingly. **
+            This means the previous method of determining a suppliers commission is no longer valid, and you will need to migrate your data accordingly.**
 
 I'm sorry for the inconvenience this may cause, but I've determined for this extension to meet it's most potential I needed to drastically alter the approach
 it was taking.  I'm still undergoing several more radical changes for Spree 2.3.x that involve moving product management from this extension into the spree_marketplace
