@@ -3,9 +3,9 @@
 <% if can? :index, Spree::Supplier %>
   <%= tab :suppliers, label: Spree.t(:suppliers), match_path: '/suppliers', icon: 'icon-building' %>
 <% end %>
-<% if can? :index, Spree::DropShipOrder %>
-  <%= tab :drop_ship_orders, label: Spree.t(:drop_ship_orders), match_path: '/drop_ship_orders', icon: 'icon-truck' %>
+<% if can? :index, Spree::Shipment %>
+  <%= tab :shipments, label: Spree.t(:shipments), match_path: '/shipments', icon: 'icon-truck' %>
 <% end %>
-<% if spree_current_user.supplier? and can? :index, Spree::StockLocation %>
+<% if try_spree_current_user.try(:supplier?) and can? :index, Spree::StockLocation %>
   <%= tab :stock_locations, label: Spree.t(:stock_locations), match_path: '/stock_locations', icon: 'icon-map-marker' %>
 <% end %>

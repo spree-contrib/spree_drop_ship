@@ -14,14 +14,14 @@
                 <h1 style="font-size:22px;font-weight:normal;line-height:22px;"><%= Spree.t('drop_ship_order_mailer.
       supplier_order.hello', name: @supplier.name ) %></h1>
                 <p style="font-size:12px;line-height:16px;margin:0">
-                  An order has been placed.  Please confirm the shipment details, and <%= link_to 'update the drop ship order', spree.admin_drop_ship_order_url(@drop_ship_order) %> once it has shipped.
+                  An order has been placed.  Please confirm the shipment details, and <%= link_to 'update the shipment', spree.edit_admin_shipment_url(@shipment) %> once it has shipped.
                 </p>
               </td>
             </tr>
             <tr>
               <td>
-                <h2 style="font-size:18px;font-weight:normal;">Drop Ship Order #<%= @drop_ship_order.id %> <small>(placed on <%= @order.completed_at.strftime('%A %b %e, %Y at %l:%M%p %Z') %>)</small></h2>
-                <h4style="font-size:14px;font-weight:normal;">Reference Number: <%= @order.number %></h4>
+                <h2 style="font-size:18px;font-weight:normal;">Reference Number: <%= @shipment.number %></h2>
+                <h4style="font-size:14px;font-weight:normal;">Placed on: <%= @shipment.created_at.strftime('%A %b %e, %Y at %l:%M%p %Z') %></h4>
               </td>
             </tr>
             <tr>
@@ -37,23 +37,20 @@
                   <tbody>
                     <tr>
                       <td valign="top" style="font-size:12px;padding:7px 9px 9px 9px;border-left:1px solid #eaeaea;border-bottom:1px solid #eaeaea;border-right:1px solid #eaeaea">
-                        <%= @order.ship_address.firstname %> <%= @order.ship_address.lastname %><br/>
-                        <%= @order.ship_address.address1 %><br/>
-                        <% unless @order.ship_address.address2.blank? %><%= @order.ship_address.address2 %><br/><% end %>
-                        <%= @order.ship_address.city %>, <%= @order.ship_address.state.name %> <%= @order.ship_address.zipcode %><br/>
-                        <%= @order.ship_address.country.name %><br/>
-                        T: <a href="tel:<%= @order.ship_address.phone %>" value="<%= @order.ship_address.phone %>" target="_blank"><%= @order.ship_address.phone %></a>
+                        <%= @shipment.order.ship_address.firstname %> <%= @shipment.order.ship_address.lastname %><br/>
+                        <%= @shipment.order.ship_address.address1 %><br/>
+                        <% unless @shipment.order.ship_address.address2.blank? %><%= @shipment.order.ship_address.address2 %><br/><% end %>
+                        <%= @shipment.order.ship_address.city %>, <%= @shipment.order.ship_address.state.name %> <%= @shipment.order.ship_address.zipcode %><br/>
+                        <%= @shipment.order.ship_address.country.name %><br/>
+                        T: <a href="tel:<%= @shipment.order.ship_address.phone %>" value="<%= @shipment.order.ship_address.phone %>" target="_blank"><%= @shipment.order.ship_address.phone %></a>
                       </td>
                       <td>&nbsp;</td>
                       <td valign="top" style="font-size:12px;padding:7px 9px 9px 9px;border-left:1px solid #eaeaea;border-bottom:1px solid #eaeaea;border-right:1px solid #eaeaea">
-                        <% @drop_ship_order.shipments.each do |shipment| %>
-                          <%= shipment.shipping_method.name %><br/>
-                        <% end %>
+                        <%= @shipment.shipping_method.name %><br/>
                       </td>
                     </tr>
                   </tbody>
                 </table>
-                <% @drop_ship_order.shipments.each do |shipment| %>
                   <br>
                   <table cellspacing="0" cellpadding="0" border="0" width="650" style="border:1px solid #eaeaea">
                     <thead>
@@ -65,7 +62,7 @@
                       </tr>
                     </thead>
                     <tbody bgcolor="#F6F6F6">
-                      <% shipment.line_items.each do |line_item| %>
+                      <% @shipment.line_items.each do |line_item| %>
                         <tr>
                           <td align="left" valign="top" style="font-size:11px;padding:3px 9px;border-bottom:1px dotted #cccccc">
                             <strong style="font-size:11px"><%= line_item.variant.name %></strong>
@@ -84,7 +81,7 @@
                           Subtotal
                         </td>
                         <td align="right" style="padding:3px 9px">
-                          <span><%= shipment.display_item_cost %></span>
+                          <span><%= @shipment.display_item_cost %></span>
                         </td>
                       </tr>
                       <tr>
@@ -92,7 +89,7 @@
                           Shipping &amp; Handling
                         </td>
                         <td align="right" style="padding:3px 9px">
-                          <span><%= shipment.display_cost %></span>
+                          <span><%= @shipment.display_final_price %></span>
                         </td>
                       </tr>
                       <tr>
@@ -100,19 +97,17 @@
                           <strong>Grand Total</strong>
                         </td>
                         <td align="right" style="padding:3px 9px">
-                          <strong><span><%= shipment.display_total_cost %></span></strong>
+                          <strong><span><%= @shipment.display_final_price_with_items %></span></strong>
                         </td>
                       </tr>
                     </tbody>
                   </table>
-                <% end %>
               </td>
             </tr>
             <tr>
               <td bgcolor="#EAEAEA" align="center" style="background:#eaeaea;text-align:center">
                 <center>
-                  <p style="font-size:12px;margin:0"><%= raw Spree.t('drop_ship_order_mailer.
-      supplier_order.thank_you_again', name: Spree::Config[:site_name]) %></p>
+                  <p style="font-size:12px;margin:0"><%= raw Spree.t('drop_ship_order_mailer.supplier_order.thank_you_again', name: Spree::Config[:site_name]) %></p>
                 </center>
               </td>
             </tr>

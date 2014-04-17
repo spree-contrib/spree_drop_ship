@@ -3,14 +3,14 @@ require 'spec_helper'
 module Spree
   module Stock
     describe Packer do
+      let!(:order) { create(:order_with_line_items, line_items_count: 5) }
+      let(:stock_location) { create(:stock_location) }
 
-      context 'default_package' do
-        context 'original specs for default behavior' do
-          let(:order) { create(:order_with_line_items, line_items_count: 5) }
-          let(:stock_location) { create(:stock_location) }
+      subject { Packer.new(stock_location, order) }
 
-          subject { Packer.new(stock_location, order) }
+      context '#default_package' do
 
+        context 'original behavior specs' do
           it 'contains all the items' do
             package = subject.default_package
             package.contents.size.should eq 5
@@ -38,7 +38,6 @@ module Spree
             let(:order) { Order.create }
             let!(:line_item) { order.contents.add(create(:variant), 30) }
 
-            after { Config.track_inventory_levels = true }
             before { Config.track_inventory_levels = false }
 
             it "doesn't bother stock items status in stock location" do
@@ -60,21 +59,10 @@ module Spree
             let(:packer) { Packer.new(stock_location, order) }
 
             it "builds an empty package" do
-              pending 'not sure how to properly test this yet'
-              puts order.line_items.inspect
-              order.line_items.each do |li|
-                puts li.product.inspect
-                if li.product.supplier_id
-                  puts li.product.supplier.stock_locations.inspect
-                end
-              end
-              puts stock_location.inspect
-              puts packer.default_package.contents.inspect
               packer.default_package.contents.should be_empty
             end
           end
         end
-
       end
     end
   end

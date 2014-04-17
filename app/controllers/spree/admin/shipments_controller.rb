@@ -1,26 +1,6 @@
 module Spree
   module Admin
-    class DropShipOrdersController < Spree::Admin::ResourceController
-
-      def confirm
-        @order = DropShipOrder.accessible_by(current_ability, :update).find(params[:id])
-        if @order.confirm!
-          flash[:notice] = Spree.t('admin.drop_ship_orders.confirm.success', number: @order.id)
-        end
-        redirect_to spree.edit_admin_drop_ship_order_path(@order)
-      end
-
-      def deliver
-        @order = DropShipOrder.accessible_by(current_ability, :update).find(params[:id])
-        if @order.deliver!
-          flash[:notice] = Spree.t('admin.drop_ship_orders.deliver.success', number: @order.id)
-        end
-        redirect_to spree.edit_admin_drop_ship_order_path(@order)
-      end
-
-      def edit
-        @order = DropShipOrder.accessible_by(current_ability, :edit).find(params[:id])
-      end
+    class ShipmentsController < Spree::Admin::ResourceController
 
       def index
         params[:q] ||= {}
@@ -34,8 +14,6 @@ module Spree
         created_at_gt = params[:q][:created_at_gt]
         created_at_lt = params[:q][:created_at_lt]
 
-        params[:q].delete(:inventory_units_shipment_id_null) if params[:q][:inventory_units_shipment_id_null] == "0"
-
         if !params[:q][:created_at_gt].blank?
           params[:q][:created_at_gt] = Time.zone.parse(params[:q][:created_at_gt]).beginning_of_day rescue ""
         end
@@ -44,14 +22,24 @@ module Spree
           params[:q][:created_at_lt] = Time.zone.parse(params[:q][:created_at_lt]).end_of_day rescue ""
         end
 
-        @search = DropShipOrder.accessible_by(current_ability, :index).ransack(params[:q])
-        @orders = @search.result.
+        @search = Spree::Shipment.accessible_by(current_ability, :index).ransack(params[:q])
+        @shipments = @search.result.
           page(params[:page]).
           per(params[:per_page] || Spree::Config[:orders_per_page])
 
         # Restore dates
         params[:q][:created_at_gt] = created_at_gt
         params[:q][:created_at_lt] = created_at_lt
+      end
+
+      private
+
+      def find_resource
+        if parent_data.present?
+          parent.send(controller_name).find_by!(number: params[:id])
+        else
+          model_class.find_by!(number: params[:id])
+        end
       end
 
     end

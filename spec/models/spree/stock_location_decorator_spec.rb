@@ -23,9 +23,9 @@ describe Spree::StockLocation do
       end
     end
 
-    context 'sets to false for non supplier variants' do
+    context 'does not propagate for non supplier variants' do
       before { subject.supplier_id = create(:supplier).id }
-      it { stock_item.backorderable.should be_false }
+      it { stock_item.should be_nil }
     end
 
   end

@@ -11,13 +11,14 @@ feature 'Admin - Product Stock Management', js: true do
 
   context 'as Admin' do
 
-    scenario 'should display all stock locations' do
+    scenario 'should display all existing stock item locations' do
       login_user create(:admin_user)
       visit spree.stock_admin_product_path(@product)
 
       within '.stock_location_info' do
         page.should have_content(@supplier1.name)
-        page.should have_content(@supplier2.name)
+        # Stock item doesn't exist
+        page.should_not have_content(@supplier2.name)
       end
     end
 

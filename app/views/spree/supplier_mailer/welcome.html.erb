@@ -14,7 +14,7 @@
                 <h1 style="font-size:22px;font-weight:normal;line-height:22px;"><%= Spree.t('supplier_mailer.welcome.hello', name: @supplier.name ) %></h1>
                 <p style="font-size:12px;line-height:16px;">
                   <%= Spree.t('supplier_mailer.welcome.manage_your_account' ) %>
-                  <%= link_to Spree.t('supplier_mailer.welcome.logging_into_your_account'), spree.account_url, target: '_blank' %>
+                  <%= link_to Spree.t('supplier_mailer.welcome.logging_into_your_account'), spree.login_url, target: '_blank' %>
                 </p>
               </td>
             </tr>

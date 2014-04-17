@@ -47,7 +47,7 @@ class Spree::SuppliersController < Spree::StoreController
   end
 
   def supplier_params
-      params.require(:supplier).permit(:name, :tax_id)
+    params.require(:supplier).permit(:name, :tax_id)
   end
 
 end

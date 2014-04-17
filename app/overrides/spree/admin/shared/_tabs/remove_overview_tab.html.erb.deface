@@ -1,5 +1,5 @@
 <!-- replace "erb[loud]:contains('overview')" -->
 
-<% if spree_current_user.admin? %>
+<% if try_spree_current_user.try(:admin?) %>
   <%= tab :overview, route: :admin, icon: 'icon-dashboard' %>
 <% end %>

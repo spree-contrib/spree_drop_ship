@@ -17,11 +17,11 @@ require 'shoulda-matchers'
 # in spec/support/ and its subdirectories.
 Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |f| require f }
 
-# Requires factories defined in spree_core
-require 'spree/testing_support/factories'
 require 'spree/testing_support/authorization_helpers'
 require 'spree/testing_support/capybara_ext'
 require 'spree/testing_support/controller_requests'
+require 'spree/testing_support/factories'
+require 'spree/testing_support/preferences'
 require 'spree/testing_support/url_helpers'
 
 require 'spree_drop_ship/factories'
@@ -29,6 +29,9 @@ require 'spree_drop_ship/factories'
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include IntegrationHelpers
+  config.include Spree::TestingSupport::ControllerRequests
+  config.include Spree::TestingSupport::Preferences
+  config.include Spree::TestingSupport::UrlHelpers
 
   # == URL Helpers
   #
@@ -54,6 +57,7 @@ RSpec.configure do |config|
   config.before :each do
     DatabaseCleaner.strategy = example.metadata[:js] ? :truncation : :transaction
     DatabaseCleaner.start
+    reset_spree_preferences
   end
 
   # After each spec clean the database.

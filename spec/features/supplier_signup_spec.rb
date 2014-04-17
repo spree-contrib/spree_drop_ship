@@ -54,13 +54,17 @@ feature 'Supplier Signup', js: true do
 
     context 'w/ DropShipConfig[:allow_signup] == false (the default)' do
 
+      before do
+        SpreeDropShip::Config.set(allow_signup: false)
+      end
+
       scenario 'should not be able to create new supplier' do
         visit spree.account_path
         within '#user-info' do
           page.should_not have_link 'Sign Up To Become A Supplier'
         end
         visit spree.new_supplier_path
-        page.should have_content('Unauthorized')
+        page.should have_content('Authorization Failure')
       end
 
     end

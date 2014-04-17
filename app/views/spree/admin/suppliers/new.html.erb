@@ -6,8 +6,8 @@
    <%= Spree.t('new_supplier') %>
 <% end %>
 
-<%= render 'spree/shared/error_messages', :target => @supplier %>
+<%= render 'spree/shared/error_messages', :target => @object%>
 
-<%= form_for [:admin, @supplier] do |f| %>
+<%= form_for [:admin, @object] do |f| %>
   <%= render "form", :form => f %>
 <% end %>
