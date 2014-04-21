@@ -9,7 +9,7 @@ Spree::Order.class_eval do
     finalize_without_drop_ship!
     create_drop_ship_orders
     if SpreeDropShip::Config[:automatically_deliver_orders_to_supplier]
-      drop_ship_orders.each &:deliver!
+      drop_ship_orders(true).each &:deliver!
     end
   end
   alias_method_chain :finalize!, :drop_ship
