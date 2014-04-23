@@ -14,14 +14,16 @@ describe Spree::Order do
       order = create(:order_with_totals, ship_address: create(:address))
       order.line_items = [create(:line_item, variant: create(:variant_with_supplier)), create(:line_item, variant: create(:variant_with_supplier))]
 
-      order.drop_ship_orders.each do |dso|
-        dso.should_receive(:deliver!).and_return(true)
+      deliver_count = 0
+      Spree::DropShipOrder.any_instance.stub(:deliver!) do |arg|
+        deliver_count+=1
       end
 
       order.finalize!
       order.reload
 
       # Check orders are properly split.
+      deliver_count.should eql(2)
       order.drop_ship_orders.size.should eql(2)
       order.drop_ship_orders.each do |dso|
         dso.line_items.size.should eql(1)
@@ -34,14 +36,16 @@ describe Spree::Order do
       order = create(:order_with_totals, ship_address: create(:address))
       order.line_items = [create(:line_item, variant: create(:variant_with_supplier)), create(:line_item, variant: create(:variant_with_supplier))]
 
-      order.drop_ship_orders.each do |dso|
-        dso.should_not_receive(:deliver!)
+      deliver_count = 0
+      Spree::DropShipOrder.any_instance.stub(:deliver!) do |arg|
+        deliver_count+=1
       end
 
       order.finalize!
       order.reload
 
       # Check orders are properly split.
+      deliver_count.should eql(0)
       order.drop_ship_orders.size.should eql(2)
       order.drop_ship_orders.each do |dso|
         dso.line_items.size.should eql(1)
