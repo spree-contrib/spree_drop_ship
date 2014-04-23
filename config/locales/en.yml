@@ -88,6 +88,7 @@ en:
     supplier_registration:
       already_signed_up: "You've already signed up to become a supplier."
       create:
+        invalid_password: Invalid password please sign in or sign up.
         success: Thank you for signing up!
     supplier_signup: Supplier Sign Up
     suppliers: Suppliers

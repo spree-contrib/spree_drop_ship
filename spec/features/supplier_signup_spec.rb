@@ -43,6 +43,17 @@ feature 'Supplier Signup', js: true do
       page.should have_content('Thank you for signing up!')
       page.should_not have_content('LOGIN')
     end
+
+    scenario 'should require correct password for existing user account' do
+      fill_in 'supplier[email]', with: create(:user).email
+      fill_in 'supplier[password]', with: 'invalid'
+      fill_in 'supplier[password_confirmation]', with: 'invalid'
+      fill_in 'supplier[name]', with: 'Test Supplier'
+      fill_in 'supplier[tax_id]', with: '000000000'
+      click_on 'Sign Up'
+      expect(page).to have_content("Invalid password please sign in or sign up.")
+    end
+
   end
 
   context 'logged in' do
