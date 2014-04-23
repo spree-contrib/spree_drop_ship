@@ -89,8 +89,9 @@ class Spree::Supplier < ActiveRecord::Base
 
     def send_welcome
       begin
-        Spree::Core::MailMethod.new.deliver!(Spree::SupplierMailer.welcome(self.id))
-      rescue Errno::ECONNREFUSED => ex
+        Spree::SupplierMailer.welcome(self.id).deliver!
+        # Specs raise error for not being able to set default_url_options[:host]
+      rescue => ex #Errno::ECONNREFUSED => ex
         Rails.logger.error ex.message
         Rails.logger.error ex.backtrace.join("\n")
         return true # always return true so that failed email doesn't crash app.

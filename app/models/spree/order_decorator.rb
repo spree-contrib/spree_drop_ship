@@ -10,7 +10,15 @@ Spree::Order.class_eval do
     finalize_without_drop_ship!
     shipments.each do |shipment|
       if SpreeDropShip::Config[:send_supplier_email] && shipment.supplier.present?
-        Spree::Core::MailMethod.new.deliver!(Spree::DropShipOrderMailer.supplier_order(shipment.id))
+        begin
+          Spree::DropShipOrderMailer.supplier_order(shipment.id).deliver!
+        rescue => ex #Errno::ECONNREFUSED => ex
+          puts ex.message
+          puts ex.backtrace.join("\n")
+          Rails.logger.error ex.message
+          Rails.logger.error ex.backtrace.join("\n")
+          return true # always return true so that failed email doesn't crash app.
+        end
       end
     end
   end

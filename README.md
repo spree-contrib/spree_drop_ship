@@ -7,23 +7,17 @@
 
 What is drop shipping?
 
-"Drop shipping is a supply chain management technique in which the retailer does not keep goods in stock, but instead transfers customer orders and shipment details to either the manufacturer or a wholesaler, who then ships the goods directly to the customer." - [wikipedia](http://en.wikipedia.org/wiki/Drop_shipping)
+"Drop shipping is a supply chain management technique in which the retailer does not keep goods in stock, but instead transfers customer orders
+and shipment details to either the manufacturer or a wholesaler, who then ships the goods directly to the customer." - [wikipedia](http://en.wikipedia.org/wiki/Drop_shipping)
 
 So the main goal with spree_drop_ship is to link products to suppliers and forward orders to the appropriate suppliers.
 
-Once an order is placed for a product that belongs to a supplier a drop ship order is created for the product's supplier. This drop ship order is then sent to the supplier (via Email by default). The supplier then follows a link to the order within the email where they are prompted to confirm the order.
+Once an order is placed for a product that belongs to a supplier a shipment is created for the product's supplier.
+This shipment is then sent to the supplier (via Email by default). The supplier then follows a link to the shipment
+within the email where they are prompted to confirm the shipment.
 
-After the supplier has confirmed an order and is ready to ship, they can log into the site and update the drop ship order shipping method, and tracking number. Once they 'ship' the order the customer will receive their shipment notification, and the drop ship order will transition to a completed state.
-
-Drop Ship Order's make use of the State Machine similarly to the usual Order, Payment, and Shipment models within Spree.
-The following are the drop ship order states and what they represent:
-
-* **Active:** Is the initial drop ship order state indicating that it has been created.
-* **Delivered:** Represents that the drop ship order's supplier has been notified of the order i.e. supplier's notification has been delivered.  By default email notifications will be sent automatically, but you may want to customize things to use an API instead.
-* **Confirmed:** Represents that the supplier has confirmed receiving the drop ship order notification & information.
-* **Complete:** Represents that the drop ship order has been shipped, and the supplier's work is complete.
-
-Spree Drop Ship used with [Spree Marketplace](https://github.com/jdutil/spree_marketplace) allows handling payments to your suppliers via ACH direct deposits.  This is still currently a work in progress, and any input is welcome.
+Spree Drop Ship used with [Spree Marketplace](https://github.com/jdutil/spree_marketplace) allows handling payments to your suppliers via ACH direct deposits.  
+This is still currently a work in progress, and any input is welcome.
 
 Integrations
 ------------

@@ -37,6 +37,7 @@ describe 'Admin - Shipments', js: true do
           fill_in "tracking", :with => "FOOBAR"
           click_icon :ok
         end
+        wait_for_ajax
         within 'table.index tr.show-tracking' do
           page.should have_content("Tracking: FOOBAR")
         end
