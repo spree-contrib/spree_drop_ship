@@ -6,10 +6,17 @@ class Spree::SuppliersController < Spree::StoreController
   def create
     authorize! :create, Spree::Supplier
 
+    @supplier = Spree::Supplier.new(supplier_params)
+
     # Dont sign in as the newly created user if users already signed in.
     unless spree_current_user
       # Find or create user for email.
-      unless @user = Spree.user_class.find_by_email(params[:supplier][:email])
+      if @user = Spree.user_class.find_by_email(params[:supplier][:email])
+        unless @user.valid_password?(params[:supplier][:password])
+          flash[:error] = Spree.t('supplier_registration.create.invalid_password')
+          render :new and return
+        end
+      else
         @user = Spree.user_class.new(email: params[:supplier][:email], password: params[:supplier].delete(:password), password_confirmation: params[:supplier].delete(:password_confirmation))
         @user.save!
         session[:spree_user_signup] = true
@@ -20,7 +27,6 @@ class Spree::SuppliersController < Spree::StoreController
 
     # Now create supplier.
 
-    @supplier = Spree::Supplier.new(supplier_params)
     @supplier.email = spree_current_user.email if spree_current_user
 
     if @supplier.save
