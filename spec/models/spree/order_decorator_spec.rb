@@ -14,7 +14,7 @@ describe Spree::Order do
       order.create_proposed_shipments
 
       order.shipments.each do |shipment|
-        Spree::DropShipOrderMailer.should_receive(:supplier_order).with(shipment.id)
+        Spree::DropShipOrderMailer.should_receive(:supplier_order).with(shipment.id).and_return(double(Mail, :deliver! => true))
       end
 
       order.finalize!

@@ -6,6 +6,4 @@ Spree::Core::Engine.add_routes do
     resources :suppliers
   end
 
-  resources :suppliers, only: [:create, :new]
-
 end

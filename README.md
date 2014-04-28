@@ -19,21 +19,6 @@ within the email where they are prompted to confirm the shipment.
 Spree Drop Ship used with [Spree Marketplace](https://github.com/jdutil/spree_marketplace) allows handling payments to your suppliers via ACH direct deposits.  
 This is still currently a work in progress, and any input is welcome.
 
-Integrations
-------------
-
-Spree Drop Ship will support several other Spree extensions being used by scoping information by supplier.
-
-Some extensions that can be used in conjunction with Spree Drop Ship:
-
-* spree_digital
-* spree_editor (assumes use of ckeditor & you should delete the generated models & initializer in your app to use spree_editors copies)
-* spree_group_pricing
-* spree_marketplace
-* spree_related_products
-
-Please Note: If you intend to use any of these extensions you should install them before installing spree_drop_ship so that spree_drop_ship's migrations are run last.  You should also place spree_drop_ship AFTER all other extensions in your Gemfile.
-
 Upgrading
 ---------
 
