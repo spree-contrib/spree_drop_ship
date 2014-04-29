@@ -14,7 +14,7 @@
                 <h1 style="font-size:22px;font-weight:normal;line-height:22px;"><%= Spree.t('drop_ship_order_mailer.
       supplier_order.hello', name: @supplier.name ) %></h1>
                 <p style="font-size:12px;line-height:16px;margin:0">
-                  An order has been placed.  Please confirm the shipment details, and <%= link_to 'update the drop ship order', spree.admin_drop_ship_order_url(@drop_ship_order) %> once it has shipped.
+                  An order has been placed.  Please confirm the shipment details, and <%= link_to 'update the drop ship order', spree.edit_admin_drop_ship_order_url(@drop_ship_order) %> once it has shipped.
                 </p>
               </td>
             </tr>
