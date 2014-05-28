@@ -45,7 +45,7 @@
 
       <div class="actions filter-actions">
         <div data-hook="admin_shipments_index_search_buttons">
-          <%= button Spree.t(:filter_results), 'icon-search' %>
+          <%= button Spree.t(:filter_results), 'search' %>
         </div>
       </div>
     <% end %>
@@ -86,9 +86,9 @@
         <td class="align-center"><span class="state <%= shipment.state.downcase %>"><%= Spree.t("shipment_state.#{shipment.state.downcase}") %></span></td>
         <td class="align-center"><%= shipment.display_item_cost.to_html %></td>
         <td class="align-center"><%= shipment.display_cost.to_html %></td>
-        <td class="align-center"><%= Spree::Money.new(shipment.tax_total).to_html %></td>
-        <td class="align-center"><%= Spree::Money.new(shipment.final_price_with_items).to_html %></td>
-        <td class="align-center"><%= Spree::Money.new(shipment.supplier_commission).to_html %></td>
+        <td class="align-center"><%= Spree::Money.new(shipment.tax_total, currency: shipment.currency).to_html %></td>
+        <td class="align-center"><%= Spree::Money.new(shipment.final_price_with_items, currency: shipment.currency).to_html %></td>
+        <td class="align-center"><%= Spree::Money.new(shipment.supplier_commission, currency: shipment.currency).to_html %></td>
         <td class='actions align-center' data-hook="admin_shipments_index_row_actions">
           <%= link_to_edit_url spree.edit_admin_shipment_path(shipment), :title => "admin_edit_#{dom_id(shipment)}", :no_text => true %>
         </td>

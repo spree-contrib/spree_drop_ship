@@ -1,8 +1,8 @@
 <% content_for :page_actions do %>
-  <li><%= button_link_to Spree.t(:back_to_shipments_list), spree.admin_shipments_path, :icon => 'icon-arrow-left' %></li>
+  <li><%= button_link_to Spree.t(:back_to_shipments_list), spree.admin_shipments_path, icon: 'arrow-left' %></li>
 <% end %>
 
-<% if spree_current_user.admin? %>
+<% if spree_current_user.admin? && @shipment.supplier.present? %>
   <div data-hook="admin_shipment_supplier" class="row">
     <fieldset class="alpha twelve columns no-border-bottom">
       <legend align="center"><%= Spree.t(:supplier_information) %></legend>
@@ -14,11 +14,11 @@
       <div>
         <b><%= Spree.t('contact_information') %>:</b>
       </div>
-      <%= render :partial => 'spree/shared/address', :locals => { :address => @shipment.supplier.address } %>
+      <%= render partial: 'spree/shared/address', locals: { address: @shipment.supplier.address } %>
     </fieldset>
   </div>
 <% end %>
 
 <div data-hook="admin_shipment_form_fields">
-  <%= render :partial => "spree/admin/orders/shipment", locals: { order: @shipment.order, shipment: @shipment } %>
+  <%= render partial: "spree/admin/orders/shipment", locals: { order: @shipment.order, shipment: @shipment } %>
 </div>

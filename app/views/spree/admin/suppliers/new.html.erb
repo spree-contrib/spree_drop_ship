@@ -1,13 +1,13 @@
 <% content_for :page_actions do %>
-  <li><%= button_link_to Spree.t('back_to_suppliers'), spree.admin_suppliers_path, :icon => 'icon-arrow-left' %></li>
+  <li><%= button_link_to Spree.t('back_to_suppliers'), spree.admin_suppliers_path, icon: 'arrow-left' %></li>
 <% end %>
 
 <% content_for :page_title do %>
    <%= Spree.t('new_supplier') %>
 <% end %>
 
-<%= render 'spree/shared/error_messages', :target => @object%>
+<%= render 'spree/shared/error_messages', target: @object%>
 
 <%= form_for [:admin, @object] do |f| %>
-  <%= render "form", :form => f %>
+  <%= render "form", form: f %>
 <% end %>

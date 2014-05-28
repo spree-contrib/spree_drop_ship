@@ -34,7 +34,7 @@ describe 'Admin - Shipments', js: true do
           click_icon :edit
         end
         within 'table.index tr.edit-tracking' do
-          fill_in "tracking", :with => "FOOBAR"
+          fill_in "tracking", with: "FOOBAR"
           click_icon :ok
         end
         wait_for_ajax

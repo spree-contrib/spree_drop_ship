@@ -18,6 +18,7 @@ within the email where they are prompted to confirm the shipment.
 
 Spree Drop Ship used with [Spree Marketplace](https://github.com/jdutil/spree_marketplace) allows handling payments to your suppliers via ACH direct deposits.  
 This is still currently a work in progress, and any input is welcome.
+.
 
 Upgrading
 ---------
