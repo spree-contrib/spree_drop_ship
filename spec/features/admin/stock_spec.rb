@@ -6,7 +6,8 @@ feature 'Admin - Product Stock Management', js: true do
     @user = create(:supplier_user)
     @supplier1 = @user.supplier
     @supplier2 = create(:supplier)
-    @product = create :product, supplier: @supplier1
+    @product = create :product
+    @product.add_supplier! @supplier1
   end
 
   context 'as Admin' do
@@ -54,7 +55,7 @@ feature 'Admin - Product Stock Management', js: true do
     scenario "can delete an existing stock location", js: true do
       create(:stock_location, supplier: @user.supplier)
       visit current_path
-      
+
       find('#listing_stock_locations').should have_content("NY Warehouse")
       within_row(2) { click_icon :trash }
       page.driver.browser.switch_to.alert.accept
@@ -68,7 +69,7 @@ feature 'Admin - Product Stock Management', js: true do
     scenario "can update an existing stock location" do
       create(:stock_location, supplier: @user.supplier)
       visit current_path
-      
+
       page.should have_content("Big Store")
 
       within_row(1) { click_icon :edit }
@@ -82,7 +83,7 @@ feature 'Admin - Product Stock Management', js: true do
     scenario "can deactivate an existing stock location" do
       create(:stock_location, supplier: @user.supplier)
       visit current_path
-      
+
       page.should have_content("Big Store")
 
       within_row(1) { click_icon :edit }

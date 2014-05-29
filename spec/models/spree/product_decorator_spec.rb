@@ -2,14 +2,12 @@ require 'spec_helper'
 
 describe Spree::Product do
 
-  it { should belong_to(:supplier) }
-
-  let(:product) { build :product }
+  let(:product) { create :product }
 
   it '#supplier?' do
-    product.supplier?.should be false
-    product.supplier = build :supplier
-    product.supplier?.should be true
+    product.supplier?.should eq false
+    product.add_supplier! create(:supplier)
+    product.reload.supplier?.should eq true
   end
 
 end

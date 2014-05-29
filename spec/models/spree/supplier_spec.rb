@@ -4,10 +4,10 @@ describe Spree::Supplier do
 
   it { should belong_to(:address) }
 
-  it { should have_many(:products) }
+  it { should have_many(:products).through(:variants) }
   it { should have_many(:stock_locations) }
   it { should have_many(:users) }
-  it { should have_many(:variants).through(:products) }
+  it { should have_many(:variants).through(:supplier_variants) }
 
   it { should validate_presence_of(:email) }
   it { should validate_presence_of(:name) }

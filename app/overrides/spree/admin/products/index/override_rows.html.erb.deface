@@ -1,0 +1,23 @@
+<!-- replace_contents '[data-hook="admin_products_index_rows"]' -->
+
+<td class="align-center"><%= product.sku rescue '' %></td>
+<td class="align-center"><%= mini_image(product) %></td>
+<td>
+  <% if try_spree_current_user && try_spree_current_user.supplier? %>
+    <%= link_to product.try(:name), stock_admin_product_path(product) %>
+  <% else %>
+    <%= link_to product.try(:name), edit_admin_product_path(product) %>
+  <% end %>
+</td>
+<td class="align-center"><%= product.display_price.to_html rescue '' %></td>
+<td class="actions" data-hook="admin_products_index_row_actions">
+  <% if try_spree_current_user && try_spree_current_user.supplier? %>
+    <%= link_to 'Stock Management', stock_admin_product_path(product), class: 'edit' if can?(:stock, product) && !product.deleted? %>
+  <% else %>
+    <%= link_to_edit product, :no_text => true, :class => 'edit' if can?(:edit, product) && !product.deleted? %>
+  <% end %>
+  &nbsp;
+  <%= link_to_clone product, :no_text => true, :class => 'clone' if can?(:clone, product) %>
+  &nbsp;
+  <%= link_to_delete product, :no_text => true if can?(:delete, product) && !product.deleted? %>
+</td>

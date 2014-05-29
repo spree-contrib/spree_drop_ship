@@ -10,7 +10,7 @@ module Spree
             next unless stock_location.stock_item(line_item.variant)
 
             # Skip if product supplier does not own this stock location
-            next if line_item.product.supplier_id && !line_item.product.supplier.stock_locations.pluck(:id).include?(stock_location.id)
+            next unless line_item.variant.suppliers.pluck(:id).include?(stock_location.supplier_id)
 
             on_hand, backordered = stock_location.fill_status(line_item.variant, line_item.quantity)
             package.add line_item, on_hand, :on_hand if on_hand > 0

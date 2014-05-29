@@ -1,4 +1,4 @@
-class Spree::Supplier < ActiveRecord::Base
+class Spree::Supplier < Spree::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
 
@@ -14,11 +14,12 @@ class Spree::Supplier < ActiveRecord::Base
     has_many :ckeditor_pictures
     has_many :ckeditor_attachment_files
   end
-  has_many   :products
+  has_many   :products, through: :variants
   has_many   :shipments, through: :stock_locations
   has_many   :stock_locations
+  has_many   :supplier_variants
   has_many   :users, class_name: Spree.user_class.to_s
-  has_many   :variants, through: :products
+  has_many   :variants, through: :supplier_variants
 
   #==========================================
   # Validations

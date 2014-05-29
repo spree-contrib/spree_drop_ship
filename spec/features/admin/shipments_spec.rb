@@ -7,11 +7,13 @@ describe 'Admin - Shipments', js: true do
     let!(:order) { build(:order_ready_for_drop_ship, state: 'complete', completed_at: "2011-02-01 12:36:15", number: "R100") }
     let!(:supplier) { create(:supplier) }
 
-    let!(:product) { create(:product, name: 'spree t-shirt', price: 20.00, supplier: supplier) }
+    let!(:product) {
+      p = create(:product, name: 'spree t-shirt', price: 20.00)
+      p.add_supplier! supplier.id
+      p
+    }
 
-    let!(:stock_location) { supplier.stock_locations.first }
-    let!(:shipment) { create(:shipment, order: order, stock_location: stock_location) }
-
+    let!(:shipment) { create(:shipment, order: order, stock_location: supplier.stock_locations.first) }
     let!(:shipping_method) { create(:shipping_method, name: "Default") }
 
     before do

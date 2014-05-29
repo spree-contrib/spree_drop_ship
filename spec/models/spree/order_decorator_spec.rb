@@ -24,7 +24,7 @@ describe Spree::Order do
       order.shipments.size.should eql(2)
       order.shipments.each do |shipment|
         shipment.line_items.size.should eql(1)
-        shipment.line_items.first.product.supplier.should eql(shipment.supplier)
+        shipment.line_items.first.variant.suppliers.first.should eql(shipment.supplier)
       end
     end
 
@@ -45,7 +45,7 @@ describe Spree::Order do
       order.shipments.size.should eql(2)
       order.shipments.each do |shipment|
         shipment.line_items.size.should eql(1)
-        shipment.line_items.first.product.supplier.should eql(shipment.supplier)
+        shipment.line_items.first.variant.suppliers.first.should eql(shipment.supplier)
       end
     end
 

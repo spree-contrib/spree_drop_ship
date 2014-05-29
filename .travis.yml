@@ -6,9 +6,5 @@ script:
   - "bundle exec rspec spec"
 rvm:
   - 2.0.0
-  - 2.1.0
-  - ruby-head
+  - 2.1.2
 language: ruby
-matrix:
-  allow_failures:
-    - rvm: ruby-head

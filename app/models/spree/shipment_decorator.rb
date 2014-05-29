@@ -1,4 +1,6 @@
 Spree::Shipment.class_eval do
+  # TODO here to fix cancan issue thinking its just Order
+  belongs_to :order, class_name: 'Spree::Order', touch: true, inverse_of: :shipments
 
   has_many :payments, as: :payable
 
@@ -14,6 +16,7 @@ Spree::Shipment.class_eval do
     self.item_cost + self.final_price
   end
 
+  # TODO move commission to spree_marketplace?
   def supplier_commission_total
     ((self.final_price_with_items * self.supplier.commission_percentage / 100) + self.supplier.commission_flat_rate)
   end
