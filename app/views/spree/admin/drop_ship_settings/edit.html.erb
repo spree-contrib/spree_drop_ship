@@ -15,9 +15,9 @@
       </div>
     <% end %>
     <div class="form-buttons filter-actions actions" data-hook="buttons">
-      <%= button Spree.t(:update), 'icon-refresh' %>
+      <%= button Spree.t(:update), 'fa fa-refresh' %>
       <span class="or"><%= Spree.t(:or) %></span>
-      <%= link_to_with_icon 'icon-remove', Spree.t(:cancel), spree.edit_admin_drop_ship_settings_url, :class => 'button' %>
+      <%= link_to_with_icon 'remove', Spree.t(:cancel), spree.edit_admin_drop_ship_settings_url, :class => 'button' %>
     </div>
   </fieldset>
 <% end %>

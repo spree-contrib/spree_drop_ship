@@ -23,7 +23,7 @@ describe Spree::Shipment do
   describe '#after_ship' do
 
     it 'should capture payment if balance due' do
-      pending 'TODO make it so!'
+      skip 'TODO make it so!'
     end
 
     it 'should track commission for shipment' do

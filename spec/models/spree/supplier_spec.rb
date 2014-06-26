@@ -45,7 +45,7 @@ describe Spree::Supplier do
   it '#create_stock_location' do
     Spree::StockLocation.count.should eql(0)
     supplier = create :supplier
-    Spree::StockLocation.first.active.should be_true
+    Spree::StockLocation.first.active.should be true
     Spree::StockLocation.first.country.should eql(supplier.address.country)
     Spree::StockLocation.first.supplier.should eql(supplier)
   end

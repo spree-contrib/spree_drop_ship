@@ -7,9 +7,9 @@ describe Spree::Product do
   let(:product) { build :product }
 
   it '#supplier?' do
-    product.supplier?.should be_false
+    product.supplier?.should be false
     product.supplier = build :supplier
-    product.supplier?.should be_true
+    product.supplier?.should be true
   end
 
 end
