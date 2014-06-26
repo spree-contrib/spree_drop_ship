@@ -55,7 +55,7 @@ describe 'Admin - Shipments', js: true do
       end
 
       it "can ship a completed order" do
-        click_link "ship"
+        click_on "ship"
         wait_for_ajax
 
         page.should have_content("SHIPPED PACKAGE")
