@@ -1,5 +1,5 @@
-<% content_for :page_actions do %>  
-  <li><%= button_link_to Spree.t('new_supplier'), new_object_url, :icon => 'icon-plus' %></li>
+<% content_for :page_actions do %>
+  <li><%= button_link_to Spree.t('new_supplier'), new_object_url, :icon => 'plus' %></li>
 <% end %>
 
 <% content_for :page_title do %>
@@ -21,7 +21,7 @@
       </div>
       <div class="clear"></div>
       <div class="form-buttons actions filter-actions" data-hook="admin_suppliers_index_search_buttons">
-        <%= button Spree.t(:search), 'icon-search' %>
+        <%= button Spree.t(:search), 'fa fa-search' %>
       </div>
     <% end %>
   </div>
@@ -71,4 +71,3 @@
 <% end %>
 
 <%= paginate @collection %>
-

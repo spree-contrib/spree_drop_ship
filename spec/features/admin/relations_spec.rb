@@ -14,7 +14,7 @@ feature 'Admin - Product Relation Management', js: true do
 
   context 'as Supplier' do
     scenario 'should be able to add relations' do
-      pending 'for some reason targetted_select2_search is not working properly'
+      skip 'for some reason targetted_select2_search is not working properly'
       login_user @user
       visit spree.related_admin_product_path(@product1)
       targetted_select2_search @product2.name, from: 'Name or SKU'

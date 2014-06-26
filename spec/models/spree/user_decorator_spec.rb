@@ -9,9 +9,9 @@ describe Spree.user_class do
   let(:user) { build :user }
 
   it '#supplier?' do
-    user.supplier?.should be_false
+    user.supplier?.should be false
     user.supplier = build :supplier
-    user.supplier?.should be_true
+    user.supplier?.should be true
   end
 
 end

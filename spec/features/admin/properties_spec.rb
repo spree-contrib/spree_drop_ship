@@ -21,7 +21,7 @@ describe "Admin - Properties" do
           column_text(1).should == "shirt size"
           column_text(2).should == "size"
         end
-        pending 'used to work not sure why not anymore'
+        skip 'used to work not sure why not anymore'
         within_row(2) do
           column_text(1).should == "shirt fit"
           column_text(2).should == "fit"
@@ -31,11 +31,11 @@ describe "Admin - Properties" do
 
     context "creating a property" do
       it "should allow an admin to create a new product property", :js => true do
-        pending 'Not sure if we want to allow this yet.'
+        skip 'Not sure if we want to allow this yet.'
         # click_link "Properties"
         # click_link "new_property_link"
         # within('#new_property') { page.should have_content("New Property") }
-        # 
+        #
         # fill_in "property_name", :with => "color of band"
         # fill_in "property_presentation", :with => "color"
         # click_button "Create"
@@ -50,14 +50,14 @@ describe "Admin - Properties" do
     #     click_link "Properties"
     #     within_row(1) { click_icon :edit }
     #   end
-    # 
+    #
     #   it "should allow an admin to edit an existing product property" do
     #     fill_in "property_name", :with => "model 99"
     #     click_button "Update"
     #     page.should have_content("successfully updated!")
     #     page.should have_content("model 99")
     #   end
-    #   
+    #
     #   it "should show validation errors" do
     #     fill_in "property_name", :with => ""
     #     click_button "Update"

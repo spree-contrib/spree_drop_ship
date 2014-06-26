@@ -14,12 +14,12 @@ describe Spree::StockLocation do
     context "passes backorderable default config" do
       context "true" do
         before { subject.backorderable_default = true }
-        it { stock_item.backorderable.should be_true }
+        it { stock_item.backorderable.should be true }
       end
 
       context "false" do
         before { subject.backorderable_default = false }
-        it { stock_item.backorderable.should be_false }
+        it { stock_item.backorderable.should be false }
       end
     end
 
