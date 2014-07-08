@@ -35,7 +35,7 @@ describe 'Admin - Shipments', js: true do
         end
         within 'table.index tr.edit-tracking' do
           fill_in "tracking", :with => "FOOBAR"
-          click_icon :ok
+          click_icon :check
         end
         within 'table.index tr.show-tracking' do
           page.should have_content("Tracking: FOOBAR")
@@ -47,7 +47,7 @@ describe 'Admin - Shipments', js: true do
           click_icon :edit
         end
         select2 "Default", from: "Shipping Method"
-        click_icon :ok
+        click_icon :check
         wait_for_ajax
 
         page.should have_content("Default $0.00")
