@@ -23,7 +23,7 @@ This is still currently a work in progress, and any input is welcome.
 Upgrading
 ---------
 
-**Warning: Upgrading to Spree 2.2.x when using this extension is not backwards compatible.
+**Warning: Upgrading to Spree 2.2.x & 2.3.x when using this extension is not backwards compatible.
             I have removed the notion of drop ship orders which payments & commission were previously tracked to.
             Now suppliers simply manage their shipments, and payments & commission are now linked to a payable object i.e. shipment in this case.
             This means the previous method of determining a suppliers commission is no longer valid, and you will need to migrate your data accordingly.**
@@ -107,9 +107,7 @@ Todo
 - Must allow suppliers to edit their stock location addresses & require it.
 - Return Authorization UI
 - Better documentation
-- Determine how best to handle single product having multiple suppliers.  Needs to move supplier association to variant level.
 - related products should only allow suppliers own products to be related
-- depending on how we handle suppliers selling the same product we should consider not creating stock items at all for variants / stock locations supplier doesnt own.  that way we would no longer need the packer_decorator.  This would require we go the route of creating a variant for each different supplier. (supplier as option type?)
 
 Contributing
 ------------
