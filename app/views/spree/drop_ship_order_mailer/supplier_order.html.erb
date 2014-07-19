@@ -107,7 +107,7 @@
             <tr>
               <td bgcolor="#EAEAEA" align="center" style="background:#eaeaea;text-align:center">
                 <center>
-                  <p style="font-size:12px;margin:0"><%= raw Spree.t('drop_ship_order_mailer.supplier_order.thank_you_again', name: Spree::Config[:site_name]) %></p>
+                  <p style="font-size:12px;margin:0"><%= raw Spree.t('drop_ship_order_mailer.supplier_order.thank_you_again', name: Spree::Store.current.name) %></p>
                 </center>
               </td>
             </tr>

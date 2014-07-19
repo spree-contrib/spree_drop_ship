@@ -11,6 +11,10 @@ module SpreeDropShip
       g.test_framework :rspec
     end
 
+    initializer 'spree_drop_ship.custom_splitters', after: 'spree.register.stock_splitters' do |app|
+      app.config.spree.stock_splitters << Spree::Stock::Splitter::DropShip
+    end
+
     initializer "spree_drop_ship.preferences", before: :load_config_initializers  do |app|
       SpreeDropShip::Config = Spree::DropShipConfiguration.new
     end
