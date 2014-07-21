@@ -21,16 +21,6 @@ Spree::Shipment.class_eval do
     ((self.final_price_with_items * self.supplier.commission_percentage / 100) + self.supplier.commission_flat_rate)
   end
 
-  # TODO: make this optional in core
-  # Makes shipment ready before payment captured.
-  # def determine_state(order)
-  #   return 'canceled' if order.canceled?
-  #   return 'pending' unless order.can_ship?
-  #   return 'pending' if inventory_units.any? &:backordered?
-  #   return 'shipped' if state == 'shipped'
-  #   return 'ready'
-  # end
-
   private
 
   durably_decorate :after_ship, mode: 'soft', sha: 'd0665a43fd8805f9fd1958b988e35f12f4cee376' do
