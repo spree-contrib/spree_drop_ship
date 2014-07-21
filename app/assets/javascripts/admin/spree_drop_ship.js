@@ -1,4 +1,4 @@
-//= require admin/spree_backend
+//= require spree/backend
 // Shipments AJAX API
 
 $(document).ready(function() {
