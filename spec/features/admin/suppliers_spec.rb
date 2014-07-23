@@ -74,10 +74,7 @@ feature 'Admin - Suppliers', js: true do
     before do
       @user = create(:supplier_user)
       login_user @user
-      visit spree.account_path
-      within 'dd.supplier-info' do
-        click_link 'Edit'
-      end
+      visit spree.edit_admin_supplier_path(@user.supplier)
     end
 
     scenario 'should only see tabs they have access to' do
@@ -89,7 +86,6 @@ feature 'Admin - Suppliers', js: true do
         page.should_not have_link('Promotions')
         page.should_not have_link('Suppliers')
         page.should have_link('Shipments')
-
       end
     end
 
