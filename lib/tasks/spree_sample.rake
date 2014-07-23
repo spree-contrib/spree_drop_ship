@@ -17,7 +17,7 @@ namespace :spree_sample do
 
     puts "Linking existing line items to suppliers"
     Spree::LineItem.all.each do |li|
-      print "*" if li.product.supplier_id = @suppliers.shuffle.first.id and li.save
+      print "*" if li.product.add_supplier! @suppliers.shuffle.first.id and li.save
     end
     puts
 
