@@ -1,9 +1,6 @@
 module Spree
   class DropShipConfiguration < Preferences::Configuration
 
-    # Allow users to signup as a supplier.
-    preference :allow_signup, :boolean, default: false
-
     # Automatically deliver drop ship orders by default.
     preference :automatically_deliver_orders_to_supplier, :boolean, default: true
 
