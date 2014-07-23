@@ -2,12 +2,12 @@ namespace :spree_sample do
   desc "Create sample drop ship orders"
   task :drop_ship_orders => :environment do
     if Spree::Order.count == 0
-      puts "Please run `rake spree_sample:load` first to create products and orders" 
+      puts "Please run `rake spree_sample:load` first to create products and orders"
       exit
     end
 
     if Spree::Supplier.count == 0
-      puts "Please run `rake spree_sample:suppliers` first to create suppliers" 
+      puts "Please run `rake spree_sample:suppliers` first to create suppliers"
       exit
     end
 
@@ -34,13 +34,13 @@ namespace :spree_sample do
     SpreeDropShip::Config[:send_supplier_email] = false
 
     @usa = Spree::Country.find_by_iso("US")
-    @ca  = @usa.states.find_by_abbr("CA") 
+    @ca  = @usa.states.find_by_abbr("CA")
 
     count = Spree::Supplier.count
     puts "Creating Suppliers..."
     5.times{|i|
       name = "Supplier #{count + i + 1}"
-      supplier = Spree::Supplier.new(:name => name, 
+      supplier = Spree::Supplier.new(:name => name,
                                    :email => "#{name.parameterize}@example.com",
                                    :url => "http://example.com")
       supplier.build_address(:firstname => name, :lastname => name,
@@ -60,9 +60,9 @@ namespace :spree_sample do
     count         = 0
 
     @products.each do |product|
-      product.supplier_id = @supplier_ids[rand(@supplier_ids.length)]
+      product.add_supplier! Spree::Supplier.find(@supplier_ids[rand(@supplier_ids.length)])
       product.save
-      count += 1 
+      count += 1
       print "*"
     end
     puts
