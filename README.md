@@ -102,7 +102,6 @@ bundle exec rspec spec
 Todo
 ----
 
-- suppliers should be able to manage option types and values (unsure about whether to scope to supplier or not, but thats probably best solution for everyone)
 - Stock Items should automatically be set to backorderable false if the variant doesnt belong to the stock locations supplier.
 - Must allow suppliers to edit their stock location addresses & require it.
 - Return Authorization UI
