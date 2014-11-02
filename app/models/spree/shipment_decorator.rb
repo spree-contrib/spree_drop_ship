@@ -1,6 +1,6 @@
 Spree::Shipment.class_eval do
 
-  durably_decorate :after_ship, mode: 'soft', sha: 'c7dd7da83420baf63a8c4dfbc0c4b3ca8d882c52' do
+  durably_decorate :after_ship, mode: 'soft', sha: 'd0665a43fd8805f9fd1958b988e35f12f4cee376' do
     original_after_ship
     if drop_ship_order and drop_ship_order.shipments.size == drop_ship_order.shipments.shipped.size
       drop_ship_order.complete!

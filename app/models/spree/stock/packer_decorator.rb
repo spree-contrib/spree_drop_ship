@@ -1,5 +1,5 @@
 Spree::Stock::Packer.class_eval do
-  durably_decorate :default_package, mode: 'soft', sha: '4432bd6c0de591778873ae53f0be188d78d75ad8' do
+  durably_decorate :default_package, mode: 'soft', sha: '96ea67bfbef8dfd4ef6c741730b2c5c5a9ef175d' do
     package = Spree::Stock::Package.new(stock_location, order)
     order.line_items.each do |line_item|
 
