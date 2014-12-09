@@ -1,8 +1,8 @@
 <!-- replace_contents '[data-hook="admin_products_index_rows"]' -->
 
-
+<%# Changed classes to new like https://github.com/spree/spree/blob/master/backend/app/views/spree/admin/stock_locations/_form.html.erb %>
 <td class="sku"><%= product.sku rescue '' %></td>
-<td class="image"><%= mini_image(product), class: "thumbnail" %></td>
+<td class="image"><%= mini_image product, class: "thumbnail" %></td>
 <td>
   <% if try_spree_current_user && try_spree_current_user.supplier? %>
     <%= link_to product.try(:name), stock_admin_product_path(product)%>

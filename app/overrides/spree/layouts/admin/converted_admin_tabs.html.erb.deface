@@ -1,5 +1,6 @@
-<!-- insert_bottom "[data-hook='admin_tabs']" -->
+<!-- insert_bottom "ul[class='sidebar-menu']" -->
 
+<%# Add sidebar's items for supplier %>
 <% if can? :index, Spree::Supplier %>
   <%= tab :suppliers, label: Spree.t(:suppliers), match_path: '/suppliers', icon: 'building' %>
 <% end %>
