@@ -11,38 +11,38 @@
 <div data-hook="supplier_details_wrapper" class="col-md-6">
   <fieldset class="no-border-bottom">
     <legend align="center" ><%= Spree.t('supplier_details') %></legend>
-    <%= form.field_container :name, class: 'form-group' do %>
+    <%= form.field_container :name, class: ['form-group'] do %>
       <%= form.label :name, Spree::Supplier.human_attribute_name(:name) %>:<br />
       <%= form.text_field :name, :class => 'form-control' %>
     <% end %>
-    <%= form.field_container :email, class: 'form-group' do %>
+    <%= form.field_container :email, class: ['form-group'] do %>
       <%= form.label :email, Spree::Supplier.human_attribute_name(:email) %>:<br />
       <%= form.email_field :email, :class => 'form-control' %>
       <%# email validation %>
       <%= error_message_on :user, :email %>
     <% end %>
-    <%= form.field_container :url, class: 'form-group' do %>
+    <%= form.field_container :url, class: ['form-group'] do %>
       <%= form.label :url, Spree::Supplier.human_attribute_name(:url) %>:<br />
       <%= form.text_field :url, :class => 'form-control' %>
     <% end %>
-    <%= form.field_container :tax_id, class: 'form-group' do %>
+    <%= form.field_container :tax_id, class: ['form-group'] do %>
       <%= form.label :tax_id, Spree::Supplier.human_attribute_name(:tax_id) %>:<br />
       <%= form.text_field :tax_id, :class => 'form-control' %>
     <% end %>
     <% if spree_current_user.admin? %>
-      <%= form.field_container :commission_flat_rate, class: 'form-group' do %>
+      <%= form.field_container :commission_flat_rate, class: ['form-group'] do %>
         <%= form.label :commission_flat_rate, Spree::Supplier.human_attribute_name(:commission_flat_rate) %>:<br />
         <%= form.text_field :commission_flat_rate, :class => 'form-control' %>
       <% end %>
-      <%= form.field_container :commission_percentage , class: 'form-group'do %>
+      <%= form.field_container :commission_percentage , class: ['form-group']do %>
         <%= form.label :commission_percentage, Spree::Supplier.human_attribute_name(:commission_percentage) %>:<br />
         <%= form.text_field :commission_percentage, :class => 'form-control' %>
       <% end %>
-      <%= form.field_container :users, class: 'form-group' do %>
+      <%= form.field_container :users, class: ['form-group'] do %>
         <%= form.label :users %><br/>
         <%= hidden_field_tag 'supplier[user_ids_string]', form.object.user_ids.join(','), class: 'form-control user_picker' %>
       <% end %>
-      <%= form.field_container :active, class: 'form-group' do %>
+      <%= form.field_container :active, class: ['form-group'] do %>
         <%= form.label :active, Spree::Supplier.human_attribute_name(:active) %>:<br />
         <%= form.check_box :active , class: 'form-checkbox' %>
       <% end %>

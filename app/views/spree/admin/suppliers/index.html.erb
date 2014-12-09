@@ -30,7 +30,7 @@
 <%= render :partial => 'spree/admin/shared/index_table_options', :locals => { :collection => @collection } %>
 
 <% if @collection.any? %>
-  <table class="index" id="listing_suppliers">
+  <table class="table" id="listing_suppliers">
     <thead>
       <tr data-hook='admin_suppliers_index_headers'>
         <th><%= sort_link @search, :name,  Spree::Supplier.human_attribute_name(:name) %></th>
