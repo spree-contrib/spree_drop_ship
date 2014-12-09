@@ -1,4 +1,4 @@
-<!-- insert_top -->
+<!-- insert_top "[data-hook='admin_tabs']" -->
 
 <% if try_spree_current_user && try_spree_current_user.supplier? %>
   <%= tab :profile, url: spree.edit_admin_supplier_url(spree_current_user.supplier_id), match_path: '/suppliers', icon: 'user' %>
