@@ -1,6 +1,6 @@
 <!-- replace_contents '[data-hook="admin_products_index_rows"]' -->
 
-<!-- Changed classes to new like https://github.com/spree/spree/blob/master/backend/app/views/spree/admin/stock_locations/_form.html.erb -->
+
 <td class="sku"><%= product.sku rescue '' %></td>
 <td class="image"><%= mini_image(product), class: "thumbnail" %></td>
 <td>
