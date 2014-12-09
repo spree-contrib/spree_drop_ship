@@ -10,4 +10,6 @@
 
 <%= form_for [:admin, @object] do |f| %>
   <%= render "form", form: f %>
+  <%# render 'create' and 'cancel'  buttons %>
+  <%= render :partial => 'spree/admin/shared/new_resource_links' %>
 <% end %>
