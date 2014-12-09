@@ -1,4 +1,4 @@
-<!-- insert_bottom "[data-hook='admin_tabs']" -->
+<!-- insert_bottom -->
 
 <% if can? :index, Spree::Supplier %>
   <%= tab :suppliers, label: Spree.t(:suppliers), match_path: '/suppliers', icon: 'building' %>

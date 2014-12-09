@@ -1,5 +1,0 @@
-<!-- surround 'erb[loud]:contains("spree/admin/shared/configuration_menu")' -->
-
-<% if !try_spree_current_user.supplier? %>
-  <%= render_original %>
-<% end %>
