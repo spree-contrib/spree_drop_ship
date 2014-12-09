@@ -1,4 +1,4 @@
-<div data-hook="supplier_address_wrapper" class="col-md-6">
+<div data-hook="supplier_address_wrapper" class="col-md-8">
   <fieldset class="no-border-bottom">
     <legend align="center"><%= Spree.t('contact_address') %></legend>
     <%= form.fields_for :address do |contact_form| %>
@@ -8,7 +8,7 @@
 </div>
 
 <%# added bootstrap classes for 'field_container' and '' %>
-<div data-hook="supplier_details_wrapper" class="col-md-6">
+<div data-hook="supplier_details_wrapper" class="col-md-8">
   <fieldset class="no-border-bottom">
     <legend align="center" ><%= Spree.t('supplier_details') %></legend>
     <%= form.field_container :name, class: ['form-group'] do %>
