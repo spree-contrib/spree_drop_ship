@@ -3,11 +3,11 @@
 <%# Add sidebar's items for supplier %>
 <%# Need test icons!!!! %>
 <% if can? :index, Spree::Supplier %>
-  <%= tab :suppliers, label: Spree.t(:suppliers), match_path: '/suppliers', icon: 'glyphicon-home' %>
+  <%= tab :suppliers, label: Spree.t(:suppliers), match_path: '/suppliers', icon: 'home' %>
 <% end %>
 <% if can? :index, Spree::Shipment %>
-  <%= tab :shipments, label: Spree.t(:shipments), match_path: '/shipments', icon: 'glyphicon-plane' %>
+  <%= tab :shipments, label: Spree.t(:shipments), match_path: '/shipments', icon: 'plane' %>
 <% end %>
 <% if try_spree_current_user.try(:supplier?) and can? :index, Spree::StockLocation %>
-  <%= tab :stock_locations, label: Spree.t(:stock_locations), match_path: '/stock_locations', icon: 'glyphicon-globe' %>
+  <%= tab :stock_locations, label: Spree.t(:stock_locations), match_path: '/stock_locations', icon: 'globe' %>
 <% end %>

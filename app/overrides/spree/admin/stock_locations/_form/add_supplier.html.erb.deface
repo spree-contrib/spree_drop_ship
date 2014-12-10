@@ -5,7 +5,7 @@
     <div class='form-group'>
       <%= f.field_container :supplier do %>
         <%= f.label :supplier_id, Spree.t(:supplier) %>
-        <%= f.collection_select(:supplier_id, Spree::Supplier.all, :id, :name, { :include_blank => 'None' }, { :class => 'fullwidth select2' }) %>
+        <%= f.collection_select(:supplier_id, Spree::Supplier.all, :id, :name, { :include_blank => 'None' }, { :class => 'select2' }) %>
         <%= f.error_message_on :supplier %>
       <% end %>
     </div>

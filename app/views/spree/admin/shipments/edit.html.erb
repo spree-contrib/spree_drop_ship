@@ -4,7 +4,7 @@
 
 <% if spree_current_user.admin? && @shipment.supplier.present? %>
   <div data-hook="admin_shipment_supplier" class="row">
-    <fieldset class="alpha twelve columns no-border-bottom">
+    <fieldset class="col-md-12 no-border-bottom">
       <legend align="center"><%= Spree.t(:supplier_information) %></legend>
       <div>
         <b><%= Spree::Supplier.human_attribute_name(:name) %>:</b> <%= @shipment.supplier.name %><br/>
