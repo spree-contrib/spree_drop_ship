@@ -11,9 +11,9 @@
   <% end %>
 </td>
 <td><%= product.display_price.to_html rescue '' %></td>
-<td class="actions actions-3" data-hook="admin_products_index_row_actions">
+<td class="actions" data-hook="admin_products_index_row_actions">
   <% if try_spree_current_user && try_spree_current_user.supplier? %>
-    <%= link_to 'Stock Management', stock_admin_product_path(product), class: 'edit' if can?(:stock, product) && !product.deleted? %>
+    <%= link_to 'SM', stock_admin_product_path(product), title:'Stock Management', class: 'btn btn-default btn-sm with-tip without-textdecor' if can?(:stock, product) && !product.deleted? %>
   <% else %>
     <%= link_to_edit product, :no_text => true, :class => 'edit' if can?(:edit, product) && !product.deleted? %>
   <% end %>
