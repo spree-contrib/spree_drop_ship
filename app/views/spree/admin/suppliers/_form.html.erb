@@ -1,4 +1,4 @@
-<div data-hook="supplier_address_wrapper" class="col-md-8">
+<div data-hook="supplier_address_wrapper" class="col-md-6">
   <fieldset class="no-border-bottom">
     <legend align="center"><%= Spree.t('contact_address') %></legend>
     <%= form.fields_for :address do |contact_form| %>
@@ -8,7 +8,7 @@
 </div>
 
 <%# added bootstrap classes for 'field_container' and '' %>
-<div data-hook="supplier_details_wrapper" class="col-md-8">
+<div data-hook="supplier_details_wrapper" class="col-md-6">
   <fieldset class="no-border-bottom">
     <legend align="center" ><%= Spree.t('supplier_details') %></legend>
     <%= form.field_container :name, class: ['form-group'] do %>
@@ -40,11 +40,15 @@
       <% end %>
       <%= form.field_container :users, class: ['form-group'] do %>
         <%= form.label :users %><br/>
-        <%= hidden_field_tag 'supplier[user_ids_string]', form.object.user_ids.join(','), class: 'form-control user_picker' %>
+        <%= hidden_field_tag 'supplier[user_ids_string]', form.object.user_ids.join(','), class: 'user_picker' %>
       <% end %>
       <%= form.field_container :active, class: ['form-group'] do %>
-        <%= form.label :active, Spree::Supplier.human_attribute_name(:active) %>:<br />
-        <%= form.check_box :active , class: 'form-checkbox' %>
+        <div class="checkbox">
+        <%= label_tag :active do %>
+            <%= form.check_box :active %>
+            <%= Spree::Supplier.human_attribute_name(:active) %>
+        <% end %>
+        </div>
       <% end %>
     <% end %>
     <%# This moved to _edit(new)_resource_links.html.erb %>
