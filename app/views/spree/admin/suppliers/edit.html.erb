@@ -12,10 +12,11 @@
 
 <%= form_for [:admin, @object] do |f| %>
   <%= render "form", form: f %>
+  <div data-hook="supplier_right_column_wrapper" class="col-md-4"></div>
   <%# render 'update' and 'cancel'  buttons %>
   <div class="col-md-8">
   <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
   </div>
 <% end %>
 
-<div data-hook="supplier_right_column_wrapper" class="col-md-4 col-md-offset-2"></div>
+
