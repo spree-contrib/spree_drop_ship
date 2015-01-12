@@ -87,7 +87,7 @@
 <% else %>
     <%# New alert 'Not Found' with i18n %>
     <div class="alert alert-info no-objects-found">
-      <%= Spree.t(:no_resource_found, resource: I18n.t(:other, scope: 'activerecord.models.spree/shipment')) %>,
+      <%= Spree.t(:no_resource_found, 'shipments') %>,
     </div>
 <% end %>
 

@@ -1,6 +1,6 @@
 <%# Updated icon %>
 <% content_for :page_actions do %>
-  <li><%= button_link_to Spree.t('new_supplier'), new_object_url, icon: 'add', class: 'btn-success' %></li>
+  <%= button_link_to Spree.t('new_supplier'), new_object_url, icon: 'add', class: 'btn-success' %>
 <% end %>
 
 <% content_for :page_title do %>
@@ -62,7 +62,7 @@
 <% else %>
   <%# New alert with link to add new supplier %>
   <div class="alert alert-info no-objects-found">
-    <%= Spree.t(:no_resource_found, resource: I18n.t(:other, scope: 'activerecord.models.spree/supplier')) %>,
+    <%= Spree.t(:no_resource_found, 'suppliers') %>,
     <%= link_to Spree.t(:add_one), spree.new_admin_supplier_path %>!
   </div>
 <% end %>
