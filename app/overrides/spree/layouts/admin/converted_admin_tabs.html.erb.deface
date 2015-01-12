@@ -1,4 +1,4 @@
-<!-- insert_bottom ""div#main-sidebar"" -->
+<!-- insert_bottom "div#main-sidebar" -->
 
 <%# Add sidebar's items for supplier %>
 <% if can? :index, Spree::Supplier %>
