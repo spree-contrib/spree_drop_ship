@@ -1,4 +1,4 @@
-<!-- insert_top "ul[class='sidebar-menu']" -->
+<!-- insert_top "div#main-sidebar" -->
 
 <%# Add tab "profile to admin tabs" %>
 <% if try_spree_current_user && try_spree_current_user.supplier? %>
