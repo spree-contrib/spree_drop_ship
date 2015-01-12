@@ -62,7 +62,7 @@
 <% else %>
   <%# New alert with link to add new supplier %>
   <div class="alert alert-info no-objects-found">
-    <%= Spree.t(:no_resource_found, 'suppliers') %>,
+    <%= Spree.t(:no_resource_found, resource: Spree::Supplier.model_name.human(count: :many)) %>,
     <%= link_to Spree.t(:add_one), spree.new_admin_supplier_path %>!
   </div>
 <% end %>
