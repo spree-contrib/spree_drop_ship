@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_drop_ship'
-  s.version     = '3.0.0.beta'
+  s.version     = '3.0.1.beta'
   s.summary     = 'Spree Drop Shipping Extension'
   s.description = 'Adds drop shipping functionality to Spree stores.'
   s.required_ruby_version = '>= 2.0.0'
