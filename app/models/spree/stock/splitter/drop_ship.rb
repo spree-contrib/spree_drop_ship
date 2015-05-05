@@ -26,7 +26,7 @@ module Spree
               if existing_package = split_packages.detect { |p| p.stock_location == stock_location }
                 existing_package.contents << content
               else
-                split_packages << Spree::Stock::Package.new(stock_location, order, [content])
+                split_packages << Spree::Stock::Package.new(stock_location, [content])
               end
             end
           end
