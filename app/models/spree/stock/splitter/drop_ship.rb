@@ -15,7 +15,7 @@ module Spree
               # Select the related variant
               variant = content.variant
               # Select suppliers ordering ascending according to cost.
-              suppliers = variant.supplier_variants.order('spree_supplier_variants.cost ASC').map(&:supplier)
+              suppliers = variant.supplier_variants.order("spree_supplier_variants.cost ASC").map(&:supplier)
               # Select first supplier that has stock location with avialable stock item.
               available_supplier = suppliers.detect { |supplier| supplier.stock_locations_with_available_stock_items(variant).any? }
               # Select the first available stock location with in the available_supplier stock locations.

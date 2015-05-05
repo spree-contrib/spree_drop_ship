@@ -10,9 +10,9 @@ Spree::StockLocation.class_eval do
       self.stock_items.create!(variant: variant, backorderable: self.backorderable_default)
     end
   end
-  
+
   def available?(variant)
     stock_item(variant).try(:available?)
   end
-  
+
 end
