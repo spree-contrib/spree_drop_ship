@@ -54,7 +54,12 @@ class Spree::Supplier < Spree::Base
   def user_ids_string=(s)
     self.user_ids = s.to_s.split(',').map(&:strip)
   end
-
+  
+  # Retreive the stock locations that has available stock items of the given variant 
+  def stock_locations_with_available_stock_items(variant)
+    stock_locations.select { |sl| sl.available?(variant) }
+  end
+  
   #==========================================
   # Protected Methods
 
