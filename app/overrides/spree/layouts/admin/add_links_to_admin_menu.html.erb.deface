@@ -1,0 +1,7 @@
+<!-- insert_bottom "#main-sidebar" -->
+
+<% if can? :admin, Spree::Supplier %>
+  <ul class='nav nav-sidebar'>
+    <%= tab :suppliers, label: Spree.t(:suppliers), icon: 'transfer' %>
+  </ul>
+<% end %>
