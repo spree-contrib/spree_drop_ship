@@ -42,7 +42,7 @@ module Spree
         subject { DropShip.new(packer) }
 
         it 'splits packages for drop ship' do
-          package = Package.new(packer.stock_location, packer.order)
+          package = Package.new(packer.stock_location)
           package.add line_item_1, 1, :on_hand
           package.add line_item_2, 1, :on_hand
           package.add line_item_3, 1, :on_hand
