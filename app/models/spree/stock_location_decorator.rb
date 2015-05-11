@@ -11,4 +11,8 @@ Spree::StockLocation.class_eval do
     end
   end
 
+  def available?(variant)
+    stock_item(variant).try(:available?)
+  end
+
 end

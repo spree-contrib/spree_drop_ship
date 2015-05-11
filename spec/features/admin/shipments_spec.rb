@@ -28,7 +28,10 @@ describe 'Admin - Shipments', js: true do
       # TODO this is a hack until capture_on_dispatch finished https://github.com/spree/spree/issues/4727
       shipment.update_attribute :state, 'ready'
 
-      login_user create(:user, supplier: supplier)
+      user = create(:user, supplier: supplier)
+      user.generate_spree_api_key!
+      login_user user
+
       visit spree.edit_admin_shipment_path(shipment)
     end
 
