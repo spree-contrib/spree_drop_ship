@@ -38,35 +38,35 @@ describe 'Admin - Shipments', js: true do
     context 'edit page' do
 
       it "can add tracking information" do
-        within 'table.index tr.show-tracking' do
+        within '.table tr.show-tracking' do
           click_icon :edit
         end
-        within 'table.index tr.edit-tracking' do
+        within '.table tr.edit-tracking' do
           fill_in "tracking", with: "FOOBAR"
-          click_icon :ok
+          click_icon :save
         end
         wait_for_ajax
-        within 'table.index tr.show-tracking' do
+        within '.table tr.show-tracking' do
           page.should have_content("Tracking: FOOBAR")
         end
       end
 
       it "can change the shipping method" do
-        within("table.index tr.show-method") do
+        within(".table tr.show-method") do
           click_icon :edit
         end
         select2 "Default", from: "Shipping Method"
-        click_icon :ok
+        click_icon :save
         wait_for_ajax
 
         page.should have_content("Default $0.00")
       end
 
       it "can ship a completed order" do
-        click_on "ship"
+        click_on "Ship"
         wait_for_ajax
 
-        page.should have_content("SHIPPED PACKAGE")
+        page.should have_content("shipped package")
         order.reload.shipment_state.should == "shipped"
       end
     end

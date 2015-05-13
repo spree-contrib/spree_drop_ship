@@ -90,7 +90,7 @@ feature 'Admin - Product Stock Management', js: true do
       uncheck "Active"
       click_button "Update"
 
-      find('#listing_stock_locations').should have_content("INACTIVE")
+      find('#listing_stock_locations').should have_content("Inactive")
     end
 
   end
