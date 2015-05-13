@@ -65,7 +65,7 @@ FactoryGirl.define do
 
   factory :supplier, :class => Spree::Supplier do
     sequence(:name) { |i| "Big Store #{i}" }
-    email { Faker::Internet.email }
+    email { FFaker::Internet.email }
     url "http://example.com"
     address
     # Creating a stock location with a factory instead of letting the model handle it
