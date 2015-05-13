@@ -13,7 +13,7 @@ feature 'Admin - Suppliers', js: true do
     before do
       login_user create(:admin_user)
       visit spree.admin_path
-      within 'ul[data-hook=admin_tabs]' do
+      within '[data-hook=admin_tabs]' do
         click_link 'Suppliers'
       end
       page.should have_content('Listing Suppliers')
@@ -40,7 +40,7 @@ feature 'Admin - Suppliers', js: true do
     end
 
     scenario 'should be able to delete supplier' do
-      click_icon 'trash'
+      click_icon 'delete'
       page.driver.browser.switch_to.alert.accept
       within 'table' do
         page.should_not have_content(@supplier.name)
@@ -70,7 +70,6 @@ feature 'Admin - Suppliers', js: true do
   end
 
   context 'as a Supplier' do
-
     before do
       @user = create(:supplier_user)
       login_user @user
@@ -78,7 +77,7 @@ feature 'Admin - Suppliers', js: true do
     end
 
     scenario 'should only see tabs they have access to' do
-      within '#admin-menu' do
+      within '[data-hook=admin_tabs]' do
         page.should_not have_link('Overview')
         page.should have_link('Products')
         page.should_not have_link('Reports')

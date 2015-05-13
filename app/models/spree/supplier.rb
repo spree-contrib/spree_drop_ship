@@ -56,7 +56,7 @@ class Spree::Supplier < Spree::Base
   end
 
   # Retreive the stock locations that has available
-  # stock items of the given variant 
+  # stock items of the given variant
   def stock_locations_with_available_stock_items(variant)
     stock_locations.select { |sl| sl.available?(variant) }
   end
@@ -96,7 +96,7 @@ class Spree::Supplier < Spree::Base
 
     def send_welcome
       begin
-        Spree::SupplierMailer.welcome(self.id).deliver!
+        Spree::SupplierMailer.welcome(self.id).deliver_later!
         # Specs raise error for not being able to set default_url_options[:host]
       rescue => ex #Errno::ECONNREFUSED => ex
         Rails.logger.error ex.message

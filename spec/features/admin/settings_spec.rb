@@ -6,7 +6,7 @@ describe 'Admin - DropShip Settings', js: true do
     login_user create(:admin_user)
 
     visit spree.admin_path
-    within 'ul[data-hook=admin_tabs]' do
+    within '[data-hook=admin_tabs]' do
       click_link 'Configuration'
     end
     within 'ul[data-hook=admin_configurations_sidebar_menu]' do
