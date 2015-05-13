@@ -27,13 +27,13 @@ describe "Stock Management", js: true do
           within '#sidebar-product' do
             click_link 'Products'
           end
-          within_row(1) do
-            click_link "Stock Management"
+          click_link @product.name
+          within '[data-hook=admin_product_tabs]' do
+            click_link "Stock"
           end
         end
 
         it "should not show deleted stock_items" do
-          click_link "Stock Management"
           within(:css, '.stock_location_info') do
             page.should have_content(@user.supplier.name)
             page.should_not have_content('Secondary')
@@ -41,8 +41,6 @@ describe "Stock Management", js: true do
         end
 
         it "can toggle backorderable for a variant's stock item", js: true do
-          click_link "Stock Management"
-
           backorderable = find(".stock_item_backorderable")
           backorderable.should_not be_checked
 
@@ -113,12 +111,12 @@ describe "Stock Management", js: true do
           v.stock_items.first.update_column(:count_on_hand, 30)
 
           click_link "Products"
-          click_link "Products"
           within '#sidebar-product' do
             click_link 'Products'
           end
-          within_row(1) do
-            click_link "Stock Management"
+          click_link @product.name
+          within '[data-hook=admin_product_tabs]' do
+            click_link "Stock"
           end
         end
 
@@ -137,16 +135,13 @@ describe "Stock Management", js: true do
       before do
         @product = create(:product, name: 'apache baseball cap', price: 10)
         @product.add_supplier! @user.supplier
-        v = @product.variants.create!(sku: 'FOOBAR')
+        @product.variants.create!(sku: 'FOOBAR')
         Spree::StockLocation.delete_all
-        click_link "Products"
         click_link "Products"
         within '#sidebar-product' do
           click_link 'Products'
         end
-        within_row(1) do
-          click_link "Stock Management"
-        end
+        click_link @product.name
       end
 
       it "redirects to stock locations page" do
