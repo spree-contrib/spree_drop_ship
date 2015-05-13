@@ -1,4 +1,4 @@
-Spree::Api::StockLocationsController.class_eval do
+Spree::Api::V1::StockLocationsController.class_eval do
 
   before_filter :supplier_locations, only: [:index]
   before_filter :supplier_transfers, only: [:index]
