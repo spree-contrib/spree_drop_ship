@@ -9,7 +9,7 @@ describe Spree::SupplierAbility do
   let(:token) { nil }
 
   context 'for Dash' do
-    let(:resource) { Spree::Admin::OverviewController }
+    let(:resource) { Spree::Admin::RootController }
 
     context 'requested by supplier' do
       it_should_behave_like 'access denied'

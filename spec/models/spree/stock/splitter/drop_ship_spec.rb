@@ -32,10 +32,9 @@ module Spree
         }
         let(:variant_4) { create(:variant) }
 
-        let(:line_item_1) { build(:line_item, variant: variant_1) }
-        let(:line_item_2) { build(:line_item, variant: variant_2) }
-        let(:line_item_3) { build(:line_item, variant: variant_3) }
-        let(:line_item_4) { build(:line_item, variant: variant_4) }
+        let(:variants){
+          [variant_1, variant_2, variant_3, variant_4]
+        }
 
         let(:packer) { build(:stock_packer) }
 
@@ -43,10 +42,8 @@ module Spree
 
         it 'splits packages for drop ship' do
           package = Package.new(packer.stock_location)
-          package.add line_item_1, 1, :on_hand
-          package.add line_item_2, 1, :on_hand
-          package.add line_item_3, 1, :on_hand
-          package.add line_item_4, 1, :on_hand
+          package = Package.new(packer.stock_location)
+          4.times { |i| package.add build(:inventory_unit, variant: variants[i]) }
 
           packages = subject.split([package])
           packages.count.should eq 3
