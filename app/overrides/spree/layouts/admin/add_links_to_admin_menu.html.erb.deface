@@ -13,5 +13,7 @@
 <% end %>
 
 <% if try_spree_current_user.try(:supplier?) and can? :index, Spree::StockLocation %>
-  <%= tab :stock_locations, label: Spree.t(:stock_locations), match_path: '/stock_locations', icon: 'map-marker' %>
+  <ul class='nav nav-sidebar'>
+    <%= tab :stock_locations, label: Spree.t(:stock_locations), icon: 'map-marker' %>
+  </ul>
 <% end %>
