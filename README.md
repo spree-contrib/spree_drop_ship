@@ -1,9 +1,9 @@
 # Spree Drop Ship
 
 [![Build Status](https://travis-ci.org/spree-contrib/spree_drop_ship.png)](https://travis-ci.org/spree-contrib/spree_drop_ship)
-[![Code Climate](https://codeclimate.com/github/jdutil/spree_drop_ship.png)](https://codeclimate.com/github/jdutil/spree_drop_ship)
-[![Coverage Status](https://coveralls.io/repos/jdutil/spree_drop_ship/badge.png?branch=master)](https://coveralls.io/r/jdutil/spree_drop_ship)
-[![Dependency Status](https://gemnasium.com/jdutil/spree_drop_ship.png?travis)](https://gemnasium.com/jdutil/spree_drop_ship)
+[![Code Climate](https://codeclimate.com/github/spree-contrib/spree_drop_ship.png)](https://codeclimate.com/github/spree-contrib/spree_drop_ship)
+[![Coverage Status](https://coveralls.io/repos/spree-contrib/spree_drop_ship/badge.png?branch=master)](https://coveralls.io/r/spree-contrib/spree_drop_ship)
+[![Dependency Status](https://gemnasium.com/spree-contrib/spree_drop_ship.png?travis)](https://gemnasium.com/spree-contrib/spree_drop_ship)
 
 What is drop shipping?
 
@@ -42,7 +42,7 @@ Here's how to install spree_drop_ship into your existing spree site AFTER you've
 
 Add the following to your Gemfile:
 
-    gem 'spree_drop_ship', github: 'jdutil/spree_drop_ship'
+    gem 'spree_drop_ship', github: 'spree-contrib/spree_drop_ship'
 
 Make your bundle happy:
 
@@ -79,7 +79,7 @@ Demo
 You can easily use the spec/dummy app as a demo of spree_drop_ship. Just `cd` to where you develop and run:
 
 ```shell
-git clone git://github.com/jdutil/spree_drop_ship.git
+git clone git://github.com/spree-contrib/spree_drop_ship.git
 cd spree_drop_ship
 bundle install
 bundle exec rake test_app
@@ -116,14 +116,14 @@ In the spirit of [free software](http://www.fsf.org/licensing/essays/free-sw.htm
 Here are some ways *you* can contribute:
 
 * by using prerelease versions
-* by reporting [bugs](https://github.com/jdutil/spree_drop_ship/issues)
+* by reporting [bugs](https://github.com/spree-contrib/spree_drop_ship/issues)
 * by suggesting new features
-* by [translating to a new language](https://github.com/jdutil/spree_drop_ship/tree/master/config/locales)
+* by [translating to a new language](https://github.com/spree-contrib/spree_drop_ship/tree/master/config/locales)
 * by writing or editing documentation
 * by writing specifications
 * by writing code (*no patch is too small*: fix typos, add comments, clean up inconsistent whitespace)
 * by refactoring code
-* by resolving [issues](https://github.com/jdutil/spree_drop_ship/issues)
+* by resolving [issues](https://github.com/spree-contrib/spree_drop_ship/issues)
 * by reviewing patches
 
 Donating
@@ -131,4 +131,4 @@ Donating
 
 Bitcoin donations may be sent to: 1L6akT6Aus9r6Ashw1wDtLg7D8zJCVVZac
 
-Copyright (c) 2012-2014 Jeff Dutil, released under the [New BSD License](https://github.com/jdutil/spree_drop_ship/tree/master/LICENSE).
+Copyright (c) 2012-2014 Jeff Dutil, released under the [New BSD License](https://github.com/spree-contrib/spree_drop_ship/tree/master/LICENSE).
