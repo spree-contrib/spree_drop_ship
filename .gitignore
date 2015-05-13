@@ -5,6 +5,8 @@
 .DS_Store
 .idea
 .project
+.ruby-gemset
+.ruby-version
 .sass-cache
 coverage
 Gemfile.lock
