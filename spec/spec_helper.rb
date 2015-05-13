@@ -29,9 +29,7 @@ require 'spree_drop_ship/factories'
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include IntegrationHelpers
-  config.include Spree::TestingSupport::ControllerRequests
   config.include Spree::TestingSupport::Preferences
-  config.include Spree::TestingSupport::UrlHelpers
 
   # == URL Helpers
   #
@@ -40,7 +38,7 @@ RSpec.configure do |config|
   # visit spree.admin_path
   # current_path.should eql(spree.products_path)
   config.include Spree::TestingSupport::UrlHelpers
-  config.include Spree::TestingSupport::ControllerRequests
+  config.include Spree::TestingSupport::ControllerRequests, type: :controller
 
   # Capybara javascript drivers require transactional fixtures set to false, and we use DatabaseCleaner
   # to cleanup after each test instead.  Without transactional fixtures set to false the records created
