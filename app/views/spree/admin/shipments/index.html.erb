@@ -6,65 +6,53 @@
   <%= Spree.t(:search) %>
 <% end %>
 
+<%# Update search form with new markup %>
 <% content_for :table_filter do %>
   <div data-hook="admin_shipments_index_search">
     <%= search_form_for [:admin, @search] do |f| %>
-      <div class="field-block alpha four columns">
-        <div class="date-range-filter field">
-          <%= label_tag nil, Spree.t(:date_range) %>
-          <div class="date-range-fields">
-            <%= f.text_field :created_at_gt, :class => 'datepicker datepicker-from', :value => params[:q][:created_at_gt], :placeholder => Spree.t(:start) %>
-
-            <span class="range-divider">
-              <i class="fa fa-arrow-right"></i>
-            </span>
-
-            <%= f.text_field :created_at_lt, :class => 'datepicker datepicker-to', :value => params[:q][:created_at_lt], :placeholder => Spree.t(:stop) %>
+    <div class="row">
+      <div class="date-range-filter col-md-6">
+        <div class="form-group">
+          <%= label_tag :q_created_at_gt, Spree.t(:date_range) %>
+          <div class="row">
+            <div class="col-md-6">
+              <%= f.text_field :created_at_gt, :class => 'datepicker datepicker-from form-control', :value => params[:q][:created_at_gt], :placeholder => Spree.t(:start) %>
+            </div>
+            <div class="col-md-6">
+              <%= f.text_field :created_at_lt, :class => 'datepicker datepicker-to form-control', :value => params[:q][:created_at_lt], :placeholder => Spree.t(:stop) %>
+            </div>
           </div>
         </div>
       </div>
-
-      <div class="four columns">
-        <div class="field">
+      </div>
+      <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
           <%= label_tag nil, Spree.t(:shipment_number) %>
-          <%= f.text_field :number_cont %>
+          <%= f.text_field :number_cont , class: 'form-control js-quick-search-target'%>
         </div>
       </div>
 
-      <div class="four columns">
-        <div class="field">
+      <div class="col-md-4">
+        <div class="form-group">
           <%= label_tag nil, Spree.t(:status) %><br/>
           <%= f.select :state_eq, Spree::Shipment.state_machines[:state].states.collect {|s| [Spree.t("shipment_state.#{s.name}"), s.value]}, {:include_blank => true}, :class => 'select2' %>
         </div>
       </div>
-
-      <div class="omega four columns">
       </div>
 
-      <div class="clearfix"></div>
-
-      <div class="actions filter-actions">
-        <div data-hook="admin_shipments_index_search_buttons">
-          <%= button Spree.t(:filter_results), 'fa fa-search' %>
+        <div data-hook="admin_shipments_index_search_buttons" class="form-actions">
+          <%= button Spree.t(:filter_results), 'search' %>
         </div>
-      </div>
     <% end %>
   </div>
 <% end %>
 
+<%# This is a new paginate! %>
+<%= render :partial => 'spree/admin/shared/index_table_options', :locals => { :collection => @shipments } %>
+
 <% unless @shipments.empty? %>
-  <table class="index responsive" id="listing_shipments" data-hook>
-    <colgroup>
-       <col style="width: 10%;">
-       <col style="width: 17%;">
-       <col style="width: 15%;">
-       <col style="width: 10%;">
-       <col style="width: 10%;">
-       <col style="width: 10%">
-       <col style="width: 10%;">
-       <col style="width: 10%;">
-       <col style="width: 8%;">
-    </colgroup>
+  <table class="table" id="listing_shipments" data-hook>
     <thead>
       <tr data-hook="admin_orders_index_headers">
         <th><%= sort_link @search, :created_at,          Spree.t(:created_at, :scope => 'activerecord.attributes.spree/shipment') %></th>
@@ -81,15 +69,15 @@
     <tbody>
     <% @shipments.each do |shipment| %>
       <tr data-hook="admin_shipments_index_rows" class="state-<%= shipment.state.downcase %> <%= cycle('odd', 'even') %>">
-        <td class="align-center"><%= l shipment.created_at.to_date %></td>
+        <td><%= l shipment.created_at.to_date %></td>
         <td><%= link_to shipment.number, spree.edit_admin_shipment_path(shipment) %></td>
-        <td class="align-center"><span class="state <%= shipment.state.downcase %>"><%= Spree.t("shipment_state.#{shipment.state.downcase}") %></span></td>
-        <td class="align-center"><%= shipment.display_item_cost.to_html %></td>
-        <td class="align-center"><%= shipment.display_cost.to_html %></td>
-        <td class="align-center"><%= Spree::Money.new(shipment.tax_total, currency: shipment.currency).to_html %></td>
-        <td class="align-center"><%= Spree::Money.new(shipment.final_price_with_items, currency: shipment.currency).to_html %></td>
-        <td class="align-center"><%= Spree::Money.new(shipment.supplier_commission, currency: shipment.currency).to_html %></td>
-        <td class='actions align-center' data-hook="admin_shipments_index_row_actions">
+        <td><span class="state <%= shipment.state.downcase %>"><%= Spree.t("shipment_state.#{shipment.state.downcase}") %></span></td>
+        <td> <%= shipment.display_item_cost.to_html %></td>
+        <td ><%= shipment.display_cost.to_html %></td>
+        <td><%= Spree::Money.new(shipment.tax_total, currency: shipment.currency).to_html %></td>
+        <td><%= Spree::Money.new(shipment.final_price_with_items, currency: shipment.currency).to_html %></td>
+        <td><%= Spree::Money.new(shipment.supplier_commission, currency: shipment.currency).to_html %></td>
+        <td data-hook="admin_shipments_index_row_actions">
           <%= link_to_edit_url spree.edit_admin_shipment_path(shipment), :title => "admin_edit_#{dom_id(shipment)}", :no_text => true %>
         </td>
       </tr>
@@ -97,9 +85,11 @@
     </tbody>
   </table>
 <% else %>
-  <div class="no-objects-found">
-    <%= Spree.t(:no_shipments_found)%>
-  </div>
+    <%# New alert 'Not Found' with i18n %>
+    <div class="alert alert-info no-objects-found">
+      <%= Spree.t(:no_resource_found, resource: Spree::Shipment.model_name.human(count: :many)) %>,
+    </div>
 <% end %>
 
-<%= paginate @shipments %>
+<%# This is a new paginate! %>
+<%= render :partial => 'spree/admin/shared/index_table_options', :locals => { :collection => @shipments } %>

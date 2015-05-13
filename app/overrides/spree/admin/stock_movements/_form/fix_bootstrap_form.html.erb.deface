@@ -1,0 +1,11 @@
+<!-- replace_contents '[data-hook="admin_stock_movements_form_fields"]' -->
+
+<%# Fix markup form bug %>
+<%= f.field_container :quantity, class: ['form-group'] do %>
+    <%= f.label :quantity, Spree.t(:quantity) %>
+    <%= f.text_field :quantity , class: 'form-control'%>
+<% end %>
+<%= f.field_container :stock_item_id, class: ['form-group'] do %>
+    <%= f.label :stock_item_id, Spree.t(:stock_item_id) %>
+    <%= f.text_field 'stock_item_id', :class => 'select2', :'data-stock-location-id' => params[:stock_location_id] %>
+<% end %>

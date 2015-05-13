@@ -1,6 +1,6 @@
 <% if can? :index, Spree::Supplier %>
   <% content_for :page_actions do %>
-    <li><%= button_link_to Spree.t('back_to_suppliers'), spree.admin_suppliers_path, icon: 'arrow-left' %></li>
+    <%= button_link_to Spree.t('back_to_suppliers'), spree.admin_suppliers_path, icon: 'arrow-left' %>
   <% end %>
 <% end %>
 
@@ -12,6 +12,11 @@
 
 <%= form_for [:admin, @object] do |f| %>
   <%= render "form", form: f %>
+  <div data-hook="supplier_right_column_wrapper" class="col-md-4"></div>
+  <%# render 'update' and 'cancel'  buttons %>
+  <div class="col-md-8">
+  <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
+  </div>
 <% end %>
 
-<div data-hook="supplier_right_column_wrapper" class="alpha center four columns"></div>
+

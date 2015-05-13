@@ -1,23 +1,21 @@
-<%= render :partial => 'spree/admin/shared/configuration_menu' %>
-
 <% content_for :page_title do %>
-  <%= Spree.t("drop_ship_settings") %>
+    <%= Spree.t("drop_ship_settings") %>
 <% end %>
 
 <%= form_tag(spree.admin_drop_ship_settings_path, :method => :put) do %>
-  <fieldset class="general no-border-top">
-    <% %w(automatically_deliver_orders_to_supplier default_commission_flat_rate default_commission_percentage send_supplier_email).each do |key|
-      type = SpreeDropShip::Config.preference_type(key) %>
-      <div class="field">
-        <%= label_tag(key, Spree.t(key) + ': ') + tag(:br) if type != :boolean %>
-        <%= preference_field_tag(key, SpreeDropShip::Config[key], :type => type) %>
-        <%= label_tag(key, Spree.t(key)) + tag(:br) if type == :boolean %>
+    <fieldset class="general no-border-top">
+      <% %w( default_commission_flat_rate default_commission_percentage automatically_deliver_orders_to_supplier send_supplier_email).each do |key|
+        type = SpreeDropShip::Config.preference_type(key) %>
+          <div class="field col-md-6">
+            <%= label_tag(key, Spree.t(key) + ': ') + tag(:br) if type != :boolean %>
+            <%= preference_field_tag(key, SpreeDropShip::Config[key], :type => type ,:class => 'form-control')%>
+            <%= label_tag(key, Spree.t(key)) + tag(:br) if type == :boolean %>
+          </div>
+      <% end %>
+      <div class="form-buttons" data-hook="buttons">
+        <%= button Spree.t(:update), 'update' %>
+        <span class="or"><%= Spree.t(:or) %></span>
+        <%= button_link_to Spree.t(:cancel), spree.edit_admin_drop_ship_settings_url, :icon => 'cancel' %>
       </div>
-    <% end %>
-    <div class="form-buttons filter-actions actions" data-hook="buttons">
-      <%= button Spree.t(:update), 'fa fa-refresh' %>
-      <span class="or"><%= Spree.t(:or) %></span>
-      <%= link_to_with_icon 'remove', Spree.t(:cancel), spree.edit_admin_drop_ship_settings_url, :class => 'button' %>
-    </div>
-  </fieldset>
+    </fieldset>
 <% end %>
