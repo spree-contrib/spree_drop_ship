@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'ffaker'
   s.add_development_dependency 'launchy'
   s.add_development_dependency 'rspec-rails',        '~> 2.99'
-  s.add_development_dependency 'sass-rails',         '~> 4.0.2'
+  s.add_development_dependency 'sass-rails', '~> 5.0.0.beta1'
   s.add_development_dependency 'selenium-webdriver'
   s.add_development_dependency 'shoulda-matchers'
   s.add_development_dependency 'spree_auth_devise'

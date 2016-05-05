@@ -24,8 +24,9 @@ describe "Stock Management", js: true do
           @v.stock_items.first.update_column(:count_on_hand, 10)
           @secondary.stock_item(@v).destroy
           click_link "Products"
+          sleep(1)
           within '#sidebar-product' do
-            click_link 'Products'
+            click_link "Products"
           end
           click_link @product.name
           within '[data-hook=admin_product_tabs]' do
@@ -111,6 +112,7 @@ describe "Stock Management", js: true do
           v.stock_items.first.update_column(:count_on_hand, 30)
 
           click_link "Products"
+          sleep(1)
           within '#sidebar-product' do
             click_link 'Products'
           end
@@ -138,6 +140,7 @@ describe "Stock Management", js: true do
         @product.variants.create!(sku: 'FOOBAR')
         Spree::StockLocation.delete_all
         click_link "Products"
+        sleep(1)
         within '#sidebar-product' do
           click_link 'Products'
         end
