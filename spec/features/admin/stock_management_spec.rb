@@ -25,7 +25,7 @@ describe "Stock Management", js: true do
           @secondary.stock_item(@v).destroy
           click_link "Products"
           sleep(1)
-          within '#sidebar-product li' do
+          within '#sidebar-product' do
             click_link "Products"
           end
           click_link @product.name
@@ -113,7 +113,7 @@ describe "Stock Management", js: true do
 
           click_link "Products"
           sleep(1)
-          within '#sidebar-product li' do
+          within '#sidebar-product' do
             click_link 'Products'
           end
           click_link @product.name
@@ -141,7 +141,7 @@ describe "Stock Management", js: true do
         Spree::StockLocation.delete_all
         click_link "Products"
         sleep(1)
-        within '#sidebar-product li' do
+        within '#sidebar-product' do
           click_link 'Products'
         end
         click_link @product.name

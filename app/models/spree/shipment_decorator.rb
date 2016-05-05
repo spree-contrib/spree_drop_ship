@@ -8,7 +8,7 @@ Spree::Shipment.class_eval do
 
   delegate :supplier, to: :stock_location
 
-  self.whitelisted_ransackable_attributes = ['number', 'state']
+  self.whitelisted_ransackable_attributes = ["number", "state"]
 
   def display_final_price_with_items
     Spree::Money.new final_price_with_items
