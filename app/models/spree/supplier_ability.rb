@@ -12,7 +12,7 @@ module Spree
         can [:admin, :read, :stock], Spree::Product do |product|
           product.supplier_ids.include?(user.supplier_id)
         end
-        can [:admin, :index], Spree::Product
+        can [:admin, :index, :manage, :create], Spree::Product
         can [:admin, :manage, :read, :ready, :ship], Spree::Shipment, order: { state: 'complete' }, stock_location: { supplier_id: user.supplier_id }
         can [:admin, :create, :update], :stock_items
         can [:admin, :manage], Spree::StockItem, stock_location_id: user.supplier.stock_locations.pluck(:id)
