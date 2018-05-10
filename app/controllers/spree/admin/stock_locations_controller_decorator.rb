@@ -1,5 +1,4 @@
 Spree::Admin::StockLocationsController.class_eval do
-
   create.after :set_supplier
 
   private
@@ -10,5 +9,4 @@ Spree::Admin::StockLocationsController.class_eval do
       @object.save
     end
   end
-
 end

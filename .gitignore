@@ -10,6 +10,7 @@
 .sass-cache
 coverage
 Gemfile.lock
+gemfiles/*.lock
 tmp
 nbproject
 pkg

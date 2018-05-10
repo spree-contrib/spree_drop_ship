@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Spree::Supplier do
-
   it { should belong_to(:address) }
 
   it { should have_many(:products).through(:variants) }
@@ -20,24 +19,21 @@ describe Spree::Supplier do
   end
 
   context '#assign_user' do
-
-    before do
-      @instance = build(:supplier)
-    end
+    let(:supplier) { build(:supplier) }
 
     it 'with user' do
       Spree.user_class.should_not_receive :find_by_email
-      @instance.email = 'test@test.com'
-      @instance.users << create(:user)
-      @instance.save
+      supplier.email = 'test@test.com'
+      supplier.users << create(:user)
+      supplier.save
     end
 
     it 'with existing user email' do
       user = create(:user, email: 'test@test.com')
-      Spree.user_class.should_receive(:find_by_email).with(user.email).and_return(user)
-      @instance.email = user.email
-      @instance.save
-      @instance.reload.users.first.should eql(user)
+      Spree.user_class.should_receive(:find_by).with(email: user.email).and_return(user)
+      supplier.email = user.email
+      supplier.save
+      supplier.reload.users.first.should eql(user)
     end
 
   end
@@ -102,7 +98,6 @@ describe Spree::Supplier do
   end
 
   describe '#shipments' do
-
     let!(:supplier) { create(:supplier) }
 
     it 'should return shipments for suppliers stock locations' do
@@ -117,7 +112,5 @@ describe Spree::Supplier do
 
       expect(supplier.shipments).to match_array([shipment_2, shipment_4, shipment_6])
     end
-
   end
-
 end

@@ -1,4 +1,4 @@
-class AddSupplierIdToCkeditorAssets < ActiveRecord::Migration
+class AddSupplierIdToCkeditorAssets < SpreeExtension::Migration[4.2]
   if table_exists?(:ckeditor_assets)
     def change
       add_column :ckeditor_assets, :supplier_id, :integer

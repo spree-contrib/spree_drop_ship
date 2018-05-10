@@ -15,8 +15,8 @@ class Spree::Supplier < Spree::Base
     has_many :ckeditor_attachment_files
   end
   has_many   :products, through: :variants
-  has_many   :shipments, through: :stock_locations
   has_many   :stock_locations
+  has_many   :shipments, through: :stock_locations
   has_many   :supplier_variants
   has_many   :users, class_name: Spree.user_class.to_s
   has_many   :variants, through: :supplier_variants
@@ -28,7 +28,7 @@ class Spree::Supplier < Spree::Base
   validates :commission_percentage,  presence: true
   validates :email,                  presence: true, email: true, uniqueness: true
   validates :name,                   presence: true, uniqueness: true
-  validates :url,                    format: { with: URI::regexp(%w(http https)), allow_blank: true }
+  validates :url,                    format: { with: URI.regexp(%w[http https]), allow_blank: true }
 
   #==========================================
   # Callbacks
@@ -66,52 +66,49 @@ class Spree::Supplier < Spree::Base
 
   protected
 
-    def assign_user
-      if self.users.empty?
-        if user = Spree.user_class.find_by_email(self.email)
-          self.users << user
-          self.save
-        end
+  def assign_user
+    if users.empty?
+      if user = Spree.user_class.find_by(email: email)
+        users << user
+        save
       end
     end
+  end
 
-    def check_url
-      unless self.url.blank? or self.url =~ URI::regexp(%w(http https))
-        self.url = "http://#{self.url}"
-      end
+  def check_url
+    unless url.blank? || url =~URI.regexp(%w[http https])
+      self.url = "http://#{url}"
     end
+  end
 
-    def create_stock_location
-      if self.stock_locations.empty?
-        location = self.stock_locations.build(
-          active: true,
-          country_id: self.address.try(:country_id),
-          name: self.name,
-          state_id: self.address.try(:state_id)
-        )
-        # It's important location is always created.  Some apps add validations that shouldn't break this.
-        location.save validate: false
-      end
+  def create_stock_location
+    if stock_locations.empty?
+      location = stock_locations.build(
+        active:     true,
+        country_id: address.try(:country_id),
+        name:       name,
+        state_id:   address.try(:state_id)
+      )
+      # It's important location is always created.  Some apps add validations that shouldn't break this.
+      location.save validate: false
     end
+  end
 
-    def send_welcome
-      begin
-        Spree::SupplierMailer.welcome(self.id).deliver_later!
-        # Specs raise error for not being able to set default_url_options[:host]
-      rescue => ex #Errno::ECONNREFUSED => ex
-        Rails.logger.error ex.message
-        Rails.logger.error ex.backtrace.join("\n")
-        return true # always return true so that failed email doesn't crash app.
-      end
+  def send_welcome
+    Spree::SupplierMailer.welcome(id).deliver_later!
+    # Specs raise error for not being able to set default_url_options[:host]
+  rescue => ex # Errno::ECONNREFUSED => ex
+    Rails.logger.error ex.message
+    Rails.logger.error ex.backtrace.join("\n")
+    return true # always return true so that failed email doesn't crash app.
+  end
+
+  def set_commission
+    unless changes.key?(:commission_flat_rate)
+      self.commission_flat_rate = SpreeDropShip::Config[:default_commission_flat_rate]
     end
-
-    def set_commission
-      unless changes.has_key?(:commission_flat_rate)
-        self.commission_flat_rate = SpreeDropShip::Config[:default_commission_flat_rate]
-      end
-      unless changes.has_key?(:commission_percentage)
-        self.commission_percentage = SpreeDropShip::Config[:default_commission_percentage]
-      end
+    unless changes.key?(:commission_percentage)
+      self.commission_percentage = SpreeDropShip::Config[:default_commission_percentage]
     end
-
+  end
 end

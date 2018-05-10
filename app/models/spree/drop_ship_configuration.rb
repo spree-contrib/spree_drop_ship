@@ -1,6 +1,5 @@
 module Spree
   class DropShipConfiguration < Preferences::Configuration
-
     # Automatically deliver drop ship orders by default.
     preference :automatically_deliver_orders_to_supplier, :boolean, default: true
 
@@ -12,6 +11,5 @@ module Spree
 
     # Determines whether or not to email a new supplier their welcome email.
     preference :send_supplier_email, :boolean, default: true
-
   end
 end
