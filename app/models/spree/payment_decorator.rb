@@ -1,7 +1,11 @@
-module Spree
-  Payment.class_eval do
-
-    belongs_to :payable, polymorphic: true
-
+module Dropship
+  module Spree
+    module PaymentDecorator
+      def self.prepended(base)
+        base.belongs_to :payable, polymorphic: true
+      end
+    end
   end
 end
+
+Spree::Payment.prepend Dropship::Spree::PaymentDecorator

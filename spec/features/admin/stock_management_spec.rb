@@ -14,8 +14,8 @@ describe "Stock Management", js: true do
       before do
         @secondary = create(:stock_location, name: 'Secondary', supplier: @user.supplier)
         @product = create(:product, name: 'apache baseball cap', price: 10)
-        @v = @product.variants.create!(sku: 'FOOBAR')
-        @user.supplier.reload.stock_locations.update_all backorderable_default: false # True database default is false.
+        @v = @product.variants.create!(attributes_for(:variant))
+        @user.supplier.reload.stock_locations.update_all(backorderable_default: false) # True database default is false.
       end
 
       context 'with single variant' do
@@ -106,7 +106,7 @@ describe "Stock Management", js: true do
 
       context "with multiple variants" do
         before do
-          v = @product.variants.create!(sku: 'SPREEC')
+          v = @product.variants.create!(attributes_for(:variant))
           @product.add_supplier! @user.supplier
           v.stock_items.first.update_column(:count_on_hand, 30)
 
@@ -122,7 +122,7 @@ describe "Stock Management", js: true do
 
         it "can create a new stock movement for the specified variant", js: true do
           fill_in "stock_movement_quantity", with: 10
-          select2 "SPREEC", from: "Variant"
+          select2 @v.sku, from: "Variant"
           click_button "Add Stock"
 
           page.should have_content('successfully created')
@@ -135,7 +135,7 @@ describe "Stock Management", js: true do
       before do
         @product = create(:product, name: 'apache baseball cap', price: 10)
         @product.add_supplier! @user.supplier
-        @product.variants.create!(sku: 'FOOBAR')
+        @product.variants.create!(attributes_for(:variant))
         Spree::StockLocation.delete_all
         click_link "Products"
         within '#sidebar-product' do

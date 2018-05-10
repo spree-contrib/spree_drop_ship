@@ -1,5 +1,4 @@
 class Spree::Admin::DropShipSettingsController < Spree::Admin::BaseController
-
   def edit
     @config = Spree::DropShipConfiguration.new
   end
@@ -15,5 +14,4 @@ class Spree::Admin::DropShipSettingsController < Spree::Admin::BaseController
     flash[:success] = Spree.t('admin.drop_ship_settings.update.success')
     redirect_to spree.edit_admin_drop_ship_settings_path
   end
-
 end

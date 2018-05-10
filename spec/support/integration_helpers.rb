@@ -4,8 +4,7 @@ module IntegrationHelpers
     options[:password] ||= 'secret'
     user ||= create(:user, password: options[:password])
 
-    visit spree.root_path
-    click_link 'Login'
+    visit spree.login_path
     fill_in 'spree_user[email]', with: user.email
     fill_in 'spree_user[password]', with: options[:password]
     click_button 'Login'

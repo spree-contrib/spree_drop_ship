@@ -1,0 +1,22 @@
+---
+AllCops:
+  Exclude:
+    - 'spec/**/*'
+    - 'spec/dummy/**/*'
+    - 'db/**/*'
+
+# Too picky.
+Metrics/LineLength:
+  Enabled: false
+
+# This should truly be on for well documented gems.
+Style/Documentation:
+  Enabled: false
+
+# Neatly aligned code is to swell.
+Layout/SpaceBeforeFirstArg:
+  Enabled: false
+
+# Avoid contradictory style rules by enforce single quotes.
+Style/StringLiterals:
+  EnforcedStyle: single_quotes

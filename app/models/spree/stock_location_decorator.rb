@@ -1,18 +1,24 @@
-Spree::StockLocation.class_eval do
+module Dropship
+  module Spree
+    module StockLocationDecorator
+      def self.prepended(base)
+        base.belongs_to :supplier, class_name: 'Spree::Supplier'
 
-  belongs_to :supplier, class_name: 'Spree::Supplier'
+        base.scope :by_supplier, ->(supplier_id) { where(supplier_id: supplier_id) }
+      end
 
-  scope :by_supplier, -> (supplier_id) { where(supplier_id: supplier_id) }
+      # Wrapper for creating a new stock item respecting the backorderable config and supplier
+      def propagate_variant(variant)
+        if supplier_id.blank? || variant.suppliers.pluck(:id).include?(supplier_id)
+          stock_items.create!(variant: variant, backorderable: backorderable_default)
+        end
+      end
 
-  # Wrapper for creating a new stock item respecting the backorderable config and supplier
-  durably_decorate :propagate_variant, mode: 'soft', sha: 'f35b0d8a811311d4886d53024a9aa34e3aa5f8cb' do |variant|
-    if self.supplier_id.blank? || variant.suppliers.pluck(:id).include?(self.supplier_id)
-      self.stock_items.create!(variant: variant, backorderable: self.backorderable_default)
+      def available?(variant)
+        stock_item(variant).try(:available?)
+      end
     end
   end
-
-  def available?(variant)
-    stock_item(variant).try(:available?)
-  end
-
 end
+
+Spree::StockLocation.prepend Dropship::Spree::StockLocationDecorator
