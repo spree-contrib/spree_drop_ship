@@ -53,14 +53,15 @@ feature 'Admin - Product Stock Management', js: true do
     end
 
     scenario "can delete an existing stock location", js: true do
-      create(:stock_location, supplier: @user.supplier)
+      stock_location = create(:stock_location, supplier: @user.supplier)
       visit current_path
 
       find('#listing_stock_locations').should have_content("NY Warehouse")
-      within_row(2) { click_icon :delete }
+      within("#spree_stock_location_#{stock_location.id}") { click_icon :delete }
       page.driver.browser.switch_to.alert.accept
       # Wait for API request to complete.
       sleep(1)
+
       visit current_path
 
       find('#listing_stock_locations').should_not have_content("NY Warehouse")

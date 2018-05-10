@@ -1,4 +1,4 @@
-class CreateSpreeSupplierVariants < ActiveRecord::Migration
+class CreateSpreeSupplierVariants < SpreeExtension::Migration[4.2]
   def change
     create_table :spree_supplier_variants do |t|
       t.belongs_to :supplier, index: true

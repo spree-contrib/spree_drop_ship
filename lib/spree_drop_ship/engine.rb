@@ -4,7 +4,7 @@ module SpreeDropShip
     isolate_namespace Spree
     engine_name 'spree_drop_ship'
 
-    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += %W[#{config.root}/lib]
 
     # use rspec for tests
     config.generators do |g|
@@ -15,7 +15,7 @@ module SpreeDropShip
       app.config.spree.stock_splitters << Spree::Stock::Splitter::DropShip
     end
 
-    initializer "spree_drop_ship.preferences", before: :load_config_initializers  do |app|
+    initializer 'spree_drop_ship.preferences', before: :load_config_initializers  do |_app|
       SpreeDropShip::Config = Spree::DropShipConfiguration.new
     end
 
