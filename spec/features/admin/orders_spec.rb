@@ -8,5 +8,4 @@ describe 'Admin - Orders', js: true do
     visit spree.admin_orders_path
     page.should have_content('Authorization Failure')
   end
-
 end

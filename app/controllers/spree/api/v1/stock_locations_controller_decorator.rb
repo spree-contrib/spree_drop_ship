@@ -1,7 +1,6 @@
 Spree::Api::V1::StockLocationsController.class_eval do
-
-  before_filter :supplier_locations, only: [:index]
-  before_filter :supplier_transfers, only: [:index]
+  before_action :supplier_locations, only: [:index]
+  before_action :supplier_transfers, only: [:index]
 
   private
 
@@ -14,5 +13,4 @@ Spree::Api::V1::StockLocationsController.class_eval do
     params[:q] ||= {}
     params[:q][:supplier_id_eq] = spree_current_user.supplier_id
   end
-
 end

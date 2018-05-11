@@ -21,6 +21,9 @@ describe Spree::Shipment do
   end
 
   describe '#after_ship' do
+    before do
+      allow_any_instance_of(Spree::ShipmentHandler).to receive(:send_shipped_email)
+    end
 
     it 'should capture payment if balance due' do
       skip 'TODO make it so!'

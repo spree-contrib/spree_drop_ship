@@ -8,8 +8,9 @@ require File.expand_path('../dummy/config/environment.rb',  __FILE__)
 
 require 'rspec/rails'
 require 'database_cleaner'
-require 'factory_girl'
-FactoryGirl.find_definitions
+require 'factory_bot'
+require 'selenium/webdriver'
+FactoryBot.find_definitions
 require 'ffaker'
 require 'shoulda-matchers'
 
@@ -26,8 +27,28 @@ require 'spree/testing_support/url_helpers'
 
 require 'spree_drop_ship/factories'
 
+capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+  'chromeOptions' => {
+    'args' => ['--headless', '--disable-gpu']
+  }
+)
+
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
+end
+
+Capybara.javascript_driver = :chrome
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :active_model
+    with.library :active_record
+  end
+end
+
 RSpec.configure do |config|
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include IntegrationHelpers
   config.include Spree::TestingSupport::Preferences
 

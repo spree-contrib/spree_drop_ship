@@ -1,6 +1,5 @@
 Spree::BaseController.class_eval do
-
-  prepend_before_filter :redirect_supplier
+  prepend_before_action :redirect_supplier
 
   private
 
@@ -9,5 +8,4 @@ Spree::BaseController.class_eval do
       redirect_to '/admin/shipments' and return false
     end
   end
-
 end
