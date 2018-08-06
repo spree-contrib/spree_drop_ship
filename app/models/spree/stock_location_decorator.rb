@@ -2,7 +2,7 @@ module Dropship
   module Spree
     module StockLocationDecorator
       def self.prepended(base)
-        base.belongs_to :supplier, class_name: 'Spree::Supplier'
+        base.belongs_to :supplier, class_name: 'Spree::Supplier', optional: true
 
         base.scope :by_supplier, ->(supplier_id) { where(supplier_id: supplier_id) }
       end

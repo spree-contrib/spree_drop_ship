@@ -7,7 +7,7 @@ class Spree::Supplier < Spree::Base
   #==========================================
   # Associations
 
-  belongs_to :address, class_name: 'Spree::Address'
+  belongs_to :address, class_name: 'Spree::Address', optional: true
   accepts_nested_attributes_for :address
 
   if defined?(Ckeditor::Asset)
