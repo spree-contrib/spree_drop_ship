@@ -29,7 +29,7 @@
       <%= form.label :tax_id, Spree::Supplier.human_attribute_name(:tax_id) %>:<br />
       <%= form.text_field :tax_id, :class => 'form-control' %>
     <% end %>
-    <% if spree_current_user.admin? %>
+    <% if spree_current_user.has_spree_role?("admin") %>
       <%= form.field_container :commission_flat_rate, class: ['form-group'] do %>
         <%= form.label :commission_flat_rate, Spree::Supplier.human_attribute_name(:commission_flat_rate) %>:<br />
         <%= form.text_field :commission_flat_rate, :class => 'form-control' %>

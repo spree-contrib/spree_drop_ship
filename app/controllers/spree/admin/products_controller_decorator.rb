@@ -10,7 +10,7 @@ Spree::Admin::ProductsController.class_eval do
 
   # Scopes the collection to the Supplier.
   def supplier_collection
-    if try_spree_current_user && !try_spree_current_user.admin? && try_spree_current_user.supplier?
+    if try_spree_current_user && !try_spree_current_user.has_spree_role?("admin") && try_spree_current_user.supplier?
       @collection = @collection.joins(:suppliers).where('spree_suppliers.id = ?', try_spree_current_user.supplier_id)
     end
   end

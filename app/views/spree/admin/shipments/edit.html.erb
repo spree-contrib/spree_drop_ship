@@ -2,7 +2,7 @@
   <%= button_link_to Spree.t(:back_to_shipments_list), spree.admin_shipments_path, icon: 'arrow-left' %>
 <% end %>
 
-<% if spree_current_user.admin? && @shipment.supplier.present? %>
+<% if spree_current_user.has_spree_role?("admin") && @shipment.supplier.present? %>
   <div data-hook="admin_shipment_supplier" class="row">
     <fieldset class="col-md-12 no-border-bottom">
       <legend align="center"><%= Spree.t(:supplier_information) %></legend>
