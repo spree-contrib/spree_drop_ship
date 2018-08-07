@@ -1,7 +1,7 @@
 <!-- insert_bottom "[data-hook=admin_stock_locations_form_fields]" -->
 
 <%# Remove extra div and change classes %>
-<% if spree_current_user.admin? %>
+<% if spree_current_user.has_spree_role?("admin") %>
     <div class='form-group'>
       <%= f.field_container :supplier do %>
         <%= f.label :supplier_id, Spree.t(:supplier) %>

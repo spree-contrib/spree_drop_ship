@@ -7,19 +7,19 @@ class Spree::Supplier < Spree::Base
   #==========================================
   # Associations
 
-  belongs_to :address, class_name: 'Spree::Address'
+  belongs_to :address, class_name: 'Spree::Address', optional: true
   accepts_nested_attributes_for :address
 
   if defined?(Ckeditor::Asset)
     has_many :ckeditor_pictures
     has_many :ckeditor_attachment_files
   end
-  has_many   :products, through: :variants
   has_many   :stock_locations
   has_many   :shipments, through: :stock_locations
   has_many   :supplier_variants
   has_many   :users, class_name: Spree.user_class.to_s
   has_many   :variants, through: :supplier_variants
+  has_many   :products, -> { distinct }, through: :variants
 
   #==========================================
   # Validations
@@ -53,6 +53,24 @@ class Spree::Supplier < Spree::Base
 
   def user_ids_string=(s)
     self.user_ids = s.to_s.split(',').map(&:strip)
+  end
+
+  def product_ids_string
+    product_ids.join(',')
+  end
+
+  def product_ids_string=(s)
+    parsed_product_ids  = s.to_s.split(',').map(&:strip).reject(&:blank?)
+    removed_product_ids = product_ids - parsed_product_ids.map(&:to_i)
+
+    removed_product_ids.each do |product_id|
+      product_variants = variants.where(product_id: product_id)
+      variants.destroy(product_variants)
+    end
+
+    Spree::Product.where(id: parsed_product_ids).find_each do |product|
+      product.add_supplier!(self)
+    end
   end
 
   # Retreive the stock locations that has available
