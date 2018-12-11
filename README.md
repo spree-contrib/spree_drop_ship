@@ -1,3 +1,6 @@
+
+### Check out the latest, officially maintained [Spree Multi Vendor marketplace](https://github.com/spree-contrib/spree_multi_vendor) extension
+
 # Spree Drop Ship
 
 [![Build Status](https://travis-ci.org/spree-contrib/spree_drop_ship.png)](https://travis-ci.org/spree-contrib/spree_drop_ship)
